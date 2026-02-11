@@ -1,0 +1,55 @@
+{
+  "Nav": {
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "language": "Language",
+    "switchTo": "Switch to {locale}"
+  },
+  "Hero": {
+    "headline": "Software Developer",
+    "summary": "I build fast, accessible web apps with React and TypeScript. I enjoy turning complex problems into simple, reliable interfaces.",
+    "ctaProjects": "View projects",
+    "ctaEmail": "Email me"
+  },
+  "About": {
+    "title": "About",
+    "subtitle": "A quick snapshot of who you are and what you’re looking for. Keep this skimmable and impact-focused.",
+    "p1": "Write 3–5 sentences about your strengths, the kind of products you like building, and the roles you’re targeting. Mention any specialties (e.g. performance, design systems, accessibility, full-stack).",
+    "p2": "If you’re early-career, focus on what you’ve shipped and what you can do today. If you’re experienced, highlight scope, ownership, and measurable outcomes."
+  },
+  "Projects": {
+    "title": "Projects",
+    "subtitle": "Show 2–4 projects with clear outcomes. Link to a live demo when possible."
+  },
+  "Contact": {
+    "title": "Contact",
+    "subtitle": "Make it easy to reach you. A simple mailto link is enough for now.",
+    "fastest": "The fastest way to reach me is by email."
+  },
+  "Footer": {
+    "rights": "All rights reserved.",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "Email"
+  },
+  "Project": {
+    "amori": {
+      "title": "Amori",
+      "description": "Journal for tracking relationship milestones and memories."
+    },
+    "quartermark": {
+      "title": "QuarterMark",
+      "description": "Jackbox-style party game for New Year's."
+    },
+    "yeetcraft": {
+      "title": "Yeetcraft",
+      "description": "Leaderboard tracker for friendly banter—tracks mistakes across a friend group."
+    },
+    "lineup": {
+      "title": "LineUp",
+      "description": "Co-developed a social + marketplace platform for freelance musicians to showcase skills and get hired. Also used as a bachelor semester project."
+    }
+  }
+}
+
