@@ -2,6 +2,7 @@ export type Project = {
   id: string;
   href: string;
   tags: readonly string[];
+  icon?: string;
 };
 
 export const PROJECTS: readonly Project[] = [

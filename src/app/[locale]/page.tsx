@@ -1,8 +1,10 @@
 import { use } from "react";
 import { setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import { Block } from "@/components/Block";
 import { Container } from "@/components/Container";
 import { ProjectCard } from "@/components/ProjectCard";
+import { ProjectCarousel } from "@/components/ProjectCarousel";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -31,8 +33,9 @@ export default function Home({
       <SiteHeader />
 
       <main>
-        <section className="py-16 md:py-24">
-          <Container>
+        <Container className="space-y-6 py-16 md:py-24">
+          {/* Hero block */}
+          <Block>
             <div className="max-w-3xl">
               <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
                 {SITE.location}
@@ -59,11 +62,15 @@ export default function Home({
                 </a>
               </div>
             </div>
-          </Container>
-        </section>
+          </Block>
 
-        <section id="about" className="py-16">
-          <Container>
+          {/* Rotating projects block */}
+          <Block>
+            <ProjectCarousel projects={PROJECTS} />
+          </Block>
+
+          {/* About block */}
+          <Block id="about">
             <SectionHeading
               title={tAbout("title")}
               subtitle={tAbout("subtitle")}
@@ -73,11 +80,10 @@ export default function Home({
               <p>{tAbout("p1")}</p>
               <p>{tAbout("p2")}</p>
             </div>
-          </Container>
-        </section>
+          </Block>
 
-        <section id="projects" className="py-16">
-          <Container>
+          {/* Projects block */}
+          <Block id="projects">
             <SectionHeading
               title={tProjects("title")}
               subtitle={tProjects("subtitle")}
@@ -94,31 +100,28 @@ export default function Home({
                 />
               ))}
             </div>
-          </Container>
-        </section>
+          </Block>
 
-        <section id="contact" className="py-16">
-          <Container>
+          {/* Contact block */}
+          <Block id="contact">
             <SectionHeading
               title={tContact("title")}
               subtitle={tContact("subtitle")}
             />
 
-            <div className="max-w-3xl rounded-2xl border border-black/10 bg-white p-6 dark:border-white/10 dark:bg-zinc-950">
-              <p className="text-sm leading-7 text-zinc-700 dark:text-zinc-300">
-                {tContact("fastest")}
-              </p>
-              <div className="mt-4">
-                <a
-                  href={`mailto:${SITE.email}`}
-                  className="text-sm font-medium underline underline-offset-4"
-                >
-                  {SITE.email}
-                </a>
-              </div>
+            <p className="text-sm leading-7 text-zinc-700 dark:text-zinc-300">
+              {tContact("fastest")}
+            </p>
+            <div className="mt-4">
+              <a
+                href={`mailto:${SITE.email}`}
+                className="text-sm font-medium underline underline-offset-4"
+              >
+                {SITE.email}
+              </a>
             </div>
-          </Container>
-        </section>
+          </Block>
+        </Container>
       </main>
 
       <SiteFooter />
