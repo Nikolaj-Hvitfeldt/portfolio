@@ -1,12 +1,17 @@
+"use client";
+
 import { SITE } from "@/lib/site";
 import { Container } from "@/components/Container";
+import { useTranslations } from "next-intl";
 
 export function SiteFooter() {
+  const t = useTranslations("Footer");
+
   return (
     <footer className="border-t border-black/5 py-10 dark:border-white/10">
       <Container className="flex flex-col gap-4 text-sm text-zinc-600 dark:text-zinc-400 md:flex-row md:items-center md:justify-between">
         <p>
-          © {new Date().getFullYear()} {SITE.name}. All rights reserved.
+          © {new Date().getFullYear()} {SITE.name}. {t("rights")}
         </p>
 
         <div className="flex gap-4">
@@ -16,7 +21,7 @@ export function SiteFooter() {
             rel="noopener noreferrer"
             className="hover:text-black dark:hover:text-white"
           >
-            GitHub
+            {t("github")}
           </a>
           <a
             href={SITE.links.linkedin}
@@ -24,13 +29,13 @@ export function SiteFooter() {
             rel="noopener noreferrer"
             className="hover:text-black dark:hover:text-white"
           >
-            LinkedIn
+            {t("linkedin")}
           </a>
           <a
             href={`mailto:${SITE.email}`}
             className="hover:text-black dark:hover:text-white"
           >
-            Email
+            {t("email")}
           </a>
         </div>
       </Container>
