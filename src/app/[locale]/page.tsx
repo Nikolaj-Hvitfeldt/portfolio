@@ -26,7 +26,7 @@ export default function Home({
   return (
     <div
       id="top"
-      className="min-h-screen bg-zinc-50 text-zinc-900 dark:bg-black dark:text-zinc-50"
+      className="min-h-screen overflow-x-hidden bg-zinc-50 text-zinc-900 dark:bg-black dark:text-zinc-50"
     >
       <SiteHeader />
 
@@ -42,27 +42,29 @@ export default function Home({
             </p>
           </Block>
 
-          {/* Section blocks — About+Work stacked, then Projects, then Contact */}
-          <div className="grid snap-x snap-mandatory auto-cols-[min(18rem,80vw)] grid-flow-col grid-rows-[8.5rem_8.5rem] gap-4 overflow-x-auto pb-2">
-            <Block href="#about" className="h-full snap-start">
-              <h2 className="text-xl font-semibold tracking-tight">
-                {tAbout("title")}
-              </h2>
-              <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-                {tAbout("subtitle")}
-              </p>
-            </Block>
+          {/* Mobile: vertical flow. md+: horizontal bento layout */}
+          <div className="flex flex-col gap-4 md:grid md:snap-x md:snap-mandatory md:auto-cols-[min(18rem,80vw)] md:grid-flow-col md:grid-rows-[8.5rem_8.5rem] md:overflow-x-auto md:pb-2 md:no-scrollbar">
+            <div className="flex flex-col gap-4 md:contents">
+              <Block href="#about" className="md:h-full md:snap-start">
+                <h2 className="text-xl font-semibold tracking-tight">
+                  {tAbout("title")}
+                </h2>
+                <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                  {tAbout("subtitle")}
+                </p>
+              </Block>
 
-            <Block href="#experience" className="h-full snap-start">
-              <h2 className="text-xl font-semibold tracking-tight">
-                {tWork("title")}
-              </h2>
-              <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-                {tWork("subtitle")}
-              </p>
-            </Block>
+              <Block href="#experience" className="md:h-full md:snap-start">
+                <h2 className="text-xl font-semibold tracking-tight">
+                  {tWork("title")}
+                </h2>
+                <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                  {tWork("subtitle")}
+                </p>
+              </Block>
+            </div>
 
-            <Block href="#projects" className="h-full snap-start row-span-2">
+            <Block href="#projects" className="md:h-full md:snap-start md:row-span-2">
               <h2 className="text-xl font-semibold tracking-tight">
                 {tProjects("title")}
               </h2>
@@ -74,7 +76,7 @@ export default function Home({
               </div>
             </Block>
 
-            <Block href="#contact" className="h-full snap-start row-span-2">
+            <Block href="#contact" className="md:h-full md:snap-start md:row-span-2">
               <h2 className="text-xl font-semibold tracking-tight">
                 {tContact("title")}
               </h2>

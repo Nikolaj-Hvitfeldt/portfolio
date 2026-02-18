@@ -3,7 +3,8 @@ import type { Project } from "@/lib/projects";
 export function ProjectCarousel({ projects }: { projects: readonly Project[] }) {
   if (projects.length === 0) return null;
 
-  // Duplicate the items for a seamless loop.
+  // Always duplicate to keep a continuous, visible marquee motion
+  // even with a small project count like 4.
   const items = [...projects, ...projects];
 
   return (
@@ -13,7 +14,7 @@ export function ProjectCarousel({ projects }: { projects: readonly Project[] }) 
     >
       <div
         className="marquee-ltr flex w-max items-center gap-4 py-2 motion-reduce:animate-none"
-        style={{ ["--marquee-duration" as never]: "16s" }}
+        style={{ ["--marquee-duration" as never]: "12s" }}
       >
         {items.map((project, idx) => {
           const fallback = project.id[0]?.toUpperCase() ?? "?";
