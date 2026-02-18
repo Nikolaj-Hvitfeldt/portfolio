@@ -14,18 +14,22 @@
   },
   "About": {
     "title": "About",
-    "subtitle": "A quick snapshot of who you are and what you’re looking for. Keep this skimmable and impact-focused.",
-    "p1": "Write 3–5 sentences about your strengths, the kind of products you like building, and the roles you’re targeting. Mention any specialties (e.g. performance, design systems, accessibility, full-stack).",
-    "p2": "If you’re early-career, focus on what you’ve shipped and what you can do today. If you’re experienced, highlight scope, ownership, and measurable outcomes."
+    "subtitle": "A bit about myself.",
+    "p1": "Write 3-5 sentences about your strengths, the kind of products you like building, and the roles you're targeting. Mention any specialties (e.g. performance, design systems, accessibility, full-stack).",
+    "p2": "If you're early-career, focus on what you've shipped and what you can do today. If you're experienced, highlight scope, ownership, and measurable outcomes."
   },
   "Projects": {
     "title": "Projects",
-    "subtitle": "Show 2–4 projects with clear outcomes. Link to a live demo when possible."
+    "subtitle": "Personal projects I've been working on."
   },
   "Contact": {
     "title": "Contact",
-    "subtitle": "Make it easy to reach you. A simple mailto link is enough for now.",
+    "subtitle": "Email, LinkedIn, carrier pigeon...",
     "fastest": "The fastest way to reach me is by email."
+  },
+  "WorkExperience": {
+    "title": "Work Experience",
+    "subtitle": "My career as a Software Developer."
   },
   "Footer": {
     "rights": "All rights reserved.",
@@ -44,7 +48,7 @@
     },
     "yeetcraft": {
       "title": "Yeetcraft",
-      "description": "Leaderboard tracker for friendly banter—tracks mistakes across a friend group."
+      "description": "Leaderboard tracker for friendly banter - tracks mistakes across a friend group."
     },
     "lineup": {
       "title": "LineUp",
@@ -52,4 +56,3 @@
     }
   }
 }
-

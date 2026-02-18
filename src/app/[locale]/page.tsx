@@ -3,9 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { Block } from "@/components/Block";
 import { Container } from "@/components/Container";
-import { ProjectCard } from "@/components/ProjectCard";
 import { ProjectCarousel } from "@/components/ProjectCarousel";
-import { SectionHeading } from "@/components/SectionHeading";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PROJECTS } from "@/lib/projects";
@@ -20,10 +18,10 @@ export default function Home({
   setRequestLocale(locale);
 
   const tHero = useTranslations("Hero");
-  const tAbout = useTranslations("About");
   const tProjects = useTranslations("Projects");
+  const tAbout = useTranslations("About");
+  const tWork = useTranslations("WorkExperience");
   const tContact = useTranslations("Contact");
-  const tProject = useTranslations("Project");
 
   return (
     <div
@@ -33,94 +31,58 @@ export default function Home({
       <SiteHeader />
 
       <main>
-        <Container className="space-y-6 py-16 md:py-24">
-          {/* Hero block */}
-          <Block>
-            <div className="max-w-3xl">
-              <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
-                {SITE.location}
-              </p>
-              <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
-                {SITE.name} — {tHero("headline")}
-              </h1>
-              <p className="mt-5 text-base leading-7 text-zinc-700 dark:text-zinc-300">
-                {tHero("summary")}
-              </p>
-
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href="#projects"
-                  className="inline-flex items-center justify-center rounded-full bg-black px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
-                >
-                  {tHero("ctaProjects")}
-                </a>
-                <a
-                  href={`mailto:${SITE.email}`}
-                  className="inline-flex items-center justify-center rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium text-black hover:bg-zinc-100 dark:border-white/10 dark:bg-zinc-950 dark:text-white dark:hover:bg-zinc-900"
-                >
-                  {tHero("ctaEmail")}
-                </a>
-              </div>
-            </div>
-          </Block>
-
-          {/* Rotating projects block */}
-          <Block>
-            <ProjectCarousel projects={PROJECTS} />
-          </Block>
-
-          {/* About block */}
-          <Block id="about">
-            <SectionHeading
-              title={tAbout("title")}
-              subtitle={tAbout("subtitle")}
-            />
-
-            <div className="max-w-3xl space-y-4 text-sm leading-7 text-zinc-700 dark:text-zinc-300">
-              <p>{tAbout("p1")}</p>
-              <p>{tAbout("p2")}</p>
-            </div>
-          </Block>
-
-          {/* Projects block */}
-          <Block id="projects">
-            <SectionHeading
-              title={tProjects("title")}
-              subtitle={tProjects("subtitle")}
-            />
-
-            <div className="grid gap-6 md:grid-cols-2">
-              {PROJECTS.map((project) => (
-                <ProjectCard
-                  key={project.id}
-                  title={tProject(`${project.id}.title`)}
-                  description={tProject(`${project.id}.description`)}
-                  href={project.href}
-                  tags={project.tags}
-                />
-              ))}
-            </div>
-          </Block>
-
-          {/* Contact block */}
-          <Block id="contact">
-            <SectionHeading
-              title={tContact("title")}
-              subtitle={tContact("subtitle")}
-            />
-
-            <p className="text-sm leading-7 text-zinc-700 dark:text-zinc-300">
-              {tContact("fastest")}
+        <Container className="space-y-5 py-12 sm:space-y-6 sm:py-16 md:py-20">
+          {/* Hero — name + role only */}
+          <Block className="py-14 sm:py-16 md:py-20">
+            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+              {SITE.name}
+            </h1>
+            <p className="mt-3 text-lg text-zinc-500 dark:text-zinc-400 sm:text-xl md:text-2xl">
+              {tHero("headline")}
             </p>
-            <div className="mt-4">
-              <a
-                href={`mailto:${SITE.email}`}
-                className="text-sm font-medium underline underline-offset-4"
-              >
-                {SITE.email}
-              </a>
-            </div>
           </Block>
+
+          {/* Section blocks — About+Work stacked, then Projects, then Contact */}
+          <div className="grid snap-x snap-mandatory auto-cols-[min(18rem,80vw)] grid-flow-col grid-rows-[8.5rem_8.5rem] gap-4 overflow-x-auto pb-2">
+            <Block href="#about" className="h-full snap-start">
+              <h2 className="text-xl font-semibold tracking-tight">
+                {tAbout("title")}
+              </h2>
+              <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                {tAbout("subtitle")}
+              </p>
+            </Block>
+
+            <Block href="#experience" className="h-full snap-start">
+              <h2 className="text-xl font-semibold tracking-tight">
+                {tWork("title")}
+              </h2>
+              <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                {tWork("subtitle")}
+              </p>
+            </Block>
+
+            <Block href="#projects" className="h-full snap-start row-span-2">
+              <h2 className="text-xl font-semibold tracking-tight">
+                {tProjects("title")}
+              </h2>
+              <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                {tProjects("subtitle")}
+              </p>
+              <div className="mt-4">
+                <ProjectCarousel projects={PROJECTS} />
+              </div>
+            </Block>
+
+            <Block href="#contact" className="h-full snap-start row-span-2">
+              <h2 className="text-xl font-semibold tracking-tight">
+                {tContact("title")}
+              </h2>
+              <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                {tContact("subtitle")}
+              </p>
+            </Block>
+          </div>
         </Container>
       </main>
 
@@ -128,4 +90,3 @@ export default function Home({
     </div>
   );
 }
-

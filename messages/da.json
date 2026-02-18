@@ -8,24 +8,28 @@
   },
   "Hero": {
     "headline": "Softwareudvikler",
-    "summary": "Jeg bygger hurtige, tilgængelige webapps med React og TypeScript. Jeg kan godt lide at gøre komplekse problemer enkle og stabile i UI'et.",
+    "summary": "Jeg bygger hurtige, tilgaengelige webapps med React og TypeScript. Jeg kan godt lide at goere komplekse problemer enkle og stabile i UI'et.",
     "ctaProjects": "Se projekter",
     "ctaEmail": "Skriv til mig"
   },
   "About": {
     "title": "Om mig",
-    "subtitle": "Et kort overblik over hvem du er, og hvad du søger. Hold det let at skimme og fokuser på effekt.",
-    "p1": "Skriv 3–5 sætninger om dine styrker, hvilke produkter du kan lide at bygge, og hvilke roller du går efter. Nævn gerne specialer (fx performance, design systems, tilgængelighed, full-stack).",
-    "p2": "Hvis du er tidligt i karrieren: fokusér på hvad du har leveret og kan i dag. Hvis du er erfaren: fremhæv scope, ejerskab og målbare resultater."
+    "subtitle": "Lidt om mig selv.",
+    "p1": "Skriv 3-5 saetninger om dine styrker, hvilke produkter du kan lide at bygge, og hvilke roller du gaar efter. Naevn gerne specialer (fx performance, design systems, tilgaengelighed, full-stack).",
+    "p2": "Hvis du er tidligt i karrieren: fokuser paa hvad du har leveret og kan i dag. Hvis du er erfaren: fremhaev scope, ejerskab og maalbare resultater."
   },
   "Projects": {
     "title": "Projekter",
-    "subtitle": "Vis 2–4 projekter med tydelige resultater. Link til en live demo når det er muligt."
+    "subtitle": "Personlige projekter jeg har arbejdet paa."
   },
   "Contact": {
     "title": "Kontakt",
-    "subtitle": "Gør det nemt at kontakte dig. Et simpelt mailto-link er fint til at starte med.",
-    "fastest": "Den hurtigste måde at få fat i mig på er via email."
+    "subtitle": "Email, LinkedIn, brevdue...",
+    "fastest": "Den hurtigste maade at faa fat i mig paa er via email."
+  },
+  "WorkExperience": {
+    "title": "Erhvervserfaring",
+    "subtitle": "Min karriere som softwareudvikler."
   },
   "Footer": {
     "rights": "Alle rettigheder forbeholdes.",
@@ -40,16 +44,15 @@
     },
     "quartermark": {
       "title": "QuarterMark",
-      "description": "Jackbox-inspireret party game til nytår."
+      "description": "Jackbox-inspireret party game til nytaar."
     },
     "yeetcraft": {
       "title": "Yeetcraft",
-      "description": "Leaderboard tracker til venskabelig banter—tracker fejl på tværs af en vennegruppe."
+      "description": "Leaderboard tracker til venskabelig banter - tracker fejl paa tvaers af en vennegruppe."
     },
     "lineup": {
       "title": "LineUp",
-      "description": "Medudvikler af en social + marketplace platform for freelance musikere til at vise skills og blive hyret. Brugte også projektet som semesterprojekt på bacheloren."
+      "description": "Medudvikler af en social + marketplace platform for freelance musikere til at vise skills og blive hyret. Brugte ogsaa projektet som semesterprojekt paa bacheloren."
     }
   }
 }
-
