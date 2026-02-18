@@ -5,7 +5,6 @@ import { Block } from "@/components/Block";
 import { Container } from "@/components/Container";
 import { ProjectCarousel } from "@/components/ProjectCarousel";
 import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
 import { PROJECTS } from "@/lib/projects";
 import { SITE } from "@/lib/site";
 
@@ -28,20 +27,20 @@ export default function Home({
       id="top"
       className="min-h-screen overflow-x-hidden bg-zinc-50 text-zinc-900 dark:bg-black dark:text-zinc-50"
     >
-      <SiteHeader />
-
       <main>
-        <Container className="space-y-5 py-12 sm:space-y-6 sm:py-16 md:py-20">
-          {/* Hero — name + role only */}
-          <Block className="py-14 sm:py-16 md:py-20">
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              {SITE.name}
-            </h1>
-            <p className="mt-3 text-lg text-zinc-500 dark:text-zinc-400 sm:text-xl md:text-2xl">
-              {tHero("headline")}
-            </p>
-          </Block>
+        <section
+          className="flex min-h-0 flex-col items-center justify-center px-6 py-10 sm:py-12"
+          aria-label="Introduction"
+        >
+          <h1 className="text-center text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+            {SITE.name}
+          </h1>
+          <h2 className="mt-3 text-center text-lg text-zinc-500 dark:text-zinc-400 sm:text-xl md:text-2xl">
+            {tHero("headline")}
+          </h2>
+        </section>
 
+        <Container className="space-y-4 py-8 sm:space-y-5 sm:py-10 md:py-12">
           {/* Mobile: vertical flow. md+: horizontal bento layout */}
           <div className="flex flex-col gap-4 md:grid md:snap-x md:snap-mandatory md:auto-cols-[min(18rem,80vw)] md:grid-flow-col md:grid-rows-[8.5rem_8.5rem] md:overflow-x-auto md:pb-2 md:no-scrollbar">
             <div className="flex flex-col gap-4 md:contents">
