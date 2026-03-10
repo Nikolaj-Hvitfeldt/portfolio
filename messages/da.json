@@ -1,6 +1,10 @@
 {
   "Nav": {
+    "primary": "Primær navigation",
+    "back": "Tilbage",
+    "home": "Hjem",
     "about": "Om mig",
+    "experience": "Erfaring",
     "projects": "Projekter",
     "contact": "Kontakt",
     "language": "Sprog",
@@ -8,15 +12,32 @@
   },
   "Hero": {
     "headline": "Softwareudvikler",
-    "summary": "Jeg bygger hurtige, tilgaengelige webapps med React og TypeScript. Jeg kan godt lide at goere komplekse problemer enkle og stabile i UI'et.",
+    "summary": "Jeg bygger hurtige, tilgængelige webapps med React og TypeScript. Jeg kan godt lide at gøre komplekse problemer enkle og stabile i UI'et.",
     "ctaProjects": "Se projekter",
     "ctaEmail": "Skriv til mig"
   },
   "About": {
     "title": "Om mig",
     "subtitle": "Lidt om mig selv.",
-    "p1": "Skriv 3-5 saetninger om dine styrker, hvilke produkter du kan lide at bygge, og hvilke roller du gaar efter. Naevn gerne specialer (fx performance, design systems, tilgaengelighed, full-stack).",
-    "p2": "Hvis du er tidligt i karrieren: fokuser paa hvad du har leveret og kan i dag. Hvis du er erfaren: fremhaev scope, ejerskab og maalbare resultater."
+    "aboutMeTitle": "Om mig",
+    "specsTitle": "Specifikationer",
+    "techStackTitle": "Tech Stack",
+    "educationLabel": "Uddannelse",
+    "education": "Datamatiker",
+    "currentEducationLabel": "Igangværende Uddannelse",
+    "currentEducation": "Professionsbachelor i Webudvikling",
+    "languagesLabel": "Sprog",
+    "locationLabel": "Lokation",
+    "aboutP1": "Jeg er udvikler med base i Aarhus og en baggrund som datamatiker. Jeg har en stor interesse for at bygge velstrukturerede webapplikationer og arbejder gerne på tværs af stacken, men trives især med at udvikle responsive og vedligeholdelige brugergrænseflader i React og TypeScript.",
+    "aboutP2": "Min rejse indenfor softwareudvikling begyndte under min datamatikeruddannelse, hvor jeg arbejdede meget med backend, API’er og softwarearkitektur. Undervejs fik jeg dog også en stigende interesse for frontend og brugeroplevelser, og hvordan gode interfaces kan gøre komplekse systemer intuitive at bruge. Det var en af grundene til, at jeg valgte at fortsætte på en bachelor i webudvikling, hvor jeg kan arbejde mere i dybden med moderne webteknologier og frontend-udvikling.",
+    "aboutP3": "Jeg kan godt lide at omsætte idéer til fungerende løsninger, lære nye teknologier og løse konkrete problemer med kode. Når jeg ikke sidder foran computeren, bruger jeg typisk tiden på gaming, fodbold eller på at eksperimentere med nye sideprojekter.",
+    "techStack": {
+      "coreFrontend": "Frontend",
+      "backendAndRuntimes": "Backend",
+      "dataAndState": "Databaser",
+      "toolsAndInfra": "Værktøjer og Infrastruktur",
+      "currentlyExploring": "Udforsker for tiden"
+    }
   },
   "Projects": {
     "title": "Projekter",
@@ -44,7 +65,7 @@
     },
     "quartermark": {
       "title": "QuarterMark",
-      "description": "Jackbox-inspireret party game til nytaar."
+      "description": "Jackbox-inspireret party game til nytår."
     },
     "yeetcraft": {
       "title": "Yeetcraft",
@@ -52,7 +73,7 @@
     },
     "lineup": {
       "title": "LineUp",
-      "description": "Medudvikler af en social + marketplace platform for freelance musikere til at vise skills og blive hyret. Brugte ogsaa projektet som semesterprojekt paa bacheloren."
+      "description": "Medudvikler af en social + marketplace platform for freelance musikere til at vise skills og blive hyret. Brugte ogsaa projektet som semesterprojekt på bacheloren."
     }
   }
 }

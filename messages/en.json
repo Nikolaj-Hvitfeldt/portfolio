@@ -1,6 +1,10 @@
 {
   "Nav": {
+    "primary": "Primary navigation",
+    "back": "Back",
+    "home": "Home",
     "about": "About",
+    "experience": "Experience",
     "projects": "Projects",
     "contact": "Contact",
     "language": "Language",
@@ -15,8 +19,25 @@
   "About": {
     "title": "About",
     "subtitle": "A bit about myself.",
-    "p1": "Write 3-5 sentences about your strengths, the kind of products you like building, and the roles you're targeting. Mention any specialties (e.g. performance, design systems, accessibility, full-stack).",
-    "p2": "If you're early-career, focus on what you've shipped and what you can do today. If you're experienced, highlight scope, ownership, and measurable outcomes."
+    "aboutMeTitle": "About Me",
+    "specsTitle": "The Specs",
+    "techStackTitle": "Tech Stack",
+    "educationLabel": "Education",
+    "education": "AP Degree in Computer Science",
+    "currentEducationLabel": "Current Education",
+    "currentEducation": "Bachelor's Degree in Web Development",
+    "languagesLabel": "Languages",
+    "locationLabel": "Location",
+    "aboutP1": "I’m a developer based in Denmark with a background in computer science and a strong interest in building well-structured web applications. I enjoy working across the stack, but especially crafting responsive and maintainable frontends with React and TypeScript.",
+    "aboutP2": "My journey into development started during my Datamatiker education, where I focused heavily on backend development, APIs, and software architecture. Since then I’ve continued building projects and exploring modern web technologies while studying for a Bachelor’s degree in Web Development.",
+    "aboutP3": "I enjoy turning ideas into working products, learning new technologies, and solving real problems through code. When I’m not coding, you’ll probably find me gaming, watching football, or experimenting with new side projects.",
+    "techStack": {
+      "coreFrontend": "Frontend",
+      "backendAndRuntimes": "Backend",
+      "dataAndState": "Databases",
+      "toolsAndInfra": "Tools & Infrastructure",
+      "currentlyExploring": "Currently Exploring"
+    }
   },
   "Projects": {
     "title": "Projects",
