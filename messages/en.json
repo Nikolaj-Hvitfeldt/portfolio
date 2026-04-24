@@ -1,26 +1,49 @@
 {
   "Nav": {
+    "primary": "Primary navigation",
+    "home": "Home",
     "about": "About",
+    "experience": "Experience",
     "projects": "Projects",
     "contact": "Contact",
     "language": "Language",
     "switchTo": "Switch to {locale}"
   },
   "Hero": {
+    "eyebrow": "Portfolio",
     "headline": "Software Developer",
     "summary": "I build fast, accessible web apps with React and TypeScript. I enjoy turning complex problems into simple, reliable interfaces.",
-    "ctaProjects": "View projects",
-    "ctaEmail": "Email me"
+    "availability": "Based in {location} · Open to opportunities"
   },
   "About": {
     "title": "About",
     "subtitle": "A bit about myself.",
-    "p1": "Write 3-5 sentences about your strengths, the kind of products you like building, and the roles you're targeting. Mention any specialties (e.g. performance, design systems, accessibility, full-stack).",
-    "p2": "If you're early-career, focus on what you've shipped and what you can do today. If you're experienced, highlight scope, ownership, and measurable outcomes."
+    "aboutMeTitle": "About Me",
+    "specsTitle": "The Specs",
+    "techStackTitle": "Tech Stack",
+    "educationLabel": "Education",
+    "education": "AP Degree in Computer Science",
+    "currentEducationLabel": "Current Education",
+    "currentEducation": "Bachelor's Degree in Web Development",
+    "languagesLabel": "Languages",
+    "languages": "Danish (Native), English (Fluent)",
+    "locationLabel": "Location",
+    "aboutP1": "I’m a developer based in Aarhus, Denmark with a background in computer science and a strong interest in building well-structured web applications. I enjoy working across the stack, but especially crafting responsive and maintainable frontends with React and TypeScript.",
+    "aboutP2": "My journey into development started during my Datamatiker education, where I focused heavily on backend development, APIs, and software architecture. Since then I’ve continued building projects and exploring modern web technologies while studying for a Bachelor’s degree in Web Development.",
+    "aboutP3": "I enjoy turning ideas into working products, learning new technologies, and solving real problems through code. When I’m not coding, you’ll probably find me gaming, watching football, or experimenting with new side projects.",
+    "techStack": {
+      "coreFrontend": "Frontend",
+      "backendAndRuntimes": "Backend",
+      "dataAndState": "Databases",
+      "toolsAndInfra": "Tools & Infrastructure",
+      "currentlyExploring": "Currently Exploring"
+    }
   },
   "Projects": {
     "title": "Projects",
-    "subtitle": "Personal projects I've been working on."
+    "subtitle": "Personal projects I've been working on.",
+    "view": "View",
+    "source": "Source"
   },
   "Contact": {
     "title": "Contact",
@@ -29,7 +52,25 @@
   },
   "WorkExperience": {
     "title": "Work Experience",
-    "subtitle": "My career as a Software Developer."
+    "subtitle": "My career as a Software Developer.",
+    "intro": "I'm at the start of my career, building momentum through education and hands-on projects. Here's where I've been learning and shipping.",
+    "timelineTitle": "Timeline",
+    "period": {
+      "2025Present": "2025 — Present",
+      "20232025": "2023 — 2025"
+    },
+    "entries": {
+      "bachelor": {
+        "role": "BSc Web Development student",
+        "org": "Copenhagen School of Design and Technology (KEA)",
+        "description": "Currently studying for a Bachelor's in Web Development, going deeper into modern frontend architecture, accessibility, and building production-ready web apps."
+      },
+      "datamatiker": {
+        "role": "AP Degree in Computer Science (Datamatiker)",
+        "org": "Denmark",
+        "description": "Completed a two-year program focused on backend development, APIs, databases, and software architecture. Built several full-stack projects and a bachelor semester project with a team."
+      }
+    }
   },
   "Footer": {
     "rights": "All rights reserved.",

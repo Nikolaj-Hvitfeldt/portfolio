@@ -1,24 +1,38 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { routing } from "@/i18n/routing";
 
-const LOCALE_LABEL: Record<(typeof routing.locales)[number], string> = {
+type Locale = (typeof routing.locales)[number];
+
+const LOCALE_LABEL: Record<Locale, string> = {
   da: "Dansk",
   en: "English",
 };
 
+const LOCALE_SHORT: Record<Locale, string> = {
+  da: "DA",
+  en: "EN",
+};
+
 export function LocaleSwitcher() {
   const t = useTranslations("Nav");
-  const locale = useLocale() as (typeof routing.locales)[number];
+  const locale = useLocale() as Locale;
   const pathname = usePathname();
+  const [hash, setHash] = useState("");
 
-  const otherLocale = locale === "da" ? "en" : "da";
-  const hash =
-    typeof window !== "undefined" ? window.location.hash ?? "" : "";
+  // Sync the hash after mount so SSR and the first client render agree, and
+  // stay in sync as the user navigates between views (#about, #projects, ...).
+  useEffect(() => {
+    const sync = () => setHash(window.location.hash);
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
 
-  // Strip locale prefix if present.
+  const otherLocale: Locale = locale === "da" ? "en" : "da";
   const rest =
     pathname === `/${locale}`
       ? ""
@@ -31,12 +45,17 @@ export function LocaleSwitcher() {
   return (
     <a
       href={href}
-      className="text-sm text-zinc-700 hover:text-black dark:text-zinc-300 dark:hover:text-white"
+      className="surface-glass-dock inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-zinc-200 transition-colors hover:text-white motion-reduce:transition-none"
       aria-label={t("language")}
       title={t("switchTo", { locale: LOCALE_LABEL[otherLocale] })}
     >
-      {LOCALE_LABEL[otherLocale]}
+      <span aria-hidden className="text-zinc-400">
+        {LOCALE_SHORT[locale]}
+      </span>
+      <span aria-hidden className="text-zinc-500">
+        /
+      </span>
+      <span>{LOCALE_SHORT[otherLocale]}</span>
     </a>
   );
 }
-

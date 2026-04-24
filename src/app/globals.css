@@ -12,7 +12,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #05071a;
     --foreground: #ededed;
   }
 }
@@ -55,4 +55,121 @@ body {
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* Dark-mode starry background anchored by the starry-night.avif image.
+ * The image is rendered in PortfolioPage; this file owns the shooting-star
+ * streak animation that is randomly spawned on top of the sky.
+ *
+ * The streak element is pinned at its tail (transform-origin: 0 50%) and
+ * rotated so its local +x axis points along the fall direction. During the
+ * animation it `scaleX` from 0 → 1: the tail stays put while the bright
+ * head travels outward, leaving the gradient trail behind it. The whole
+ * thing fades to zero before the animation ends, so the trail fizzles
+ * rather than snapping off. */
+@keyframes shooting-star-travel {
+  0% {
+    transform: rotate(var(--shoot-angle, 42deg)) scaleX(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.55;
+  }
+  55% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: rotate(var(--shoot-angle, 42deg)) scaleX(1);
+    opacity: 0;
+  }
+}
+
+.shooting-star {
+  position: absolute;
+  height: 1.25px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.18) 55%,
+    rgba(255, 248, 228, 0.7) 100%
+  );
+  box-shadow:
+    0 0 3px rgba(255, 248, 228, 0.35),
+    0 0 8px rgba(180, 170, 255, 0.18);
+  transform-origin: 0 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation-name: shooting-star-travel;
+  animation-timing-function: cubic-bezier(0.18, 0.65, 0.32, 1);
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shooting-star {
+    animation: none;
+    display: none;
+  }
+}
+
+/* Shared glass surface used across cards, sections, and the nav dock.
+ * Dark mode tint is pulled from the starry-night background image (deep
+ * indigo/navy with a faint periwinkle rim) so cards feel like panels cut
+ * from the sky rather than floating neutral gray. Light mode remains
+ * warm paper-like. */
+@utility surface-glass {
+  border-radius: 1rem;
+  border: 1px solid rgba(80, 80, 120, 0.1);
+  background-color: rgba(250, 250, 254, 0.72);
+  backdrop-filter: blur(24px);
+  box-shadow:
+    0 8px 20px rgba(20, 18, 40, 0.08),
+    inset 0 0 0 1px rgba(245, 246, 255, 0.35);
+}
+@media (prefers-color-scheme: dark) {
+  .surface-glass {
+    border-color: rgba(180, 190, 235, 0.14);
+    background: radial-gradient(
+      145% 145% at 50% 52%,
+      rgba(6, 8, 22, 0.94) 0%,
+      rgba(10, 14, 34, 0.9) 52%,
+      rgba(22, 28, 58, 0.72) 82%,
+      rgba(110, 120, 200, 0.22) 100%
+    );
+    box-shadow:
+      0 12px 30px rgba(0, 0, 0, 0.55),
+      inset 0 0 0 1px rgba(200, 210, 255, 0.1);
+  }
+}
+
+/* Subtler glass chip variant for compact UI like the nav dock.
+ * Always dark-tinted since it is overlay UI. */
+@utility surface-glass-dock {
+  border-radius: 1rem;
+  border: 1px solid rgba(90, 100, 170, 0.32);
+  background-color: rgba(8, 10, 26, 0.38);
+  backdrop-filter: blur(24px);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.28),
+    inset 0 0 0 1px rgba(170, 180, 230, 0.12);
+}
+
+/* Hover affordance for interactive glass surfaces (buttons, link cards). */
+@utility surface-glass-hover {
+  transition: background-color 200ms ease;
+}
+.surface-glass-hover:hover {
+  background-color: rgba(244, 246, 255, 0.78);
+}
+@media (prefers-color-scheme: dark) {
+  .surface-glass-hover:hover {
+    background: radial-gradient(
+      145% 145% at 50% 52%,
+      rgba(10, 14, 32, 0.95) 0%,
+      rgba(16, 22, 48, 0.92) 52%,
+      rgba(34, 42, 80, 0.78) 82%,
+      rgba(140, 150, 230, 0.26) 100%
+    );
+  }
 }
