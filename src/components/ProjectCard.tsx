@@ -1,3 +1,5 @@
+import { fontDisplay, fontSans } from "@/lib/fonts";
+
 export function ProjectCard({
   title,
   description,
@@ -25,7 +27,9 @@ export function ProjectCard({
               {icon}
             </span>
           ) : null}
-          <h3 className="text-base font-semibold tracking-tight text-black dark:text-white">
+          <h3
+            className={`font-bento-serif ${fontDisplay.className} text-base font-bold tracking-tight text-black dark:text-white`}
+          >
             {title}
           </h3>
         </div>
@@ -33,7 +37,7 @@ export function ProjectCard({
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-sm text-zinc-700 transition-transform duration-200 hover:translate-x-0.5 hover:text-black motion-reduce:transition-none dark:text-zinc-300 dark:hover:text-white"
+          className={`${fontSans.className} inline-flex items-center gap-1 text-sm font-normal text-zinc-700 transition-transform duration-200 hover:translate-x-0.5 hover:text-black motion-reduce:transition-none dark:text-zinc-300 dark:hover:text-white`}
           aria-label={`${viewLabel}: ${title}`}
         >
           {viewLabel}
@@ -41,7 +45,9 @@ export function ProjectCard({
         </a>
       </div>
 
-      <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+      <p
+        className={`${fontSans.className} mt-3 text-sm font-normal leading-6 text-zinc-600 dark:text-zinc-400`}
+      >
         {description}
       </p>
 
