@@ -35,13 +35,16 @@ type ShootingStarsProps = {
 };
 
 /**
- * Occasionally spawns a single shooting-star streak at a randomized position,
- * angle, length, and speed. Streaks clean themselves up once their CSS
- * animation finishes. When `disabled` is true (e.g. reduced-motion preference)
- * no streaks are scheduled or rendered.
+ * Occasionally spawns a single shooting-star streak. At most one streak
+ * exists at a time (replaces the previous) so the UI never shows a “burst”.
+ *
+ * Spawning is paused while the tab is hidden: background timers are heavily
+ * throttled and `animationend` may not run, which previously let many stars
+ * pile up. On `visibilitychange` back to visible we clear pending timers
+ * and schedule a single next spawn.
  */
 export function ShootingStars({ disabled = false }: ShootingStarsProps) {
-  const [streaks, setStreaks] = useState<Streak[]>([]);
+  const [streak, setStreak] = useState<Streak | null>(null);
 
   useEffect(() => {
     if (disabled) return;
@@ -51,47 +54,64 @@ export function ShootingStars({ disabled = false }: ShootingStarsProps) {
     let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
     const scheduleNext = (delay: number) => {
-      timeoutId = setTimeout(() => {
-        if (cancelled) return;
-        const streak = makeStreak(nextId++);
-        setStreaks((prev) => [...prev, streak]);
-        scheduleNext(randomBetween(MIN_SPAWN_GAP_MS, MAX_SPAWN_GAP_MS));
-      }, delay);
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(tick, delay);
     };
 
+    const tick = () => {
+      if (cancelled) return;
+      if (document.hidden) return;
+      setStreak(makeStreak(nextId++));
+      scheduleNext(randomBetween(MIN_SPAWN_GAP_MS, MAX_SPAWN_GAP_MS));
+    };
+
+    const onVisibility = () => {
+      if (cancelled) return;
+      if (document.hidden) {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+          timeoutId = null;
+        }
+      } else {
+        scheduleNext(
+          randomBetween(MIN_SPAWN_GAP_MS, MAX_SPAWN_GAP_MS),
+        );
+      }
+    };
+
+    document.addEventListener("visibilitychange", onVisibility);
     scheduleNext(FIRST_SPAWN_DELAY_MS);
 
     return () => {
       cancelled = true;
       if (timeoutId) clearTimeout(timeoutId);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, [disabled]);
 
   if (disabled) return null;
 
-  const handleAnimationEnd = (id: number) => {
-    setStreaks((prev) => prev.filter((s) => s.id !== id));
+  const handleAnimationEnd = () => {
+    setStreak(null);
   };
 
+  if (!streak) return null;
+
   return (
-    <>
-      {streaks.map((s) => (
-        <span
-          key={s.id}
-          aria-hidden
-          className="shooting-star"
-          style={
-            {
-              top: `${s.top}%`,
-              left: `${s.left}%`,
-              width: `${s.length}px`,
-              animationDuration: `${s.duration}ms`,
-              "--shoot-angle": `${s.angle}deg`,
-            } as CSSProperties
-          }
-          onAnimationEnd={() => handleAnimationEnd(s.id)}
-        />
-      ))}
-    </>
+    <span
+      key={streak.id}
+      aria-hidden
+      className="shooting-star"
+      style={
+        {
+          top: `${streak.top}%`,
+          left: `${streak.left}%`,
+          width: `${streak.length}px`,
+          animationDuration: `${streak.duration}ms`,
+          "--shoot-angle": `${streak.angle}deg`,
+        } as CSSProperties
+      }
+      onAnimationEnd={handleAnimationEnd}
+    />
   );
 }
