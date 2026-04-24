@@ -11,8 +11,10 @@
     "switchTo": "Skift til {locale}"
   },
   "Hero": {
+    "eyebrow": "Portfolio",
     "headline": "Softwareudvikler",
     "summary": "Jeg bygger hurtige, tilgængelige webapps med React og TypeScript. Jeg kan godt lide at gøre komplekse problemer enkle og stabile i UI'et.",
+    "availability": "Baseret i {location} · Åben for muligheder",
     "ctaProjects": "Se projekter",
     "ctaEmail": "Skriv til mig"
   },
@@ -41,7 +43,9 @@
   },
   "Projects": {
     "title": "Projekter",
-    "subtitle": "Personlige projekter jeg har arbejdet paa."
+    "subtitle": "Personlige projekter jeg har arbejdet paa.",
+    "view": "Se",
+    "source": "Kildekode"
   },
   "Contact": {
     "title": "Kontakt",
@@ -50,7 +54,25 @@
   },
   "WorkExperience": {
     "title": "Erhvervserfaring",
-    "subtitle": "Min karriere som softwareudvikler."
+    "subtitle": "Min karriere som softwareudvikler.",
+    "intro": "Jeg er i begyndelsen af min karriere og bygger momentum gennem uddannelse og praktiske projekter. Her er, hvor jeg har lært og leveret indtil nu.",
+    "timelineTitle": "Tidslinje",
+    "period": {
+      "2025Present": "2025 — Nu",
+      "20232025": "2023 — 2025"
+    },
+    "entries": {
+      "bachelor": {
+        "role": "Professionsbachelor i Webudvikling",
+        "org": "Københavns Erhvervsakademi (KEA)",
+        "description": "Læser i øjeblikket en professionsbachelor i webudvikling med fokus på moderne frontend-arkitektur, tilgængelighed og at bygge produktionsklare webapplikationer."
+      },
+      "datamatiker": {
+        "role": "Datamatiker",
+        "org": "Danmark",
+        "description": "Gennemført 2-årig uddannelse med fokus på backend-udvikling, API'er, databaser og softwarearkitektur. Byggede flere full-stack projekter samt et bachelor-semesterprojekt med et team."
+      }
+    }
   },
   "Footer": {
     "rights": "Alle rettigheder forbeholdes.",
