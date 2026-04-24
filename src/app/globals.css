@@ -72,11 +72,11 @@ body {
     transform: rotate(var(--shoot-angle, 42deg)) scaleX(0);
     opacity: 0;
   }
-  20% {
-    opacity: 0.55;
+  15% {
+    opacity: 0.9;
   }
   55% {
-    opacity: 0.35;
+    opacity: 0.65;
   }
   100% {
     transform: rotate(var(--shoot-angle, 42deg)) scaleX(1);
@@ -86,17 +86,17 @@ body {
 
 .shooting-star {
   position: absolute;
-  height: 1.25px;
+  height: 1.5px;
   border-radius: 9999px;
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.18) 55%,
-    rgba(255, 248, 228, 0.7) 100%
+    rgba(255, 255, 255, 0.35) 55%,
+    rgba(255, 248, 228, 1) 100%
   );
   box-shadow:
-    0 0 3px rgba(255, 248, 228, 0.35),
-    0 0 8px rgba(180, 170, 255, 0.18);
+    0 0 5px rgba(255, 248, 228, 0.7),
+    0 0 12px rgba(180, 170, 255, 0.35);
   transform-origin: 0 50%;
   pointer-events: none;
   will-change: transform, opacity;
@@ -129,17 +129,17 @@ body {
 }
 @media (prefers-color-scheme: dark) {
   .surface-glass {
-    border-color: rgba(180, 190, 235, 0.14);
+    border-color: rgba(180, 195, 245, 0.22);
     background: radial-gradient(
-      145% 145% at 50% 52%,
-      rgba(6, 8, 22, 0.94) 0%,
-      rgba(10, 14, 34, 0.9) 52%,
-      rgba(22, 28, 58, 0.72) 82%,
-      rgba(110, 120, 200, 0.22) 100%
+      150% 150% at 50% 52%,
+      rgba(18, 22, 52, 0.86) 0%,
+      rgba(24, 30, 66, 0.82) 50%,
+      rgba(40, 50, 104, 0.7) 82%,
+      rgba(150, 165, 240, 0.28) 100%
     );
     box-shadow:
-      0 12px 30px rgba(0, 0, 0, 0.55),
-      inset 0 0 0 1px rgba(200, 210, 255, 0.1);
+      0 14px 34px rgba(0, 0, 0, 0.58),
+      inset 0 0 0 1px rgba(200, 215, 255, 0.16);
   }
 }
 
@@ -147,12 +147,12 @@ body {
  * Always dark-tinted since it is overlay UI. */
 @utility surface-glass-dock {
   border-radius: 1rem;
-  border: 1px solid rgba(90, 100, 170, 0.32);
-  background-color: rgba(8, 10, 26, 0.38);
+  border: 1px solid rgba(120, 135, 210, 0.4);
+  background-color: rgba(14, 18, 42, 0.5);
   backdrop-filter: blur(24px);
   box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.28),
-    inset 0 0 0 1px rgba(170, 180, 230, 0.12);
+    0 8px 22px rgba(0, 0, 0, 0.32),
+    inset 0 0 0 1px rgba(180, 195, 240, 0.16);
 }
 
 /* Hover affordance for interactive glass surfaces (buttons, link cards). */
@@ -165,11 +165,11 @@ body {
 @media (prefers-color-scheme: dark) {
   .surface-glass-hover:hover {
     background: radial-gradient(
-      145% 145% at 50% 52%,
-      rgba(10, 14, 32, 0.95) 0%,
-      rgba(16, 22, 48, 0.92) 52%,
-      rgba(34, 42, 80, 0.78) 82%,
-      rgba(140, 150, 230, 0.26) 100%
+      150% 150% at 50% 52%,
+      rgba(28, 34, 72, 0.9) 0%,
+      rgba(34, 42, 88, 0.86) 50%,
+      rgba(54, 68, 130, 0.78) 82%,
+      rgba(180, 195, 255, 0.32) 100%
     );
   }
 }

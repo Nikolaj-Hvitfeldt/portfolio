@@ -91,28 +91,15 @@ export function PortfolioPage() {
 
       <main className="relative z-10 flex-1 pb-24 md:pb-0 md:pl-16 lg:pl-20">
         <section
-          className="flex min-h-0 flex-col items-center justify-center px-6 py-12 sm:py-16 md:py-20"
+          className="flex min-h-0 flex-col items-center justify-center px-6 py-10 sm:py-12 md:py-14"
           aria-label="Introduction"
         >
-          <span className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">
-            {tHero("eyebrow")}
-          </span>
-          <h1 className="mt-4 text-center text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="text-center text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             {SITE.name}
           </h1>
           <h2 className="mt-3 text-center text-lg text-zinc-500 dark:text-zinc-400 sm:text-xl md:text-2xl">
             {tHero("headline")}
           </h2>
-          <p className="mt-5 max-w-xl text-center text-sm leading-6 text-zinc-600 dark:text-zinc-400 sm:text-base">
-            {tHero("summary")}
-          </p>
-          <p className="mt-5 inline-flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400 sm:text-sm">
-            <span
-              className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.18)]"
-              aria-hidden
-            />
-            {tHero("availability", { location: SITE.location })}
-          </p>
         </section>
 
         <AnimatePresence mode="wait" initial={false}>
@@ -203,7 +190,7 @@ export function PortfolioPage() {
 
           {view === "home" ? (
             <ViewPanel key="home" reduceMotion={!!reduceMotion}>
-              <Container className="py-8 sm:py-10 md:py-12">
+              <Container className="-mt-4 pt-0 pb-8 sm:-mt-6 sm:pb-10 md:-mt-8 md:pb-12">
                 <div className="grid gap-4 md:grid-cols-3 md:grid-rows-2 md:auto-rows-fr">
                   <HomeTile
                     index="01"

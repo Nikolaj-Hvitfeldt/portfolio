@@ -10,10 +10,7 @@
     "switchTo": "Switch to {locale}"
   },
   "Hero": {
-    "eyebrow": "Portfolio",
-    "headline": "Software Developer",
-    "summary": "I build fast, accessible web apps with React and TypeScript. I enjoy turning complex problems into simple, reliable interfaces.",
-    "availability": "Based in {location} · Open to opportunities"
+    "headline": "Software Developer"
   },
   "About": {
     "title": "About",

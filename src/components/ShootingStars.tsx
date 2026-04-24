@@ -11,9 +11,9 @@ type Streak = {
   duration: number;
 };
 
-const MIN_SPAWN_GAP_MS = 4200;
-const MAX_SPAWN_GAP_MS = 11000;
-const FIRST_SPAWN_DELAY_MS = 2000;
+const MIN_SPAWN_GAP_MS = 2600;
+const MAX_SPAWN_GAP_MS = 7000;
+const FIRST_SPAWN_DELAY_MS = 1200;
 
 function randomBetween(min: number, max: number) {
   return min + Math.random() * (max - min);

@@ -10,10 +10,7 @@
     "switchTo": "Skift til {locale}"
   },
   "Hero": {
-    "eyebrow": "Portfolio",
-    "headline": "Softwareudvikler",
-    "summary": "Jeg bygger hurtige, tilgængelige webapps med React og TypeScript. Jeg kan godt lide at gøre komplekse problemer enkle og stabile i UI'et.",
-    "availability": "Baseret i {location} · Åben for muligheder"
+    "headline": "Softwareudvikler"
   },
   "About": {
     "title": "Om mig",
