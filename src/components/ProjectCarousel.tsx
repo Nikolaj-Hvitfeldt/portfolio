@@ -10,12 +10,12 @@ export function ProjectCarousel({ projects }: { projects: readonly Project[] }) 
 
   return (
     <div
-      className="overflow-hidden motion-reduce:overflow-x-auto"
+      className="project-carousel-mask w-full overflow-hidden motion-reduce:overflow-x-auto motion-reduce:mask-none"
       aria-label="Project icons carousel"
     >
       <div
-        className="marquee-ltr flex w-max items-center gap-4 py-2 motion-reduce:animate-none"
-        style={{ ["--marquee-duration" as never]: "12s" }}
+        className="marquee-ltr flex w-max items-center gap-5 py-3 group-hover/projects:[animation-play-state:paused] motion-reduce:animate-none"
+        style={{ ["--marquee-duration" as never]: "26s" }}
       >
         {items.map((project, idx) => {
           const fallback = project.id[0]?.toUpperCase() ?? "?";
@@ -24,11 +24,11 @@ export function ProjectCarousel({ projects }: { projects: readonly Project[] }) 
           return (
             <div
               key={`${project.id}-${idx}`}
-              className="flex shrink-0 items-center rounded-2xl border border-black/10 bg-white p-3 dark:border-white/10 dark:bg-zinc-950"
+              className="project-icon-chip flex h-[68px] w-[68px] shrink-0 items-center justify-center sm:h-20 sm:w-20"
               title={title}
             >
               <span
-                className="flex h-12 w-12 items-center justify-center rounded-xl bg-zinc-100 text-2xl dark:bg-zinc-800"
+                className="text-[30px] leading-none drop-shadow-[0_1px_0_rgba(0,0,0,0.35)] sm:text-[36px]"
                 aria-hidden
               >
                 {project.icon ?? fallback}

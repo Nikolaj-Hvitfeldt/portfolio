@@ -14,6 +14,7 @@ import { ProjectCarousel } from "@/components/ProjectCarousel";
 import { ShootingStars } from "@/components/ShootingStars";
 import { SideNav, type View } from "@/components/SideNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { fontDisplay, fontSans } from "@/lib/fonts";
 import { PROJECTS } from "@/lib/projects";
 import { SITE } from "@/lib/site";
 
@@ -94,10 +95,14 @@ export function PortfolioPage() {
           className="flex min-h-0 flex-col items-center justify-center px-6 py-10 sm:py-12 md:py-14"
           aria-label="Introduction"
         >
-          <h1 className="text-center text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1
+            className={`font-bento-serif ${fontDisplay.className} text-center text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl`}
+          >
             {SITE.name}
           </h1>
-          <h2 className="mt-3 text-center text-lg text-zinc-500 dark:text-zinc-400 sm:text-xl md:text-2xl">
+          <h2
+            className={`${fontSans.className} mt-3 text-center text-lg font-normal text-zinc-600 dark:text-zinc-400 sm:text-xl md:text-2xl`}
+          >
             {tHero("headline")}
           </h2>
         </section>
@@ -113,10 +118,14 @@ export function PortfolioPage() {
             <ViewPanel key="projects" reduceMotion={!!reduceMotion}>
               <Container className="space-y-6 py-8 sm:py-10 md:py-12">
                 <div>
-                  <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+                  <h2
+                    className={`font-bento-serif ${fontDisplay.className} text-2xl font-bold tracking-tight sm:text-3xl`}
+                  >
                     {tProjects("title")}
                   </h2>
-                  <p className="mt-2 max-w-2xl text-sm text-zinc-500 dark:text-zinc-400 sm:text-base">
+                  <p
+                    className={`${fontSans.className} mt-2 max-w-2xl text-sm font-normal text-zinc-500 dark:text-zinc-400 sm:text-base`}
+                  >
                     {tProjects("subtitle")}
                   </p>
                 </div>
@@ -148,13 +157,19 @@ export function PortfolioPage() {
             <ViewPanel key="contact" reduceMotion={!!reduceMotion}>
               <Container className="py-8 sm:py-10 md:py-12">
                 <Block>
-                  <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+                  <h2
+                    className={`font-bento-serif ${fontDisplay.className} text-2xl font-bold tracking-tight sm:text-3xl`}
+                  >
                     {tContact("title")}
                   </h2>
-                  <p className="mt-2 max-w-2xl text-sm text-zinc-500 dark:text-zinc-400 sm:text-base">
+                  <p
+                    className={`${fontSans.className} mt-2 max-w-2xl text-sm font-normal text-zinc-500 dark:text-zinc-400 sm:text-base`}
+                  >
                     {tContact("subtitle")}
                   </p>
-                  <p className="mt-4 max-w-2xl text-sm leading-6 text-zinc-600 dark:text-zinc-400 sm:text-base">
+                  <p
+                    className={`${fontSans.className} mt-4 max-w-2xl text-sm font-normal leading-6 text-zinc-600 dark:text-zinc-400 sm:text-base`}
+                  >
                     {tContact("fastest")}
                   </p>
 
@@ -190,59 +205,81 @@ export function PortfolioPage() {
 
           {view === "home" ? (
             <ViewPanel key="home" reduceMotion={!!reduceMotion}>
-              <Container className="-mt-4 pt-0 pb-8 sm:-mt-6 sm:pb-10 md:-mt-8 md:pb-12">
-                <div className="grid gap-4 md:grid-cols-3 md:grid-rows-2 md:auto-rows-fr">
+              <Container
+                maxWidthClass="max-w-6xl"
+                className="mt-2 pt-0 pb-8 sm:mt-4 sm:pb-10 md:mt-6 md:pb-12"
+              >
+                <div className="grid min-h-0 gap-3 md:grid-cols-3 md:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
                   <HomeTile
-                    index="01"
+                    icon={<UserOutlineIcon className="h-10 w-10 sm:h-11 sm:w-11" />}
                     title={tAbout("title")}
                     subtitle={tAbout("subtitle")}
                     onClick={() => navigateTo("about")}
-                    className="md:col-start-1 md:row-start-1"
+                    className="h-full min-h-0 md:col-start-1 md:row-start-1"
                   />
 
                   <HomeTile
-                    index="02"
+                    icon={<BriefcaseOutlineIcon className="h-10 w-10 sm:h-11 sm:w-11" />}
                     title={tWork("title")}
                     subtitle={tWork("subtitle")}
                     onClick={() => navigateTo("experience")}
-                    className="md:col-start-1 md:row-start-2"
+                    className="h-full min-h-0 md:col-start-1 md:row-start-2"
                   />
 
                   <Block
+                    variant="bento"
                     onClick={() => navigateTo("projects")}
-                    className="flex flex-col gap-3 md:col-start-2 md:row-span-2 md:row-start-1"
+                    className="home-card-shell group/projects h-full min-h-[clamp(18rem,36vh,26rem)] md:col-start-2 md:row-span-2 md:row-start-1"
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <span className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">
-                          03
-                        </span>
-                        <h2 className="mt-2 text-xl font-semibold tracking-tight">
-                          {tProjects("title")}
-                        </h2>
-                        <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-                          {tProjects("subtitle")}
-                        </p>
+                    <div className="flex h-full flex-col gap-6">
+                      <div className="-mx-5 -mt-5 flex min-h-0 flex-1 items-center overflow-hidden rounded-t-2xl px-2 py-7 sm:-mx-6 sm:-mt-6 sm:py-9">
+                        <ProjectCarousel projects={PROJECTS} />
                       </div>
-                      <span
-                        aria-hidden
-                        className="text-zinc-400 transition-transform duration-300 group-hover:translate-x-0.5 dark:text-zinc-500"
-                      >
-                        →
-                      </span>
-                    </div>
-                    <div className="mt-auto">
-                      <ProjectCarousel projects={PROJECTS} />
+                      <div className="home-card-content mt-auto flex flex-col items-start gap-3 px-1">
+                        <FolderOutlineIcon className="h-10 w-10 origin-top-left transform-gpu text-zinc-500 transition-all duration-500 ease-out will-change-transform motion-reduce:transition-none dark:text-zinc-300 dark:group-hover/projects:text-[#ffe8d1] group-hover/projects:-translate-x-1 group-hover/projects:-translate-y-1 group-hover/projects:scale-90 sm:h-11 sm:w-11" />
+                        <div>
+                          <h2
+                            className={`font-bento-serif ${fontDisplay.className} text-xl font-bold tracking-tight text-zinc-900 transition-colors duration-300 dark:text-white dark:group-hover/projects:text-[#fff1e2]`}
+                          >
+                            {tProjects("title")}
+                          </h2>
+                          <p
+                            className={`${fontSans.className} mt-1 text-sm font-normal text-zinc-500 dark:text-zinc-400 dark:group-hover/projects:text-zinc-300`}
+                          >
+                            {tProjects("subtitle")}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </Block>
 
-                  <HomeTile
-                    index="04"
-                    title={tContact("title")}
-                    subtitle={tContact("subtitle")}
+                  <Block
+                    variant="bento"
                     onClick={() => navigateTo("contact")}
-                    className="md:col-start-3 md:row-span-2 md:row-start-1"
-                  />
+                    className="home-card-shell group/contact h-full min-h-[clamp(18rem,36vh,26rem)] md:col-start-3 md:row-span-2 md:row-start-1"
+                  >
+                    <div className="flex h-full min-h-0 flex-col">
+                      <div
+                        className="min-h-0 flex-1"
+                        aria-hidden
+                      />
+                      <div className="home-card-content mt-auto flex flex-col items-start gap-3 px-1">
+                        <SendOutlineIcon className="h-10 w-10 origin-top-left transform-gpu text-zinc-500 transition-all duration-500 ease-out will-change-transform motion-reduce:transition-none dark:text-zinc-300 dark:group-hover/contact:text-[#ffe8d1] group-hover/contact:-translate-x-1 group-hover/contact:-translate-y-1 group-hover/contact:scale-90 sm:h-11 sm:w-11" />
+                        <div>
+                          <h2
+                            className={`font-bento-serif ${fontDisplay.className} text-xl font-bold tracking-tight text-zinc-900 transition-colors duration-300 dark:text-white dark:group-hover/contact:text-[#fff1e2]`}
+                          >
+                            {tContact("title")}
+                          </h2>
+                          <p
+                            className={`${fontSans.className} mt-1 text-sm font-normal text-zinc-500 dark:text-zinc-400 dark:group-hover/contact:text-zinc-300`}
+                          >
+                            {tContact("subtitle")}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </Block>
                 </div>
               </Container>
             </ViewPanel>
@@ -281,36 +318,113 @@ function ViewPanel({
 }
 
 function HomeTile({
-  index,
+  icon,
   title,
   subtitle,
   onClick,
   className,
 }: {
-  index: string;
+  icon: ReactNode;
   title: string;
   subtitle: string;
   onClick: () => void;
   className?: string;
 }) {
   return (
-    <Block onClick={onClick} className={`group/tile h-full ${className ?? ""}`}>
-      <div className="flex h-full flex-col">
-        <span className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">
-          {index}
-        </span>
-        <h2 className="mt-2 text-xl font-semibold tracking-tight">{title}</h2>
-        <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-          {subtitle}
-        </p>
-        <span
-          aria-hidden
-          className="mt-auto pt-3 text-zinc-400 transition-transform duration-300 group-hover/tile:translate-x-0.5 dark:text-zinc-500"
-        >
-          →
-        </span>
+    <Block
+      variant="bento"
+      onClick={onClick}
+      className={`home-card-shell group/tile h-full min-h-0 ${className ?? ""}`}
+    >
+      <div className="home-card-content flex h-full flex-col">
+        <div className="origin-top-left transform-gpu text-zinc-500 transition-all duration-500 ease-out will-change-transform motion-reduce:transition-none dark:text-zinc-300 dark:group-hover/tile:text-[#ffe8d1] group-hover/tile:-translate-x-1 group-hover/tile:-translate-y-1 group-hover/tile:scale-90">
+          {icon}
+        </div>
+        <div className="mt-auto pt-6">
+          <h2
+            className={`font-bento-serif ${fontDisplay.className} text-xl font-bold tracking-tight text-zinc-900 transition-colors duration-300 dark:text-white dark:group-hover/tile:text-white dark:group-hover/tile:text-[#fff1e2]`}
+          >
+            {title}
+          </h2>
+          <p
+            className={`${fontSans.className} mt-1 text-sm font-normal text-zinc-500 transition-colors duration-300 dark:text-zinc-400 dark:group-hover/tile:text-zinc-300`}
+          >
+            {subtitle}
+          </p>
+        </div>
       </div>
     </Block>
+  );
+}
+
+function FolderOutlineIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2" />
+    </svg>
+  );
+}
+
+function UserOutlineIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  );
+}
+
+function BriefcaseOutlineIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
+      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+    </svg>
+  );
+}
+
+function SendOutlineIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+      <path d="m21.854 2.147-10.94 10.939" />
+    </svg>
   );
 }
 

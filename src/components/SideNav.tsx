@@ -24,13 +24,15 @@ function IconUser(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function IconGrid(props: SVGProps<SVGSVGElement>) {
+function IconFolderOpen(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
-      <rect x="4" y="4" width="7" height="7" rx="1.5" strokeWidth="1.8" />
-      <rect x="13" y="4" width="7" height="7" rx="1.5" strokeWidth="1.8" />
-      <rect x="4" y="13" width="7" height="7" rx="1.5" strokeWidth="1.8" />
-      <rect x="13" y="13" width="7" height="7" rx="1.5" strokeWidth="1.8" />
+      <path
+        d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -45,11 +47,22 @@ function IconBriefcase(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function IconMail(props: SVGProps<SVGSVGElement>) {
+/** Lucide `send` / paper plane — same glyph as the Contact home tile. */
+function IconSend(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
-      <rect x="3.5" y="5.5" width="17" height="13" rx="2" strokeWidth="1.8" />
-      <path d="M4.5 7l7.5 6 7.5-6" strokeWidth="1.8" />
+      <path
+        d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="m21.854 2.147-10.94 10.939"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -64,9 +77,9 @@ function IconHome(props: SVGProps<SVGSVGElement>) {
 
 function getItemIcon(item: View) {
   if (item === "home") return IconHome;
-  if (item === "projects") return IconGrid;
+  if (item === "projects") return IconFolderOpen;
   if (item === "experience") return IconBriefcase;
-  if (item === "contact") return IconMail;
+  if (item === "contact") return IconSend;
   return IconUser;
 }
 
