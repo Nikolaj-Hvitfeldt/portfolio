@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { AboutSection } from "@/components/AboutSection";
 import { Block } from "@/components/Block";
+import { ContactCardBubbles } from "@/components/ContactCardBubbles";
 import { Container } from "@/components/Container";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
@@ -256,14 +257,11 @@ export function PortfolioPage() {
                   <Block
                     variant="bento"
                     onClick={() => navigateTo("contact")}
-                    className="home-card-shell group/contact h-full min-h-[clamp(18rem,36vh,26rem)] md:col-start-3 md:row-span-2 md:row-start-1"
+                    className="home-card-shell group/contact h-full min-h-[clamp(18rem,36vh,26rem)] min-w-0 md:col-start-3 md:row-span-2 md:row-start-1"
                   >
-                    <div className="flex h-full min-h-0 flex-col">
-                      <div
-                        className="min-h-0 flex-1"
-                        aria-hidden
-                      />
-                      <div className="home-card-content mt-auto flex flex-col items-start gap-3 px-1">
+                    <div className="flex h-full min-h-0 min-w-0 flex-col gap-5 overflow-hidden">
+                      <ContactCardBubbles reduceMotion={!!reduceMotion} />
+                      <div className="home-card-content flex flex-col items-start gap-3 px-1">
                         <SendOutlineIcon className="h-10 w-10 origin-top-left transform-gpu text-zinc-500 transition-all duration-500 ease-out will-change-transform motion-reduce:transition-none dark:text-zinc-300 dark:group-hover/contact:text-[#ffe8d1] group-hover/contact:-translate-x-1 group-hover/contact:-translate-y-1 group-hover/contact:scale-90 sm:h-11 sm:w-11" />
                         <div>
                           <h2

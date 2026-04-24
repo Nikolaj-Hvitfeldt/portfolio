@@ -158,12 +158,21 @@ body {
   box-shadow: 0 2px 20px rgba(20, 18, 40, 0.06);
 }
 @media (prefers-color-scheme: dark) {
+  /* Stronger than raw rgba or post-merge the cards read as “gone” on #05071a. */
   .surface-glass-bento {
-    border-color: rgba(200, 210, 255, 0.08);
-    background: rgba(10, 12, 32, 0.42);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
+    border-color: rgba(170, 188, 245, 0.16);
+    background: radial-gradient(
+      145% 145% at 50% 50%,
+      rgba(22, 26, 58, 0.82) 0%,
+      rgba(14, 18, 42, 0.72) 50%,
+      rgba(10, 12, 32, 0.6) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+      0 14px 38px rgba(0, 0, 0, 0.52),
+      inset 0 0 0 1px rgba(180, 195, 250, 0.1),
+      inset 0 1px 0 rgba(210, 220, 255, 0.07);
   }
 }
 
@@ -212,6 +221,183 @@ body {
   .home-card-shell:hover .home-card-content {
     transform: none;
   }
+}
+
+/* Contact home card: iMessage-style bubbles (decorative, aria-hidden).
+ * Entry/exit motion is in ContactCardBubbles (Framer Motion). */
+
+.contact-card-bubbles {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 0.2rem;
+  pointer-events: none;
+}
+
+.contact-card-bubble {
+  position: relative;
+  min-width: 6.25rem;
+  min-height: 2.35rem;
+  max-width: 86%;
+  border-radius: 1.4rem;
+  padding: 0.5rem 0.85rem 0.55rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: visible;
+}
+
+.contact-card-bubble > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Blue column-left, green column-right. */
+.contact-card-bubble--b {
+  align-self: flex-start;
+  margin-left: 0.1rem;
+}
+.contact-card-bubble--a {
+  align-self: flex-end;
+  margin-right: 0.1rem;
+}
+
+/* iMessage-style fills; tails match via solid fill. */
+.contact-card-bubble--a {
+  background: #34c759;
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.contact-card-bubble--b {
+  background: #007aff;
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Speech-bubble “tail” toward outer edge. */
+.contact-card-bubble--a::after,
+.contact-card-bubble--b::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.contact-card-bubble--a::after {
+  right: 0.32rem;
+  bottom: 0.1rem;
+  background: #34c759;
+  transform: rotate(45deg);
+  box-shadow: 1.5px 1.5px 3px rgba(0, 0, 0, 0.12);
+}
+.contact-card-bubble--b::after {
+  left: 0.32rem;
+  bottom: 0.1rem;
+  background: #007aff;
+  transform: rotate(45deg);
+  box-shadow: -1.5px 1.5px 3px rgba(0, 0, 0, 0.12);
+}
+
+.dark .contact-card-bubble--a {
+  background: #30d158;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+.dark .contact-card-bubble--b {
+  background: #0a84ff;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+.dark .contact-card-bubble--a::after {
+  background: #30d158;
+}
+.dark .contact-card-bubble--b::after {
+  background: #0a84ff;
+}
+
+/* Typing indicator: staggered dot pulse. */
+.contact-card-bubble .contact-bubble-dots {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+/* Spans are empty; need explicit size + non-inline display so they stay visible. */
+.contact-card-bubble .contact-bubble-dot {
+  display: block;
+  width: 5px;
+  min-width: 5px;
+  height: 5px;
+  min-height: 5px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.9);
+  flex-shrink: 0;
+  box-sizing: border-box;
+  animation: contact-bubble-dot-pulse 1.15s ease-in-out infinite;
+}
+
+.contact-card-bubble .contact-bubble-dot:nth-child(1) {
+  animation-delay: 0ms;
+}
+.contact-card-bubble .contact-bubble-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.contact-card-bubble .contact-bubble-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes contact-bubble-dot-pulse {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.4;
+  }
+  30%,
+  45% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  60%,
+  75% {
+    transform: scale(0.95);
+    opacity: 0.65;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-card-bubbles .contact-card-bubble {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .contact-card-bubble .contact-bubble-dot {
+    animation: none !important;
+    transform: none !important;
+    opacity: 0.95 !important;
+  }
+}
+
+.contact-card-bubbles--reduced .contact-card-bubble {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.contact-card-bubbles--reduced .contact-card-bubble .contact-bubble-dot {
+  animation: none !important;
+  transform: none !important;
+  opacity: 0.95 !important;
 }
 
 /* Glossy app-icon-style chip used by the Projects carousel.
