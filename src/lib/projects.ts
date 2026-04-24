@@ -4,6 +4,8 @@ export type Project = {
   tags: readonly string[];
   /** Public path under `/public`, e.g. `/Amori-icon.png` */
   iconSrc?: string;
+  /** Optional per-project image scaling for assets with transparent padding. */
+  iconScale?: number;
   /** Optional emoji fallback if `iconSrc` is missing */
   icon?: string;
 };
@@ -42,6 +44,7 @@ export const PROJECTS: readonly Project[] = [
     href: "#",
     tags: ["WIP", "TBD"],
     iconSrc: "/Memoir-icon.png",
+    iconScale: 1.32,
     icon: "📘",
   },
 ] as const;

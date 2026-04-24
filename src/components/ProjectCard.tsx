@@ -8,6 +8,7 @@ export function ProjectCard({
   tags,
   icon,
   iconSrc,
+  iconScale,
   viewLabel,
 }: {
   title: string;
@@ -16,6 +17,7 @@ export function ProjectCard({
   tags: readonly string[];
   icon?: string;
   iconSrc?: string;
+  iconScale?: number;
   viewLabel: string;
 }) {
   return (
@@ -35,6 +37,11 @@ export function ProjectCard({
                 className="h-9 w-9 object-contain"
                 sizes="40px"
                 unoptimized
+                style={{
+                  transform:
+                    iconScale && iconScale !== 1 ? `scale(${iconScale})` : undefined,
+                  transformOrigin: "center",
+                }}
               />
             </span>
           ) : icon ? (

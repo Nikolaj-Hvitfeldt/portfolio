@@ -22,6 +22,7 @@ export function ProjectCarousel({ projects }: { projects: readonly Project[] }) 
           const fallback = project.id[0]?.toUpperCase() ?? "?";
           const title = tProject(`${project.id}.title`);
           const src = project.iconSrc;
+          const scale = project.iconScale ?? 1;
 
           return (
             <div
@@ -37,6 +38,10 @@ export function ProjectCarousel({ projects }: { projects: readonly Project[] }) 
                   className="object-cover"
                   sizes="80px"
                   unoptimized
+                  style={{
+                    transform: scale === 1 ? undefined : `scale(${scale})`,
+                    transformOrigin: "center",
+                  }}
                 />
               ) : (
                 <span
