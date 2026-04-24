@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { fontDisplay, fontSans } from "@/lib/fonts";
 
 export function ProjectCard({
@@ -6,6 +7,7 @@ export function ProjectCard({
   href,
   tags,
   icon,
+  iconSrc,
   viewLabel,
 }: {
   title: string;
@@ -13,13 +15,29 @@ export function ProjectCard({
   href: string;
   tags: readonly string[];
   icon?: string;
+  iconSrc?: string;
   viewLabel: string;
 }) {
   return (
     <article className="surface-glass group/project flex h-full flex-col p-5 sm:p-6">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
-          {icon ? (
+          {iconSrc ? (
+            <span
+              aria-hidden
+              className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-zinc-100 p-0.5 dark:bg-white/5"
+            >
+              <Image
+                src={iconSrc}
+                alt=""
+                width={40}
+                height={40}
+                className="h-9 w-9 object-contain"
+                sizes="40px"
+                unoptimized
+              />
+            </span>
+          ) : icon ? (
             <span
               aria-hidden
               className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-100 text-xl dark:bg-white/5"

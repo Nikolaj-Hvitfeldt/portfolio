@@ -140,6 +140,7 @@ export function PortfolioPage() {
                       href={project.href}
                       tags={project.tags}
                       icon={project.icon}
+                      iconSrc={project.iconSrc}
                       viewLabel={tProjects("source")}
                     />
                   ))}

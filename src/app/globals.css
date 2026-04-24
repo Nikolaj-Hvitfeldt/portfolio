@@ -400,64 +400,19 @@ body {
   opacity: 0.95 !important;
 }
 
-/* Glossy app-icon-style chip used by the Projects carousel.
- * Rounded square with a subtle top highlight, inner rim, and deeper
- * outer shadow so each icon reads like a mounted "app tile" floating
- * inside the Projects card. Light mode stays warm; dark mode picks up
- * the indigo/periwinkle accents of the starry background. */
+/* Projects carousel: flat “app icon” tiles (no gloss stack / inset depth). */
 @utility project-icon-chip {
   position: relative;
-  border-radius: 1.1rem;
-  border: 1px solid rgba(60, 60, 100, 0.14);
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.55) 0%,
-      rgba(255, 255, 255, 0.12) 45%,
-      rgba(0, 0, 0, 0.06) 100%
-    ),
-    linear-gradient(180deg, #ffffff 0%, #f1f2f7 100%);
-  box-shadow:
-    0 10px 20px -8px rgba(18, 20, 45, 0.35),
-    0 2px 4px rgba(18, 20, 45, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.06);
-}
-.project-icon-chip::after {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  border-radius: calc(1.1rem - 1px);
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.55) 0%,
-    rgba(255, 255, 255, 0) 42%
-  );
+  border-radius: 1.15rem;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: none;
 }
 @media (prefers-color-scheme: dark) {
   .project-icon-chip {
-    border-color: rgba(180, 195, 245, 0.22);
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.08) 0%,
-        rgba(255, 255, 255, 0) 45%,
-        rgba(0, 0, 0, 0.35) 100%
-      ),
-      linear-gradient(180deg, #161a3a 0%, #0a0d22 100%);
-    box-shadow:
-      0 14px 26px -10px rgba(0, 0, 0, 0.75),
-      0 2px 6px rgba(0, 0, 0, 0.55),
-      inset 0 1px 0 rgba(200, 215, 255, 0.18),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.4);
-  }
-  .project-icon-chip::after {
-    background: linear-gradient(
-      180deg,
-      rgba(210, 220, 255, 0.18) 0%,
-      rgba(210, 220, 255, 0) 42%
-    );
+    border-color: rgba(255, 255, 255, 0.11);
+    background: rgba(16, 18, 36, 0.72);
+    box-shadow: none;
   }
 }
 
