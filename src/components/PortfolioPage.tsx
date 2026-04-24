@@ -12,6 +12,7 @@ import { ExperienceSection } from "@/components/ExperienceSection";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ProjectCarousel } from "@/components/ProjectCarousel";
+import { HomeBentoStack } from "@/components/HomeBentoStack";
 import { ShootingStars } from "@/components/ShootingStars";
 import { SideNav, type View } from "@/components/SideNav";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -213,21 +214,22 @@ export function PortfolioPage() {
                 className="mt-2 pt-0 pb-8 sm:mt-4 sm:pb-10 md:mt-6 md:pb-12"
               >
                 <div className="grid min-h-0 gap-3 md:grid-cols-3 md:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
-                  <HomeTile
-                    icon={<UserOutlineIcon className="h-10 w-10 sm:h-11 sm:w-11" />}
-                    title={tAbout("title")}
-                    subtitle={tAbout("subtitle")}
-                    onClick={() => navigateTo("about")}
-                    className="h-full min-h-0 md:col-start-1 md:row-start-1"
-                  />
-
-                  <HomeTile
-                    icon={<BriefcaseOutlineIcon className="h-10 w-10 sm:h-11 sm:w-11" />}
-                    title={tWork("title")}
-                    subtitle={tWork("subtitle")}
-                    onClick={() => navigateTo("experience")}
-                    className="h-full min-h-0 md:col-start-1 md:row-start-2"
-                  />
+                  <HomeBentoStack reduceMotion={!!reduceMotion}>
+                    <HomeTile
+                      icon={<UserOutlineIcon className="h-10 w-10 sm:h-11 sm:w-11" />}
+                      title={tAbout("title")}
+                      subtitle={tAbout("subtitle")}
+                      onClick={() => navigateTo("about")}
+                      className="h-full min-h-0 w-full"
+                    />
+                    <HomeTile
+                      icon={<BriefcaseOutlineIcon className="h-10 w-10 sm:h-11 sm:w-11" />}
+                      title={tWork("title")}
+                      subtitle={tWork("subtitle")}
+                      onClick={() => navigateTo("experience")}
+                      className="h-full min-h-0 w-full"
+                    />
+                  </HomeBentoStack>
 
                   <Block
                     variant="bento"
@@ -332,9 +334,9 @@ function HomeTile({
 }) {
   return (
     <Block
-      variant="bento"
+      variant="bentoAvatar"
       onClick={onClick}
-      className={`home-card-shell group/tile h-full min-h-0 ${className ?? ""}`}
+      className={`home-card-shell group/tile min-h-0 ${className ?? ""}`}
     >
       <div className="home-card-content flex h-full flex-col">
         <div className="origin-top-left transform-gpu text-zinc-500 transition-all duration-500 ease-out will-change-transform motion-reduce:transition-none dark:text-zinc-300 dark:group-hover/tile:text-[#ffe8d1] group-hover/tile:-translate-x-1 group-hover/tile:-translate-y-1 group-hover/tile:scale-90">

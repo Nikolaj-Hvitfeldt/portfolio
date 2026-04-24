@@ -4,8 +4,8 @@ type BlockProps = {
   children: ReactNode;
   className?: string;
   onClick?: () => void;
-  /** `bento` = home grid blend; `default` = standard glass (sections, etc.). */
-  variant?: "default" | "bento";
+  /** `bento` = home grid; `bentoAvatar` = same with a clearer right edge for the split avatar. */
+  variant?: "default" | "bento" | "bentoAvatar";
 };
 
 export function Block({
@@ -16,7 +16,11 @@ export function Block({
 }: BlockProps) {
   const extra = className ? ` ${className}` : "";
   const surface =
-    variant === "bento" ? "surface-glass-bento" : "surface-glass";
+    variant === "bentoAvatar"
+      ? "surface-glass-bento-avatar"
+      : variant === "bento"
+        ? "surface-glass-bento"
+        : "surface-glass";
 
   if (onClick) {
     return (
