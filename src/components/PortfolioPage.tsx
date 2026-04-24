@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { AboutSection } from "@/components/AboutSection";
 import { Block } from "@/components/Block";
@@ -10,6 +11,7 @@ import { ExperienceSection } from "@/components/ExperienceSection";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ProjectCarousel } from "@/components/ProjectCarousel";
+import { ShootingStars } from "@/components/ShootingStars";
 import { SideNav, type View } from "@/components/SideNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PROJECTS } from "@/lib/projects";
@@ -63,15 +65,23 @@ export function PortfolioPage() {
   return (
     <div
       id="top"
-      className="relative flex min-h-screen flex-col overflow-x-hidden bg-zinc-50 text-zinc-900 dark:bg-[#060612] dark:text-zinc-50"
+      className="relative flex min-h-screen flex-col overflow-x-hidden bg-zinc-50 text-zinc-900 dark:bg-[#05071a] dark:text-zinc-50"
     >
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 z-0 hidden overflow-hidden dark:block"
       >
-        <div className="sky-glow absolute inset-0" />
-        <div className="starfield absolute inset-0" />
-        <div className="starfield-twinkle absolute inset-0" />
+        <Image
+          src="/starry-night.avif"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-90"
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-[#05071a]/40 via-[#05071a]/20 to-[#05071a]/75" />
+        <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_40%,transparent_0%,rgba(5,7,26,0.55)_100%)]" />
+        <ShootingStars disabled={!!reduceMotion} />
       </div>
 
       <SideNav currentView={view} onNavigate={navigateTo} />
