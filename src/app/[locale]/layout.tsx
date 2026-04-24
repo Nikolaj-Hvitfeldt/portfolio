@@ -3,6 +3,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { fontDisplay, fontSans } from "@/lib/fonts";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -31,8 +32,11 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="scroll-smooth">
-      <body className="antialiased">
+    <html
+      lang={locale}
+      className={`scroll-smooth ${fontSans.variable} ${fontDisplay.variable}`}
+    >
+      <body className={`${fontSans.className} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
