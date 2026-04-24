@@ -37,5 +37,12 @@ export const PROJECTS: readonly Project[] = [
     iconSrc: "/Lineup-icon.png",
     icon: "🎵",
   },
+  {
+    id: "memoir",
+    href: "#",
+    tags: ["WIP", "TBD"],
+    iconSrc: "/Memoir-icon.png",
+    icon: "📘",
+  },
 ] as const;
 
