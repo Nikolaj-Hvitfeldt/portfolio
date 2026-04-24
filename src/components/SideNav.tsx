@@ -188,7 +188,7 @@ export function SideNav({
         if (hoverExitTimer.current) clearTimeout(hoverExitTimer.current);
         hoverExitTimer.current = setTimeout(() => setHoveredIndex(null), 45);
       }}
-      className="group fixed bottom-4 left-1/2 z-30 w-[min(18rem,calc(100vw-2rem))] -translate-x-1/2 rounded-2xl border border-zinc-700/35 bg-zinc-950/32 px-1.5 py-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.22)] backdrop-blur-xl ring-1 ring-inset ring-zinc-500/15 dark:border-zinc-700/35 dark:bg-zinc-950/32 dark:shadow-[0_8px_20px_rgba(0,0,0,0.26)] dark:ring-zinc-500/15 md:top-1/2 md:bottom-auto md:left-3 md:right-auto md:w-14 md:-translate-y-1/2 md:translate-x-0 md:origin-left md:rounded-2xl md:px-1 md:py-1.5 motion-reduce:transition-none"
+      className="group surface-glass-dock fixed bottom-4 left-1/2 z-30 w-[min(18rem,calc(100vw-2rem))] -translate-x-1/2 px-1.5 py-1.5 motion-reduce:transition-none md:top-1/2 md:bottom-auto md:left-3 md:right-auto md:w-14 md:-translate-y-1/2 md:translate-x-0 md:origin-left md:px-1 md:py-1.5"
     >
       <div className="flex items-end gap-0.5 md:flex-col md:items-stretch md:justify-start md:gap-1">
         {NAV_ITEMS.map((item, index) => {

@@ -9,6 +9,11 @@ const LOCALE_LABEL: Record<(typeof routing.locales)[number], string> = {
   en: "English",
 };
 
+const LOCALE_SHORT: Record<(typeof routing.locales)[number], string> = {
+  da: "DA",
+  en: "EN",
+};
+
 export function LocaleSwitcher() {
   const t = useTranslations("Nav");
   const locale = useLocale() as (typeof routing.locales)[number];
@@ -18,7 +23,6 @@ export function LocaleSwitcher() {
   const hash =
     typeof window !== "undefined" ? window.location.hash ?? "" : "";
 
-  // Strip locale prefix if present.
   const rest =
     pathname === `/${locale}`
       ? ""
@@ -31,12 +35,17 @@ export function LocaleSwitcher() {
   return (
     <a
       href={href}
-      className="text-sm text-zinc-700 hover:text-black dark:text-zinc-300 dark:hover:text-white"
+      className="surface-glass-dock inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-zinc-200 transition-colors hover:text-white motion-reduce:transition-none"
       aria-label={t("language")}
       title={t("switchTo", { locale: LOCALE_LABEL[otherLocale] })}
     >
-      {LOCALE_LABEL[otherLocale]}
+      <span aria-hidden className="text-zinc-400">
+        {LOCALE_SHORT[locale]}
+      </span>
+      <span aria-hidden className="text-zinc-500">
+        /
+      </span>
+      <span>{LOCALE_SHORT[otherLocale]}</span>
     </a>
   );
 }
-

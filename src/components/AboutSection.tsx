@@ -7,8 +7,7 @@ import { useTranslations } from "next-intl";
 
 export function AboutSection() {
   const t = useTranslations("About");
-  const glassCardClass =
-    "rounded-2xl border border-black/10 bg-white/66 p-6 shadow-[0_8px_20px_rgba(0,0,0,0.09)] backdrop-blur-xl ring-1 ring-inset ring-white/36 sm:p-8 dark:border-white/18 dark:bg-[radial-gradient(145%_145%_at_50%_52%,rgba(3,3,5,0.98)_0%,rgba(5,5,7,0.95)_52%,rgba(20,20,28,0.74)_82%,rgba(138,144,176,0.16)_100%)] dark:shadow-[0_12px_30px_rgba(0,0,0,0.5)] dark:ring-white/9";
+  const glassCardClass = "surface-glass p-6 sm:p-8";
 
   return (
     <section aria-label={t("title")} className="py-8 sm:py-10 md:py-12">
