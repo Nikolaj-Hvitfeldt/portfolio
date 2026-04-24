@@ -1,11 +1,10 @@
-"use client";
-
-import { SITE } from "@/lib/site";
-import { Container } from "@/components/Container";
 import { useTranslations } from "next-intl";
+import { Container } from "@/components/Container";
+import { SITE } from "@/lib/site";
 
 export function SiteFooter() {
   const t = useTranslations("Footer");
+  const linkClass = "hover:text-black dark:hover:text-white";
 
   return (
     <footer className="border-t border-black/5 py-10 dark:border-white/10">
@@ -19,7 +18,7 @@ export function SiteFooter() {
             href={SITE.links.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-black dark:hover:text-white"
+            className={linkClass}
           >
             {t("github")}
           </a>
@@ -27,14 +26,11 @@ export function SiteFooter() {
             href={SITE.links.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-black dark:hover:text-white"
+            className={linkClass}
           >
             {t("linkedin")}
           </a>
-          <a
-            href={`mailto:${SITE.email}`}
-            className="hover:text-black dark:hover:text-white"
-          >
+          <a href={`mailto:${SITE.email}`} className={linkClass}>
             {t("email")}
           </a>
         </div>
@@ -42,4 +38,3 @@ export function SiteFooter() {
     </footer>
   );
 }
-

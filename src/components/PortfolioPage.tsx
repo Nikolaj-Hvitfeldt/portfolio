@@ -75,7 +75,6 @@ export function PortfolioPage() {
           src="/starry-night.avif"
           alt=""
           fill
-          priority
           sizes="100vw"
           className="object-cover opacity-90"
         />
@@ -174,71 +173,27 @@ export function PortfolioPage() {
 
                   <ul className="mt-6 grid gap-3 sm:grid-cols-3">
                     <li>
-                      <a
+                      <ContactLink
                         href={`mailto:${SITE.email}`}
-                        className="group/contact flex items-center justify-between rounded-xl border border-black/10 bg-white/40 px-4 py-3 text-sm transition-colors hover:bg-white/70 dark:border-white/10 dark:bg-white/3 dark:hover:bg-white/[0.07]"
-                      >
-                        <span>
-                          <span className="block text-xs text-zinc-500 dark:text-zinc-400">
-                            Email
-                          </span>
-                          <span className="mt-0.5 block font-medium">
-                            {SITE.email}
-                          </span>
-                        </span>
-                        <span
-                          aria-hidden
-                          className="text-zinc-400 transition-transform duration-200 group-hover/contact:translate-x-0.5 dark:text-zinc-500"
-                        >
-                          →
-                        </span>
-                      </a>
+                        label="Email"
+                        value={SITE.email}
+                      />
                     </li>
                     <li>
-                      <a
+                      <ContactLink
                         href={SITE.links.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/contact flex items-center justify-between rounded-xl border border-black/10 bg-white/40 px-4 py-3 text-sm transition-colors hover:bg-white/70 dark:border-white/10 dark:bg-white/3 dark:hover:bg-white/[0.07]"
-                      >
-                        <span>
-                          <span className="block text-xs text-zinc-500 dark:text-zinc-400">
-                            GitHub
-                          </span>
-                          <span className="mt-0.5 block font-medium">
-                            @Nikolaj-Hvitfeldt
-                          </span>
-                        </span>
-                        <span
-                          aria-hidden
-                          className="text-zinc-400 transition-transform duration-200 group-hover/contact:translate-x-0.5 dark:text-zinc-500"
-                        >
-                          →
-                        </span>
-                      </a>
+                        label="GitHub"
+                        value="@Nikolaj-Hvitfeldt"
+                        external
+                      />
                     </li>
                     <li>
-                      <a
+                      <ContactLink
                         href={SITE.links.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/contact flex items-center justify-between rounded-xl border border-black/10 bg-white/40 px-4 py-3 text-sm transition-colors hover:bg-white/70 dark:border-white/10 dark:bg-white/3 dark:hover:bg-white/[0.07]"
-                      >
-                        <span>
-                          <span className="block text-xs text-zinc-500 dark:text-zinc-400">
-                            LinkedIn
-                          </span>
-                          <span className="mt-0.5 block font-medium">
-                            nikolaj-hvitfeldt
-                          </span>
-                        </span>
-                        <span
-                          aria-hidden
-                          className="text-zinc-400 transition-transform duration-200 group-hover/contact:translate-x-0.5 dark:text-zinc-500"
-                        >
-                          →
-                        </span>
-                      </a>
+                        label="LinkedIn"
+                        value="nikolaj-hvitfeldt"
+                        external
+                      />
                     </li>
                   </ul>
                 </Block>
@@ -369,5 +324,42 @@ function HomeTile({
         </span>
       </div>
     </Block>
+  );
+}
+
+function ContactLink({
+  href,
+  label,
+  value,
+  external = false,
+}: {
+  href: string;
+  label: string;
+  value: string;
+  external?: boolean;
+}) {
+  const externalProps = external
+    ? { target: "_blank", rel: "noopener noreferrer" as const }
+    : {};
+
+  return (
+    <a
+      href={href}
+      {...externalProps}
+      className="group/contact flex items-center justify-between rounded-xl border border-black/10 bg-white/40 px-4 py-3 text-sm transition-colors hover:bg-white/70 dark:border-white/10 dark:bg-white/3 dark:hover:bg-white/[0.07]"
+    >
+      <span>
+        <span className="block text-xs text-zinc-500 dark:text-zinc-400">
+          {label}
+        </span>
+        <span className="mt-0.5 block font-medium">{value}</span>
+      </span>
+      <span
+        aria-hidden
+        className="text-zinc-400 transition-transform duration-200 group-hover/contact:translate-x-0.5 dark:text-zinc-500"
+      >
+        →
+      </span>
+    </a>
   );
 }

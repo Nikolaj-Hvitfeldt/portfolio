@@ -1,7 +1,6 @@
 {
   "Nav": {
     "primary": "Primær navigation",
-    "back": "Tilbage",
     "home": "Hjem",
     "about": "Om mig",
     "experience": "Erfaring",
@@ -14,9 +13,7 @@
     "eyebrow": "Portfolio",
     "headline": "Softwareudvikler",
     "summary": "Jeg bygger hurtige, tilgængelige webapps med React og TypeScript. Jeg kan godt lide at gøre komplekse problemer enkle og stabile i UI'et.",
-    "availability": "Baseret i {location} · Åben for muligheder",
-    "ctaProjects": "Se projekter",
-    "ctaEmail": "Skriv til mig"
+    "availability": "Baseret i {location} · Åben for muligheder"
   },
   "About": {
     "title": "Om mig",
@@ -29,6 +26,7 @@
     "currentEducationLabel": "Igangværende Uddannelse",
     "currentEducation": "Professionsbachelor i Webudvikling",
     "languagesLabel": "Sprog",
+    "languages": "Dansk (Modersmål), Engelsk (Flydende)",
     "locationLabel": "Lokation",
     "aboutP1": "Jeg er udvikler med base i Aarhus og en baggrund som datamatiker. Jeg har en stor interesse for at bygge velstrukturerede webapplikationer og arbejder gerne på tværs af stacken, men trives især med at udvikle responsive og vedligeholdelige brugergrænseflader i React og TypeScript.",
     "aboutP2": "Min rejse indenfor softwareudvikling begyndte under min datamatikeruddannelse, hvor jeg arbejdede meget med backend, API’er og softwarearkitektur. Undervejs fik jeg dog også en stigende interesse for frontend og brugeroplevelser, og hvordan gode interfaces kan gøre komplekse systemer intuitive at bruge. Det var en af grundene til, at jeg valgte at fortsætte på en bachelor i webudvikling, hvor jeg kan arbejde mere i dybden med moderne webteknologier og frontend-udvikling.",

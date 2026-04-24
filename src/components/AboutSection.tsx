@@ -1,20 +1,22 @@
 "use client";
 
-import { ABOUT_SPECS, ABOUT_TECH_STACK } from "@/lib/about";
-import { Container } from "@/components/Container";
-import { SectionHeading } from "@/components/SectionHeading";
 import { useTranslations } from "next-intl";
+import { Container } from "@/components/Container";
+import { ABOUT_TECH_STACK } from "@/lib/about";
+import { SITE } from "@/lib/site";
 
 export function AboutSection() {
   const t = useTranslations("About");
-  const glassCardClass = "surface-glass p-6 sm:p-8";
+  const glassCard = "surface-glass p-6 sm:p-8";
 
   return (
     <section aria-label={t("title")} className="py-8 sm:py-10 md:py-12">
       <Container className="space-y-6">
-        <div className={glassCardClass}>
-          <SectionHeading title={t("aboutMeTitle")}/>
-          <div className="space-y-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400 sm:text-base">
+        <div className={glassCard}>
+          <h2 className="text-xl font-semibold tracking-tight text-black dark:text-white">
+            {t("aboutMeTitle")}
+          </h2>
+          <div className="mt-4 space-y-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400 sm:text-base">
             <p>{t("aboutP1")}</p>
             <p>{t("aboutP2")}</p>
             <p>{t("aboutP3")}</p>
@@ -22,21 +24,21 @@ export function AboutSection() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
-          <div className={glassCardClass}>
+          <div className={glassCard}>
             <h3 className="text-xl font-semibold tracking-tight">
               {t("specsTitle")}
             </h3>
             <dl className="mt-4 space-y-3 text-sm sm:text-base">
-            <div>
+              <div>
                 <dt className="font-medium">{t("locationLabel")}</dt>
                 <dd className="text-zinc-600 dark:text-zinc-400">
-                  {ABOUT_SPECS.location}
+                  {SITE.location}
                 </dd>
               </div>
               <div>
                 <dt className="font-medium">{t("languagesLabel")}</dt>
                 <dd className="text-zinc-600 dark:text-zinc-400">
-                  {ABOUT_SPECS.languages}
+                  {t("languages")}
                 </dd>
               </div>
               <div>
@@ -54,7 +56,7 @@ export function AboutSection() {
             </dl>
           </div>
 
-          <div className={glassCardClass}>
+          <div className={glassCard}>
             <h3 className="text-xl font-semibold tracking-tight">
               {t("techStackTitle")}
             </h3>

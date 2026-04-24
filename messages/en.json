@@ -1,7 +1,6 @@
 {
   "Nav": {
     "primary": "Primary navigation",
-    "back": "Back",
     "home": "Home",
     "about": "About",
     "experience": "Experience",
@@ -14,9 +13,7 @@
     "eyebrow": "Portfolio",
     "headline": "Software Developer",
     "summary": "I build fast, accessible web apps with React and TypeScript. I enjoy turning complex problems into simple, reliable interfaces.",
-    "availability": "Based in {location} · Open to opportunities",
-    "ctaProjects": "View projects",
-    "ctaEmail": "Email me"
+    "availability": "Based in {location} · Open to opportunities"
   },
   "About": {
     "title": "About",
@@ -29,6 +26,7 @@
     "currentEducationLabel": "Current Education",
     "currentEducation": "Bachelor's Degree in Web Development",
     "languagesLabel": "Languages",
+    "languages": "Danish (Native), English (Fluent)",
     "locationLabel": "Location",
     "aboutP1": "I’m a developer based in Aarhus, Denmark with a background in computer science and a strong interest in building well-structured web applications. I enjoy working across the stack, but especially crafting responsive and maintainable frontends with React and TypeScript.",
     "aboutP2": "My journey into development started during my Datamatiker education, where I focused heavily on backend development, APIs, and software architecture. Since then I’ve continued building projects and exploring modern web technologies while studying for a Bachelor’s degree in Web Development.",
