@@ -334,7 +334,7 @@ export function HomeBentoStack({
   return (
     <div
       ref={stackRef}
-      className="home-bento-avatar-col relative flex h-full min-h-0 flex-col gap-0 md:row-span-2 md:col-start-1"
+      className="home-bento-avatar-col relative flex h-full min-h-0 flex-col gap-2 md:row-span-2 md:col-start-1"
     >
       {items.map((child, index) => {
         const isTop = index === 0;
