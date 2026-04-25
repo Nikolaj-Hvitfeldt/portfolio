@@ -40,7 +40,8 @@
     "title": "Projekter",
     "subtitle": "Personlige projekter jeg har arbejdet på.",
     "view": "Se",
-    "source": "Kildekode"
+    "source": "Kildekode",
+    "wip": "I udvikling"
   },
   "Contact": {
     "title": "Kontakt",
@@ -95,6 +96,11 @@
     "memoir": {
       "title": "Memoir",
       "description": "Midlertidig beskrivelse placeholder."
+    },
+    "contactCta": {
+      "title": "Nyt projekt",
+      "description": "Jeg udforsker hele tiden nye idéer.",
+      "link": "Lad os skrive sammen"
     }
   }
 }

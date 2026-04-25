@@ -40,7 +40,8 @@
     "title": "Projects",
     "subtitle": "Personal projects I've been working on.",
     "view": "View",
-    "source": "Source"
+    "source": "Source",
+    "wip": "WIP"
   },
   "Contact": {
     "title": "Contact",
@@ -95,6 +96,11 @@
     "memoir": {
       "title": "Memoir",
       "description": "Temporary description placeholder."
+    },
+    "contactCta": {
+      "title": "New Project",
+      "description": "I'm always exploring new ideas.",
+      "link": "Let's connect"
     }
   }
 }
