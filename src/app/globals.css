@@ -459,6 +459,45 @@ body {
   z-index: 1;
 }
 
+/* Stack: selectable project cards (opens detail view) */
+.project-stack-card--interactive:hover,
+.project-stack-card--interactive:focus-visible {
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-stack-card--interactive:hover,
+  .project-stack-card--interactive:focus-visible {
+    transform: none;
+  }
+}
+
+/* Project detail: scrollport matches deck list feel */
+.project-details-container {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(82, 82, 91, 0.6) rgba(24, 24, 27, 0.12);
+}
+.dark .project-details-container {
+  scrollbar-color: rgba(161, 161, 170, 0.55) rgba(255, 255, 255, 0.08);
+}
+.project-details-container::-webkit-scrollbar {
+  width: 6px;
+}
+.project-details-container::-webkit-scrollbar-track {
+  border-radius: 9999px;
+  background: rgba(24, 24, 27, 0.12);
+}
+.dark .project-details-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+}
+.project-details-container::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: rgba(82, 82, 91, 0.55);
+}
+.dark .project-details-container::-webkit-scrollbar-thumb {
+  background: rgba(161, 161, 170, 0.45);
+}
+
 /* Projects reduce-motion: native list scroll only (page stays put); bar stays visible. */
 .project-deck-reduce-list {
   scrollbar-gutter: stable;

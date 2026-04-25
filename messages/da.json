@@ -77,25 +77,79 @@
     "email": "E-mail"
   },
   "Project": {
+    "ui": {
+      "back": "Tilbage til projekter",
+      "about": "Om",
+      "keyFeatures": "Højdepunkter",
+      "info": "Info",
+      "tech": "Tech",
+      "viewSource": "Se kildekode",
+      "openLive": "Åbn site",
+      "openLink": "Åbn"
+    },
     "amori": {
       "title": "Amori",
-      "description": "Journal til at tracke milepæle og minder i relationer."
+      "description": "Journal til at tracke milepæle og minder i relationer.",
+      "longAbout": "En privat journal-lignende webapp til at holde styr på milepæle, minder og hverdagsøjeblikke i parforhold. Bygget til at føles hurtig og rar at vende tilbage til, med fokus på indhold frem for støj.",
+      "features": [
+        "Indlæg om særlige datoer og fælles minder",
+        "Enkelt, roligt UI der ikke kommer i vejen",
+        "Typet, vedligeholdelig klient med React og TypeScript",
+        "Data i PostgreSQL"
+      ],
+      "infoYear": "2024",
+      "infoMeta": "Open source"
     },
     "quartermark": {
       "title": "QuarterMark",
-      "description": "Jackbox-inspireret party game til nytår."
+      "description": "Jackbox-inspireret party game til nytår.",
+      "longAbout": "Et realtime party game i Jackbox-stil: en host-skærm og spillere som joiner fra telefoner. Lavet til nytårsaftener med høj energi, med C# og SignalR så alle klienter følger med.",
+      "features": [
+        "Rumkode så mange kan join på én gang",
+        "Realtid game state via SignalR",
+        "Web UI i React, backend på .NET",
+        "Én fælles skærm og mobil som controller"
+      ],
+      "infoYear": "2024",
+      "infoMeta": "Open source"
     },
     "yeetcraft": {
       "title": "Yeetcraft",
-      "description": "Leaderboard tracker til venskabelig banter - tracker fejl paa tvaers af en vennegruppe."
+      "description": "Leaderboard tracker til venskabelig banter - tracker fejl paa tvaers af en vennegruppe.",
+      "longAbout": "En mindre leaderboard til in-game og in-joke 'fejl' i en vennegruppe — bygget til grin først. Stack'en blander Kotlin, React og TanStack for en snappy, typet oplevelse end-to-end.",
+      "features": [
+        "Gruppe-specifikke boards og state",
+        "Web UI i React og TypeScript",
+        "Kotlin services og API'er",
+        "TanStack Query til data og cache"
+      ],
+      "infoYear": "2024",
+      "infoMeta": "Open source"
     },
     "lineup": {
       "title": "LineUp",
-      "description": "Medudvikler af en social + marketplace platform for freelance musikere til at vise skills og blive hyret. Brugte ogsaa projektet som semesterprojekt på bacheloren."
+      "description": "Medudvikler af en social + marketplace platform for freelance musikere til at vise skills og blive hyret. Brugte ogsaa projektet som semesterprojekt på bacheloren.",
+      "longAbout": "En social- og marketproduktidé for freelancere i musik: profiler, discovery og booking-lignende flows. Medudviklet og brugt som semesterprojekt på bacheloren, med moderne stack og realtime hvor det giver mening.",
+      "features": [
+        "Profiler og discovery for musikere og bookere",
+        "Data på Supabase og Realtime for et moderne flow",
+        "TanStack-arkitektur i klienten",
+        "Responsivt interface med Tailwind"
+      ],
+      "infoYear": "2025",
+      "infoMeta": "Bachelor — hold"
     },
     "memoir": {
       "title": "Memoir",
-      "description": "Midlertidig beskrivelse placeholder."
+      "description": "Midlertidig beskrivelse placeholder.",
+      "longAbout": "Et idé-projekt i gang: en rolig, fokuseret oplevelse til læsning og et personligt 'bibliotek' på nettet. Målet er at lande en stærk læseflade, mens konceptet spidses til.",
+      "features": [
+        "WIP: kernedelen af læseflowet er i gang",
+        "Placeholder-indhold mens designet findes frem",
+        "Plan: responsivt layout og theming"
+      ],
+      "infoYear": "—",
+      "infoMeta": "Under udvikling"
     },
     "contactCta": {
       "title": "Nyt projekt",

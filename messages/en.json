@@ -77,25 +77,79 @@
     "email": "Email"
   },
   "Project": {
+    "ui": {
+      "back": "Back to projects",
+      "about": "About",
+      "keyFeatures": "Key features",
+      "info": "Info",
+      "tech": "Tech",
+      "viewSource": "View source",
+      "openLive": "Open live",
+      "openLink": "Open"
+    },
     "amori": {
       "title": "Amori",
-      "description": "Journal for tracking relationship milestones and memories."
+      "description": "Journal for tracking relationship milestones and memories.",
+      "longAbout": "A private journal-style web app for tracking relationship milestones, memories, and day-to-day moments. Built to stay fast and easy to return to, with a clear focus on content over chrome.",
+      "features": [
+        "Entries for special dates and shared memories",
+        "Simple, calm UI that stays out of the way",
+        "Typed, maintainable client with React and TypeScript",
+        "Persisted data with PostgreSQL"
+      ],
+      "infoYear": "2024",
+      "infoMeta": "Open source"
     },
     "quartermark": {
       "title": "QuarterMark",
-      "description": "Jackbox-style party game for New Year's."
+      "description": "Jackbox-style party game for New Year's.",
+      "longAbout": "A Realtime party game in the style of a Jackbox room: one host screen and players join on their phones. Made for high-energy New Year's sessions with C# and SignalR for sync between clients.",
+      "features": [
+        "Room code join flow for many players at once",
+        "Real-time game state via SignalR",
+        "Web UI on React, backend on .NET",
+        "Designed for a single shared screen and mobile controllers"
+      ],
+      "infoYear": "2024",
+      "infoMeta": "Open source"
     },
     "yeetcraft": {
       "title": "Yeetcraft",
-      "description": "Leaderboard tracker for friendly banter - tracks mistakes across a friend group."
+      "description": "Leaderboard tracker for friendly banter - tracks mistakes across a friend group.",
+      "longAbout": "A small-group leaderboard for tracking in-game and in-joke 'mistakes' with friends, built for laughs first and long-running rivalries second. The stack mixes Kotlin, React, and TanStack for a snappy, typed experience end to end.",
+      "features": [
+        "Group-scoped leaderboards and stats",
+        "Web UI in React and TypeScript",
+        "Kotlin service layer and APIs",
+        "TanStack Query for data fetching and cache discipline"
+      ],
+      "infoYear": "2024",
+      "infoMeta": "Open source"
     },
     "lineup": {
       "title": "LineUp",
-      "description": "Co-developed a social + marketplace platform for freelance musicians to showcase skills and get hired. Also used as a bachelor semester project."
+      "description": "Co-developed a social + marketplace platform for freelance musicians to showcase skills and get hired. Also used as a bachelor semester project.",
+      "longAbout": "A social and marketplace product for freelance musicians: profiles, discovery, and booking-style flows. Co-developed and used as a bachelor semester project, with a modern stack and realtime where it matters for messaging and live updates.",
+      "features": [
+        "Profile and discovery for musicians and bookers",
+        "Supabase-backed data and Realtime for modern UX",
+        "TanStack-based client architecture",
+        "Responsive, Tailwind-styled interface"
+      ],
+      "infoYear": "2025",
+      "infoMeta": "Bachelor project — team"
     },
     "memoir": {
       "title": "Memoir",
-      "description": "Temporary description placeholder."
+      "description": "Temporary description placeholder.",
+      "longAbout": "A work-in-progress idea for a rich reading and personal library experience on the web. The goal is a calm, focused surface for long-form text with room to grow as the concept firms up.",
+      "features": [
+        "WIP: core reading flow in progress",
+        "Placeholder content while the design is explored",
+        "Intended: responsive layout and theming"
+      ],
+      "infoYear": "—",
+      "infoMeta": "Work in progress"
     },
     "contactCta": {
       "title": "New Project",

@@ -1,8 +1,12 @@
 export type Project = {
   id: string;
+  /** Public repository or primary project URL. */
   href: string;
+  /** Optional public live site / app URL (separate from source). */
+  liveUrl?: string;
+  /** Tech labels shown in stack card + detail (full detail view). */
   tags: readonly string[];
-  /** Public path under `/public`, e.g. `/Amori-icon.png` */
+  /** Public path under `/public`, e.g. `/amori-icon.png` */
   iconSrc?: string;
   /** Optional per-project image scaling for assets with transparent padding. */
   iconScale?: number;
@@ -89,3 +93,7 @@ export const PROJECTS: readonly Project[] = [
     },
   },
 ] as const;
+
+export function getProjectById(id: string): Project | undefined {
+  return PROJECTS.find((p) => p.id === id);
+}
