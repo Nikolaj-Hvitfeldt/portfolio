@@ -109,7 +109,6 @@ function ProjectStackCard({
   layoutId,
   size,
   reduceMotion,
-  onLayoutAnimationComplete,
   dataProjectCardId,
 }: {
   project: Project;
@@ -121,8 +120,6 @@ function ProjectStackCard({
   size: "stack" | "hero";
   /** When true, skip motion wrapper */
   reduceMotion: boolean;
-  /** Hero: called when shared layout animation completes (details can appear) */
-  onLayoutAnimationComplete?: () => void;
   /** Optional DOM marker for FLIP return targeting in stack mode. */
   dataProjectCardId?: string;
 }) {
@@ -178,7 +175,6 @@ function ProjectStackCard({
       <motion.div
         layout
         layoutId={layoutId}
-        onLayoutAnimationComplete={onLayoutAnimationComplete}
         transition={{
           layout: {
             type: "spring",
@@ -320,7 +316,6 @@ function StackCardLayer({
   selectedIndex,
   selectedFadeActive,
   hideSelectedInStack,
-  selectedTravelY,
 }: {
   variant: "project" | "contact";
   project?: Project;
@@ -337,7 +332,6 @@ function StackCardLayer({
   selectedIndex: number | null;
   selectedFadeActive: boolean;
   hideSelectedInStack: boolean;
-  selectedTravelY: number;
 }) {
   const isSelected =
     variant === "project" && project?.id === selectedProjectId;
@@ -386,15 +380,6 @@ function StackCardLayer({
         >
           {inner}
         </motion.div>
-      ) : isSelected && selectedTravelY !== 0 && !reduceMotion ? (
-        <motion.div
-          initial={false}
-          animate={{ y: selectedTravelY }}
-          transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none"
-        >
-          {inner}
-        </motion.div>
       ) : isSelected && selectedFadeActive && !reduceMotion ? (
         <motion.div
           initial={false}
@@ -428,7 +413,6 @@ function ScrolledStack({
   selectedIndex,
   selectedFadeActive,
   hideSelectedInStack,
-  selectedTravelActive,
 }: {
   onSelectProject: (id: string, sourceEl?: HTMLElement) => void;
   reduceMotion: boolean;
@@ -438,7 +422,6 @@ function ScrolledStack({
   selectedIndex: number | null;
   selectedFadeActive: boolean;
   hideSelectedInStack: boolean;
-  selectedTravelActive: boolean;
 }) {
   const tProject = useTranslations("Project");
   const n = PROJECTS.length + 1;
@@ -481,11 +464,6 @@ function ScrolledStack({
               selectedIndex={selectedIndex}
               selectedFadeActive={selectedFadeActive}
               hideSelectedInStack={hideSelectedInStack}
-              selectedTravelY={
-                selectedTravelActive && project.id === selectedProjectId
-                  ? -120
-                  : 0
-              }
             />
           ))}
           <StackCardLayer
@@ -502,7 +480,6 @@ function ScrolledStack({
             selectedIndex={selectedIndex}
             selectedFadeActive={selectedFadeActive}
             hideSelectedInStack={false}
-            selectedTravelY={0}
           />
         </div>
       </div>
@@ -601,7 +578,6 @@ function ProjectDetailView({
   backButtonRef,
   reduceMotion,
   showDetails,
-  onHeroLayoutAnimationComplete,
   heroTargetRef,
   showHeroCard,
   detailsHidden,
@@ -611,7 +587,6 @@ function ProjectDetailView({
   backButtonRef: React.RefObject<HTMLButtonElement | null>;
   reduceMotion: boolean;
   showDetails: boolean;
-  onHeroLayoutAnimationComplete?: () => void;
   heroTargetRef?: React.RefObject<HTMLDivElement | null>;
   showHeroCard?: boolean;
   detailsHidden?: boolean;
@@ -677,7 +652,6 @@ function ProjectDetailView({
                 size="hero"
                 layoutId={undefined}
                 reduceMotion={reduceMotion}
-                onLayoutAnimationComplete={onHeroLayoutAnimationComplete}
               />
             ) : (
               <div
@@ -851,7 +825,6 @@ function ReducedListStack({
   selectedIndex,
   selectedFadeActive,
   hideSelectedInStack,
-  selectedTravelActive,
 }: {
   onSelectProject: (id: string, sourceEl?: HTMLElement) => void;
   reduceMotion: boolean;
@@ -861,7 +834,6 @@ function ReducedListStack({
   selectedIndex: number | null;
   selectedFadeActive: boolean;
   hideSelectedInStack: boolean;
-  selectedTravelActive: boolean;
 }) {
   const tProject = useTranslations("Project");
   return (
@@ -892,15 +864,6 @@ function ReducedListStack({
                 initial={false}
                 animate={{ opacity: 0, y: isAboveSelected ? -12 : 12 }}
                 transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                className="pointer-events-none"
-              >
-                {card}
-              </motion.div>
-            ) : selectedTravelActive && project.id === selectedProjectId && !reduceMotion ? (
-              <motion.div
-                initial={false}
-                animate={{ y: -120 }}
-                transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
                 className="pointer-events-none"
               >
                 {card}
@@ -966,7 +929,6 @@ export function ProjectsStack({ reduceMotion: reduceMotionProp }: ProjectsStackP
   const [flipFrom, setFlipFrom] = useState<FlipRect | null>(null);
   const [flipTo, setFlipTo] = useState<FlipRect | null>(null);
   const heroTargetRef = useRef<HTMLDivElement>(null);
-  const stageTimerRef = useRef<number | null>(null);
   const backButtonRef = useRef<HTMLButtonElement>(null);
 
   const selected = selectedId ? getProjectById(selectedId) : undefined;
@@ -977,16 +939,8 @@ export function ProjectsStack({ reduceMotion: reduceMotionProp }: ProjectsStackP
   const siblingEnterActive = navPhase === "closing";
   const selectedFadeActive = navPhase === "closing";
   const hideSelectedInStack = navPhase === "flipping";
-  const selectedTravelActive = false;
   const showStack = navPhase !== "detail";
   const showDetail = navPhase !== "list";
-
-  const clearStageTimer = useCallback(() => {
-    if (stageTimerRef.current !== null) {
-      window.clearTimeout(stageTimerRef.current);
-      stageTimerRef.current = null;
-    }
-  }, []);
 
   useLayoutEffect(() => {
     if (!flipFrom || flipTo) {
@@ -1010,7 +964,6 @@ export function ProjectsStack({ reduceMotion: reduceMotionProp }: ProjectsStackP
   }, [navPhase, flipFrom, flipTo, selectedId]);
 
   const onSelectProject = (id: string, sourceEl?: HTMLElement) => {
-    clearStageTimer();
     setSelectedId(id);
     if (reduceMotion || !sourceEl) {
       setNavPhase("detail");
@@ -1026,7 +979,6 @@ export function ProjectsStack({ reduceMotion: reduceMotionProp }: ProjectsStackP
   };
 
   const onBack = useCallback(() => {
-    clearStageTimer();
     if (reduceMotion) {
       setShowDetailsPanel(false);
       setNavPhase("list");
@@ -1053,13 +1005,7 @@ export function ProjectsStack({ reduceMotion: reduceMotionProp }: ProjectsStackP
     });
     setFlipTo(null);
     setNavPhase("closing");
-  }, [reduceMotion, clearStageTimer, selectedId]);
-
-  useEffect(() => {
-    return () => {
-      clearStageTimer();
-    };
-  }, [clearStageTimer]);
+  }, [reduceMotion, selectedId]);
 
   useEffect(() => {
     if (navPhase === "list" && !selectedId) {
@@ -1114,7 +1060,6 @@ export function ProjectsStack({ reduceMotion: reduceMotionProp }: ProjectsStackP
                     selectedIndex={selectedIndex}
                     selectedFadeActive={selectedFadeActive}
                     hideSelectedInStack={hideSelectedInStack}
-                    selectedTravelActive={selectedTravelActive}
                   />
                 ) : (
                   <ScrolledStack
@@ -1126,7 +1071,6 @@ export function ProjectsStack({ reduceMotion: reduceMotionProp }: ProjectsStackP
                     selectedIndex={selectedIndex}
                     selectedFadeActive={selectedFadeActive}
                     hideSelectedInStack={hideSelectedInStack}
-                    selectedTravelActive={selectedTravelActive}
                   />
                 )}
               </motion.div>
@@ -1148,7 +1092,6 @@ export function ProjectsStack({ reduceMotion: reduceMotionProp }: ProjectsStackP
                   backButtonRef={backButtonRef}
                   reduceMotion={reduceMotion}
                   showDetails={showDetailsPanel}
-                  onHeroLayoutAnimationComplete={undefined}
                   heroTargetRef={heroTargetRef}
                   showHeroCard={navPhase === "detail"}
                   detailsHidden={navPhase === "flipping"}
