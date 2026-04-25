@@ -7,7 +7,7 @@ import {
   motion,
 } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useMessages, useTranslations } from "next-intl";
 import { useDeckRailViewportBox } from "@/hooks/useDeckRailViewportBox";
 import { useDeckScrollProgress } from "@/hooks/useDeckScrollProgress";
@@ -19,6 +19,7 @@ import {
   H_CARD_BLOCK_PX,
 } from "@/lib/projectDeck";
 import { getProjectById, PROJECTS, type Project } from "@/lib/projects";
+import { techTagIconForLabel } from "@/lib/techTagIcons";
 
 function isExternalHref(href: string) {
   return href.startsWith("http://") || href.startsWith("https://");
@@ -98,6 +99,7 @@ const shellBaseClass =
 const stackSizeClass = "max-w-[32.5rem]";
 /** Keep the focused card at the same visual size as in the stack. */
 const heroSizeClass = "max-w-[32.5rem]";
+const detailContentMaxClass = "max-w-[32.5rem]";
 
 function ProjectStackCard({
   project,
@@ -107,16 +109,22 @@ function ProjectStackCard({
   layoutId,
   size,
   reduceMotion,
+  onLayoutAnimationComplete,
+  dataProjectCardId,
 }: {
   project: Project;
   title: string;
   description: string;
-  onSelect?: () => void;
+  onSelect?: (el: HTMLElement) => void;
   /** Shared layout for stack ↔ detail */
   layoutId?: string;
   size: "stack" | "hero";
   /** When true, skip motion wrapper */
   reduceMotion: boolean;
+  /** Hero: called when shared layout animation completes (details can appear) */
+  onLayoutAnimationComplete?: () => void;
+  /** Optional DOM marker for FLIP return targeting in stack mode. */
+  dataProjectCardId?: string;
 }) {
   const { stackTheme, href } = project;
   const onLight = stackTheme.textTone === "onLight";
@@ -170,12 +178,13 @@ function ProjectStackCard({
       <motion.div
         layout
         layoutId={layoutId}
+        onLayoutAnimationComplete={onLayoutAnimationComplete}
         transition={{
           layout: {
             type: "spring",
-            stiffness: 280,
-            damping: 30,
-            mass: 0.78,
+            stiffness: 145,
+            damping: 24,
+            mass: 1.08,
           },
         }}
         className={`${combinedClass} z-0`}
@@ -193,8 +202,9 @@ function ProjectStackCard({
         type="button"
         className={`${combinedClass} z-0 text-left project-stack-card--interactive`}
         style={dimStyle}
-        onClick={onSelect}
+        onClick={(e) => onSelect?.(e.currentTarget)}
         aria-label={title}
+        data-project-card-id={dataProjectCardId}
       >
         {inner}
       </button>
@@ -209,15 +219,16 @@ function ProjectStackCard({
       transition={{
         layout: {
           type: "spring",
-          stiffness: 280,
-          damping: 30,
-          mass: 0.78,
+          stiffness: 145,
+          damping: 24,
+          mass: 1.08,
         },
       }}
       className={`${combinedClass} z-0 text-left project-stack-card--interactive cursor-pointer`}
       style={dimStyle}
-      onClick={onSelect}
+      onClick={(e) => onSelect?.(e.currentTarget)}
       aria-label={title}
+      data-project-card-id={dataProjectCardId}
     >
       {inner}
     </motion.button>
@@ -298,40 +309,111 @@ function StackCardLayer({
   project,
   title,
   description,
+  index,
   y,
   zIndex,
   onSelectProject,
   reduceMotion,
+  siblingExitActive,
+  siblingEnterActive,
+  selectedProjectId,
+  selectedIndex,
+  selectedFadeActive,
+  hideSelectedInStack,
+  selectedTravelY,
 }: {
   variant: "project" | "contact";
   project?: Project;
   title?: string;
   description?: string;
+  index: number;
   y: number;
   zIndex: number;
-  onSelectProject: (id: string) => void;
+  onSelectProject: (id: string, sourceEl?: HTMLElement) => void;
   reduceMotion: boolean;
+  siblingExitActive: boolean;
+  siblingEnterActive: boolean;
+  selectedProjectId: string | null;
+  selectedIndex: number | null;
+  selectedFadeActive: boolean;
+  hideSelectedInStack: boolean;
+  selectedTravelY: number;
 }) {
+  const isSelected =
+    variant === "project" && project?.id === selectedProjectId;
+  if (isSelected && hideSelectedInStack) {
+    return null;
+  }
+  const exitThis =
+    siblingExitActive &&
+    (variant === "contact" ||
+      (variant === "project" &&
+        project &&
+        project.id !== selectedProjectId));
+  const isAboveSelected =
+    selectedIndex !== null ? index < selectedIndex : false;
+
+  const inner =
+    variant === "contact" ? (
+      <ContactCtaStackCard />
+    ) : (
+      <ProjectStackCard
+        project={project!}
+        title={title!}
+        description={description!}
+        onSelect={(el) => onSelectProject(project!.id, el)}
+        layoutId={reduceMotion ? undefined : `project-card-${project!.id}`}
+        size="stack"
+        reduceMotion={reduceMotion}
+        dataProjectCardId={project!.id}
+      />
+    );
+
   return (
     <div
-      className="absolute top-0 left-0 right-0 w-full transform-gpu will-change-transform [backface-visibility:hidden]"
+      className="absolute top-0 left-0 right-0 w-full transform-gpu will-change-transform backface-hidden"
       style={{
         zIndex,
         transform: `translate3d(0, ${y}px, 0)`,
       }}
     >
-      {variant === "contact" ? (
-        <ContactCtaStackCard />
+      {exitThis && !reduceMotion ? (
+        <motion.div
+          initial={false}
+          animate={{ opacity: 0, y: isAboveSelected ? -12 : 12 }}
+          transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none"
+        >
+          {inner}
+        </motion.div>
+      ) : isSelected && selectedTravelY !== 0 && !reduceMotion ? (
+        <motion.div
+          initial={false}
+          animate={{ y: selectedTravelY }}
+          transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none"
+        >
+          {inner}
+        </motion.div>
+      ) : isSelected && selectedFadeActive && !reduceMotion ? (
+        <motion.div
+          initial={false}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none"
+        >
+          {inner}
+        </motion.div>
+      ) : siblingEnterActive && !isSelected && !reduceMotion ? (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {inner}
+        </motion.div>
       ) : (
-        <ProjectStackCard
-          project={project!}
-          title={title!}
-          description={description!}
-          onSelect={() => onSelectProject(project!.id)}
-          layoutId={reduceMotion ? undefined : `project-card-${project!.id}`}
-          size="stack"
-          reduceMotion={reduceMotion}
-        />
+        inner
       )}
     </div>
   );
@@ -340,9 +422,23 @@ function StackCardLayer({
 function ScrolledStack({
   onSelectProject,
   reduceMotion,
+  siblingExitActive,
+  siblingEnterActive,
+  selectedProjectId,
+  selectedIndex,
+  selectedFadeActive,
+  hideSelectedInStack,
+  selectedTravelActive,
 }: {
-  onSelectProject: (id: string) => void;
+  onSelectProject: (id: string, sourceEl?: HTMLElement) => void;
   reduceMotion: boolean;
+  siblingExitActive: boolean;
+  siblingEnterActive: boolean;
+  selectedProjectId: string | null;
+  selectedIndex: number | null;
+  selectedFadeActive: boolean;
+  hideSelectedInStack: boolean;
+  selectedTravelActive: boolean;
 }) {
   const tProject = useTranslations("Project");
   const n = PROJECTS.length + 1;
@@ -374,19 +470,39 @@ function ScrolledStack({
               project={project}
               title={tProject(`${project.id}.title`)}
               description={tProject(`${project.id}.description`)}
+              index={index}
               y={cardYpx(index, p, n)}
               zIndex={cardZIndex(index, p, n)}
               onSelectProject={onSelectProject}
               reduceMotion={reduceMotion}
+              siblingExitActive={siblingExitActive}
+              siblingEnterActive={siblingEnterActive}
+              selectedProjectId={selectedProjectId}
+              selectedIndex={selectedIndex}
+              selectedFadeActive={selectedFadeActive}
+              hideSelectedInStack={hideSelectedInStack}
+              selectedTravelY={
+                selectedTravelActive && project.id === selectedProjectId
+                  ? -120
+                  : 0
+              }
             />
           ))}
           <StackCardLayer
             key="contact-deck-cta"
             variant="contact"
+            index={PROJECTS.length}
             y={cardYpx(PROJECTS.length, p, n)}
             zIndex={cardZIndex(PROJECTS.length, p, n)}
             onSelectProject={onSelectProject}
             reduceMotion={reduceMotion}
+            siblingExitActive={siblingExitActive}
+            siblingEnterActive={siblingEnterActive}
+            selectedProjectId={selectedProjectId}
+            selectedIndex={selectedIndex}
+            selectedFadeActive={selectedFadeActive}
+            hideSelectedInStack={false}
+            selectedTravelY={0}
           />
         </div>
       </div>
@@ -468,18 +584,37 @@ function CalendarIcon({ className }: { className?: string }) {
   );
 }
 
+function TechPill({ tag }: { tag: string }) {
+  return (
+    <span
+      className={`${fontSans.className} inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-2.5 py-1 text-xs font-medium text-zinc-800 shadow-sm dark:border-white/10 dark:bg-white dark:text-zinc-900`}
+    >
+      {techTagIconForLabel(tag)}
+      <span>{tag}</span>
+    </span>
+  );
+}
+
 function ProjectDetailView({
   project,
   onBack,
   backButtonRef,
   reduceMotion,
   showDetails,
+  onHeroLayoutAnimationComplete,
+  heroTargetRef,
+  showHeroCard,
+  detailsHidden,
 }: {
   project: Project;
   onBack: () => void;
   backButtonRef: React.RefObject<HTMLButtonElement | null>;
   reduceMotion: boolean;
   showDetails: boolean;
+  onHeroLayoutAnimationComplete?: () => void;
+  heroTargetRef?: React.RefObject<HTMLDivElement | null>;
+  showHeroCard?: boolean;
+  detailsHidden?: boolean;
 }) {
   const tProject = useTranslations("Project");
   const id = project.id;
@@ -496,8 +631,9 @@ function ProjectDetailView({
 
   return (
     <div className="project-details-root flex w-full min-w-0 flex-1 flex-col gap-0 pb-6">
-      <div className="w-full min-w-0 max-w-5xl shrink-0 px-0 pr-4 sm:pr-6">
-        <div className="mb-2 flex justify-center sm:justify-center">
+      <div className="mx-auto w-full min-w-0 shrink-0 px-0 pr-4 sm:pr-6">
+        <div className={`mx-auto w-full min-w-0 ${detailContentMaxClass}`}>
+        <div className="mb-2 flex w-full justify-start">
           <button
             ref={backButtonRef}
             type="button"
@@ -525,17 +661,32 @@ function ProjectDetailView({
           </button>
         </div>
 
-        <div className="mt-0 flex w-full max-w-5xl justify-center sm:px-0">
-          <div className="w-full min-w-0 max-w-[32.5rem]">
-            <ProjectStackCard
-              project={project}
-              title={title}
-              description={shortDesc}
-              size="hero"
-              layoutId={reduceMotion ? undefined : `project-card-${id}`}
-              reduceMotion={reduceMotion}
-            />
-          </div>
+        <div className="mt-0 flex w-full justify-center sm:px-0">
+          <motion.div
+            ref={heroTargetRef}
+            className={`w-full min-w-0 ${detailContentMaxClass}`}
+            initial={false}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0 }}
+          >
+            {showHeroCard ? (
+              <ProjectStackCard
+                project={project}
+                title={title}
+                description={shortDesc}
+                size="hero"
+                layoutId={undefined}
+                reduceMotion={reduceMotion}
+                onLayoutAnimationComplete={onHeroLayoutAnimationComplete}
+              />
+            ) : (
+              <div
+                aria-hidden
+                style={{ minHeight: H_CARD_BLOCK_PX, height: H_CARD_BLOCK_PX }}
+              />
+            )}
+          </motion.div>
+        </div>
         </div>
       </div>
 
@@ -543,15 +694,28 @@ function ProjectDetailView({
         {showDetails ? (
           <motion.div
             key="project-details-panel"
-            className="project-details-panel w-full min-w-0 max-w-5xl flex-1 px-0 pr-4 pt-4 sm:pr-6"
-            initial={reduceMotion ? false : { opacity: 0, x: 18 }}
-            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
-            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: 10 }}
-            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            className={`project-details-panel mx-auto w-full min-w-0 flex-1 px-0 pr-4 pt-4 sm:pr-6 ${detailsHidden ? "pointer-events-none" : ""}`}
+            initial={false}
+            animate={
+              reduceMotion
+                ? { opacity: detailsHidden ? 0 : 1, x: 0 }
+                : detailsHidden
+                  ? { opacity: 0, x: 14 }
+                  : { opacity: 1, x: 0 }
+            }
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: 8 }}
+            transition={
+              reduceMotion || detailsHidden
+                ? { duration: 0 }
+                : { duration: 0.32, delay: 0.04, ease: [0.22, 1, 0.36, 1] }
+            }
             role="region"
             aria-label={title}
+            aria-hidden={detailsHidden ? true : undefined}
           >
-            <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:gap-x-12">
+            <div
+              className={`mx-auto grid w-full min-w-0 ${detailContentMaxClass} gap-8 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:gap-x-8`}
+            >
           <div className="min-w-0 space-y-6">
             <section>
               <h2
@@ -652,37 +816,21 @@ function ProjectDetailView({
               <ul className="mt-3 flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                   <li key={tag}>
-                    <span
-                      className={`${fontSans.className} inline-flex rounded-full border border-black/10 bg-zinc-100/80 px-3 py-1 text-xs font-medium text-zinc-800 dark:border-white/10 dark:bg-white/5 dark:text-zinc-200`}
-                    >
-                      {tag}
-                    </span>
+                    <TechPill tag={tag} />
                   </li>
                 ))}
               </ul>
             </section>
-            {canSource || canLive ? (
+            {canLive && project.liveUrl ? (
               <div className="flex flex-wrap gap-2 pt-1">
-                {canSource ? (
-                  <a
-                    href={project.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${fontSans.className} project-details-cta inline-flex items-center justify-center rounded-xl border border-black/10 bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 dark:border-white/10 dark:bg-white/10 dark:hover:bg-white/20`}
-                  >
-                    {tProject("ui.viewSource")}
-                  </a>
-                ) : null}
-                {canLive && project.liveUrl ? (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${fontSans.className} project-details-cta inline-flex items-center justify-center rounded-xl border border-black/10 bg-white/50 px-4 py-2.5 text-sm font-medium text-zinc-900 transition hover:bg-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100 dark:hover:bg-white/10`}
-                  >
-                    {tProject("ui.openLive")}
-                  </a>
-                ) : null}
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${fontSans.className} project-details-cta inline-flex items-center justify-center rounded-xl border border-black/10 bg-white/50 px-4 py-2.5 text-sm font-medium text-zinc-900 transition hover:bg-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100 dark:hover:bg-white/10`}
+                >
+                  {tProject("ui.openLive")}
+                </a>
               </div>
             ) : null}
           </div>
@@ -697,140 +845,301 @@ function ProjectDetailView({
 function ReducedListStack({
   onSelectProject,
   reduceMotion,
+  siblingExitActive,
+  siblingEnterActive,
+  selectedProjectId,
+  selectedIndex,
+  selectedFadeActive,
+  hideSelectedInStack,
+  selectedTravelActive,
 }: {
-  onSelectProject: (id: string) => void;
+  onSelectProject: (id: string, sourceEl?: HTMLElement) => void;
   reduceMotion: boolean;
+  siblingExitActive: boolean;
+  siblingEnterActive: boolean;
+  selectedProjectId: string | null;
+  selectedIndex: number | null;
+  selectedFadeActive: boolean;
+  hideSelectedInStack: boolean;
+  selectedTravelActive: boolean;
 }) {
   const tProject = useTranslations("Project");
   return (
     <ul className="project-deck-reduce-list mx-auto flex h-full min-h-0 w-full max-w-[32.5rem] list-none flex-col gap-5 overflow-y-auto overflow-x-hidden p-0 pr-0.5 sm:gap-6">
-      {PROJECTS.map((project) => (
-        <li key={project.id}>
+      {PROJECTS.map((project, index) => {
+        const exitThis =
+          siblingExitActive && project.id !== selectedProjectId;
+        if (hideSelectedInStack && project.id === selectedProjectId) {
+          return null;
+        }
+        const isAboveSelected =
+          selectedIndex !== null ? index < selectedIndex : false;
+        const card = (
           <ProjectStackCard
             project={project}
             title={tProject(`${project.id}.title`)}
             description={tProject(`${project.id}.description`)}
-            onSelect={() => onSelectProject(project.id)}
+            onSelect={(el) => onSelectProject(project.id, el)}
             size="stack"
             reduceMotion={reduceMotion}
+            dataProjectCardId={project.id}
           />
-        </li>
-      ))}
+        );
+        return (
+          <li key={project.id}>
+            {exitThis && !reduceMotion ? (
+              <motion.div
+                initial={false}
+                animate={{ opacity: 0, y: isAboveSelected ? -12 : 12 }}
+                transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                className="pointer-events-none"
+              >
+                {card}
+              </motion.div>
+            ) : selectedTravelActive && project.id === selectedProjectId && !reduceMotion ? (
+              <motion.div
+                initial={false}
+                animate={{ y: -120 }}
+                transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+                className="pointer-events-none"
+              >
+                {card}
+              </motion.div>
+            ) : selectedFadeActive && project.id === selectedProjectId && !reduceMotion ? (
+              <motion.div
+                initial={false}
+                animate={{ opacity: 0 }}
+                transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                className="pointer-events-none"
+              >
+                {card}
+              </motion.div>
+            ) : siblingEnterActive && project.id !== selectedProjectId && !reduceMotion ? (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {card}
+              </motion.div>
+            ) : (
+              card
+            )}
+          </li>
+        );
+      })}
       <li key="contact-deck-cta">
-        <ContactCtaStackCard />
+        {siblingExitActive && !reduceMotion ? (
+          <motion.div
+            initial={false}
+            animate={{ opacity: 0, y: 12 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            className="pointer-events-none"
+          >
+            <ContactCtaStackCard />
+          </motion.div>
+        ) : siblingEnterActive && !reduceMotion ? (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <ContactCtaStackCard />
+          </motion.div>
+        ) : (
+          <ContactCtaStackCard />
+        )}
       </li>
     </ul>
   );
 }
 
+type NavPhase = "list" | "flipping" | "detail" | "closing";
+type FlipRect = { x: number; y: number; width: number; height: number };
+
 export function ProjectsStack({ reduceMotion: reduceMotionProp }: ProjectsStackProps) {
   const reduceMotion = !!reduceMotionProp;
+  const tProject = useTranslations("Project");
+  const [navPhase, setNavPhase] = useState<NavPhase>("list");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [showDetailsPanel, setShowDetailsPanel] = useState(false);
+  const [flipFrom, setFlipFrom] = useState<FlipRect | null>(null);
+  const [flipTo, setFlipTo] = useState<FlipRect | null>(null);
+  const heroTargetRef = useRef<HTMLDivElement>(null);
+  const stageTimerRef = useRef<number | null>(null);
   const backButtonRef = useRef<HTMLButtonElement>(null);
-  const selected = selectedId
-    ? getProjectById(selectedId)
-    : undefined;
 
-  useEffect(() => {
-    if (!selectedId) {
-      setShowDetailsPanel(false);
+  const selected = selectedId ? getProjectById(selectedId) : undefined;
+  const selectedIndex = selectedId
+    ? PROJECTS.findIndex((p) => p.id === selectedId)
+    : null;
+  const siblingExitActive = navPhase === "flipping";
+  const siblingEnterActive = navPhase === "closing";
+  const selectedFadeActive = navPhase === "closing";
+  const hideSelectedInStack = navPhase === "flipping";
+  const selectedTravelActive = false;
+  const showStack = navPhase !== "detail";
+  const showDetail = navPhase !== "list";
+
+  const clearStageTimer = useCallback(() => {
+    if (stageTimerRef.current !== null) {
+      window.clearTimeout(stageTimerRef.current);
+      stageTimerRef.current = null;
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!flipFrom || flipTo) {
       return;
     }
+    if (navPhase === "flipping" && heroTargetRef.current) {
+      const r = heroTargetRef.current.getBoundingClientRect();
+      setFlipTo({ x: r.left, y: r.top, width: r.width, height: r.height });
+      return;
+    }
+    if (navPhase === "closing" && selectedId) {
+      const target = document.querySelector<HTMLElement>(
+        `[data-project-card-id="${selectedId}"]`,
+      );
+      if (!target) {
+        return;
+      }
+      const r = target.getBoundingClientRect();
+      setFlipTo({ x: r.left, y: r.top, width: r.width, height: r.height });
+    }
+  }, [navPhase, flipFrom, flipTo, selectedId]);
+
+  const onSelectProject = (id: string, sourceEl?: HTMLElement) => {
+    clearStageTimer();
+    setSelectedId(id);
+    if (reduceMotion || !sourceEl) {
+      setNavPhase("detail");
+      setShowDetailsPanel(true);
+      return;
+    }
+    const r = sourceEl.getBoundingClientRect();
+    setFlipFrom({ x: r.left, y: r.top, width: r.width, height: r.height });
+    setFlipTo(null);
+    /** render hidden details layout during FLIP so destination matches final y */
+    setShowDetailsPanel(true);
+    setNavPhase("flipping");
+  };
+
+  const onBack = useCallback(() => {
+    clearStageTimer();
     if (reduceMotion) {
-      setShowDetailsPanel(true);
+      setShowDetailsPanel(false);
+      setNavPhase("list");
+      setSelectedId(null);
+      setFlipFrom(null);
+      setFlipTo(null);
       return;
     }
-    const t = window.setTimeout(() => {
-      setShowDetailsPanel(true);
-    }, 260);
-    return () => window.clearTimeout(t);
-  }, [selectedId, reduceMotion]);
+    const heroRect = heroTargetRef.current?.getBoundingClientRect();
+    if (!heroRect || !selectedId) {
+      setShowDetailsPanel(false);
+      setNavPhase("list");
+      setSelectedId(null);
+      setFlipFrom(null);
+      setFlipTo(null);
+      return;
+    }
+    setShowDetailsPanel(false);
+    setFlipFrom({
+      x: heroRect.left,
+      y: heroRect.top,
+      width: heroRect.width,
+      height: heroRect.height,
+    });
+    setFlipTo(null);
+    setNavPhase("closing");
+  }, [reduceMotion, clearStageTimer, selectedId]);
 
   useEffect(() => {
-    if (!selectedId) {
+    return () => {
+      clearStageTimer();
+    };
+  }, [clearStageTimer]);
+
+  useEffect(() => {
+    if (navPhase === "list" && !selectedId) {
       return;
     }
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setSelectedId(null);
+        e.preventDefault();
+        onBack();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [selectedId]);
+  }, [navPhase, selectedId, onBack]);
 
   useEffect(() => {
-    if (selectedId && showDetailsPanel && backButtonRef.current) {
-      const id = requestAnimationFrame(() => {
-        backButtonRef.current?.focus();
-      });
+    if (navPhase === "detail" && showDetailsPanel && backButtonRef.current) {
+      const id = requestAnimationFrame(() => backButtonRef.current?.focus());
       return () => cancelAnimationFrame(id);
     }
-  }, [selectedId, showDetailsPanel]);
+  }, [navPhase, showDetailsPanel]);
 
-  const onSelectProject = (id: string) => {
-    setShowDetailsPanel(false);
-    setSelectedId(id);
-  };
-
-  const onBack = () => {
-    setShowDetailsPanel(false);
-    if (reduceMotion) {
-      setSelectedId(null);
-      return;
-    }
-    window.setTimeout(() => {
-      setSelectedId(null);
-    }, 120);
-  };
+  const flipTitle = selectedId ? tProject(`${selectedId}.title`) : "";
+  const flipDescription = selectedId ? tProject(`${selectedId}.description`) : "";
 
   return (
-    <div
-      className={
-        selectedId
-          ? "project-details-container flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden"
-          : "flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden"
-      }
-    >
+    <div className="project-details-container relative flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden">
       <MotionConfig
         transition={
           reduceMotion
             ? { duration: 0 }
-            : { type: "spring", stiffness: 250, damping: 28, mass: 0.8 }
+            : { type: "spring", stiffness: 230, damping: 30, mass: 0.92 }
         }
       >
         <LayoutGroup>
-          <AnimatePresence initial={false} mode="wait">
-            {!selectedId ? (
+          <AnimatePresence initial={false} mode="sync">
+            {showStack ? (
               <motion.div
                 key="stack"
                 className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
                 initial={false}
-                exit={{ opacity: 0, y: 30 }}
-                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                animate={{ opacity: navPhase === "flipping" ? 0.58 : 1 }}
+                transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
               >
                 {reduceMotion ? (
                   <ReducedListStack
                     onSelectProject={onSelectProject}
                     reduceMotion
+                    siblingExitActive={siblingExitActive}
+                    siblingEnterActive={siblingEnterActive}
+                    selectedProjectId={selectedId}
+                    selectedIndex={selectedIndex}
+                    selectedFadeActive={selectedFadeActive}
+                    hideSelectedInStack={hideSelectedInStack}
+                    selectedTravelActive={selectedTravelActive}
                   />
                 ) : (
                   <ScrolledStack
                     onSelectProject={onSelectProject}
                     reduceMotion={false}
+                    siblingExitActive={siblingExitActive}
+                    siblingEnterActive={siblingEnterActive}
+                    selectedProjectId={selectedId}
+                    selectedIndex={selectedIndex}
+                    selectedFadeActive={selectedFadeActive}
+                    hideSelectedInStack={hideSelectedInStack}
+                    selectedTravelActive={selectedTravelActive}
                   />
                 )}
               </motion.div>
             ) : null}
-            {selectedId && selected ? (
+
+            {showDetail && selectedId && selected ? (
               <motion.div
                 key="detail"
-                className="flex min-w-0 flex-1 flex-col"
+                className={`absolute inset-0 z-30 flex min-w-0 flex-col ${navPhase === "flipping" ? "pointer-events-none" : ""}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
               >
                 <ProjectDetailView
                   key={selectedId}
@@ -839,10 +1148,61 @@ export function ProjectsStack({ reduceMotion: reduceMotionProp }: ProjectsStackP
                   backButtonRef={backButtonRef}
                   reduceMotion={reduceMotion}
                   showDetails={showDetailsPanel}
+                  onHeroLayoutAnimationComplete={undefined}
+                  heroTargetRef={heroTargetRef}
+                  showHeroCard={navPhase === "detail"}
+                  detailsHidden={navPhase === "flipping"}
                 />
               </motion.div>
             ) : null}
           </AnimatePresence>
+
+          {!reduceMotion &&
+          (navPhase === "flipping" || navPhase === "closing") &&
+          selected &&
+          flipFrom &&
+          flipTo ? (
+            <motion.div
+              initial={{
+                position: "fixed",
+                left: flipFrom.x,
+                top: flipFrom.y,
+                width: flipFrom.width,
+                height: flipFrom.height,
+                zIndex: 80,
+                pointerEvents: "none",
+              }}
+              animate={{
+                left: flipTo.x,
+                top: flipTo.y,
+                width: flipTo.width,
+                height: flipTo.height,
+              }}
+              transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
+              onAnimationComplete={() => {
+                if (navPhase === "flipping") {
+                  setNavPhase("detail");
+                  setShowDetailsPanel(true);
+                  setFlipFrom(null);
+                  setFlipTo(null);
+                  return;
+                }
+                setNavPhase("list");
+                setShowDetailsPanel(false);
+                setSelectedId(null);
+                setFlipFrom(null);
+                setFlipTo(null);
+              }}
+            >
+              <ProjectStackCard
+                project={selected}
+                title={flipTitle}
+                description={flipDescription}
+                size="hero"
+                reduceMotion
+              />
+            </motion.div>
+          ) : null}
         </LayoutGroup>
       </MotionConfig>
     </div>

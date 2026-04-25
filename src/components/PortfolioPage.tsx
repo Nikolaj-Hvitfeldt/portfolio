@@ -177,7 +177,7 @@ export function PortfolioPage() {
                 </a>
               </div>
               <div
-                className="mx-auto flex min-h-0 w-full min-w-0 max-w-5xl flex-1 flex-col overflow-hidden pl-6 pr-0 pt-2 pb-1"
+                className="project-details-container mx-auto flex min-h-0 w-full min-w-0 max-w-5xl flex-1 flex-col overflow-x-hidden overflow-y-hidden pl-6 pr-0 pt-2 pb-1"
                 role="region"
                 aria-label={tProjects("title")}
               >
