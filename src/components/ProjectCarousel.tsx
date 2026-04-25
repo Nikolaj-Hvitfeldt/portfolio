@@ -27,7 +27,7 @@ export function ProjectCarousel({ projects }: { projects: readonly Project[] }) 
           return (
             <div
               key={`${project.id}-${idx}`}
-              className="project-icon-chip relative h-[68px] w-[68px] shrink-0 overflow-hidden sm:h-20 sm:w-20"
+              className="project-stack-icon-tile relative h-[68px] w-[68px] shrink-0 overflow-hidden rounded-2xl bg-linear-to-b from-zinc-800 to-zinc-950 sm:h-20 sm:w-20"
               title={title}
             >
               {src ? (
@@ -45,7 +45,7 @@ export function ProjectCarousel({ projects }: { projects: readonly Project[] }) 
                 />
               ) : (
                 <span
-                  className="flex h-full w-full items-center justify-center text-[30px] leading-none sm:text-[36px]"
+                  className="flex h-full w-full items-center justify-center text-[30px] leading-none text-white/95 sm:text-[36px]"
                   aria-hidden
                 >
                   {project.icon ?? fallback}

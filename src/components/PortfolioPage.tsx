@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -10,8 +11,8 @@ import { ContactCardBubbles } from "@/components/ContactCardBubbles";
 import { Container } from "@/components/Container";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
-import { ProjectCard } from "@/components/ProjectCard";
 import { ProjectCarousel } from "@/components/ProjectCarousel";
+import { ProjectsStack } from "@/components/ProjectsStack";
 import { HomeBentoStack } from "@/components/HomeBentoStack";
 import { ShootingStars } from "@/components/ShootingStars";
 import { SideNav, type View } from "@/components/SideNav";
@@ -34,9 +35,9 @@ function parseHash(hash: string): View {
 }
 
 export function PortfolioPage() {
+  const pathname = usePathname();
   const tHero = useTranslations("Hero");
   const tProjects = useTranslations("Projects");
-  const tProject = useTranslations("Project");
   const tAbout = useTranslations("About");
   const tWork = useTranslations("WorkExperience");
   const tContact = useTranslations("Contact");
@@ -65,10 +66,31 @@ export function PortfolioPage() {
     window.location.hash = nextView;
   };
 
+  const goHome = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (
+      e.defaultPrevented ||
+      e.button !== 0 ||
+      e.metaKey ||
+      e.ctrlKey ||
+      e.shiftKey ||
+      e.altKey
+    ) {
+      return;
+    }
+    e.preventDefault();
+    navigateTo("home");
+  };
+
+  const isProjects = view === "projects";
+
   return (
     <div
       id="top"
-      className="relative flex min-h-screen flex-col overflow-x-hidden bg-zinc-50 text-zinc-900 dark:bg-[#05071a] dark:text-zinc-50"
+      className={
+        isProjects
+          ? "relative flex h-dvh max-h-dvh min-h-0 flex-col overflow-x-clip overflow-y-hidden bg-zinc-50 text-zinc-900 dark:bg-[#05071a] dark:text-zinc-50"
+          : "relative flex min-h-dvh flex-col overflow-x-clip bg-zinc-50 text-zinc-900 dark:bg-[#05071a] dark:text-zinc-50"
+      }
     >
       <div
         aria-hidden
@@ -92,23 +114,38 @@ export function PortfolioPage() {
         <LocaleSwitcher />
       </div>
 
-      <main className="relative z-10 flex-1 pb-24 md:pb-0 md:pl-16 lg:pl-20">
-        <section
-          className="flex min-h-0 flex-col items-center justify-center px-6 py-10 sm:py-12 md:py-14"
-          aria-label="Introduction"
-        >
-          <h1
-            className={`font-bento-serif ${fontDisplay.className} text-center text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl`}
+      <main
+        className={
+          isProjects
+            ? "relative z-10 flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden pb-0 md:pl-16 lg:pl-20"
+            : "relative z-10 w-full flex-1 pb-24 md:pb-0 md:pl-16 lg:pl-20"
+        }
+      >
+        {view === "projects" ? null : (
+          <section
+            className="flex min-h-0 flex-col items-center justify-center px-6 py-10 sm:py-12 md:py-14"
+            aria-label="Introduction"
           >
-            {SITE.name}
-          </h1>
-          <h2
-            className={`${fontSans.className} mt-3 text-center text-lg font-normal text-zinc-600 dark:text-zinc-400 sm:text-xl md:text-2xl`}
-          >
-            {tHero("headline")}
-          </h2>
-        </section>
+            <h1
+              className={`font-bento-serif ${fontDisplay.className} text-center text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl`}
+            >
+              {SITE.name}
+            </h1>
+            <h2
+              className={`${fontSans.className} mt-3 text-center text-lg font-normal text-zinc-600 dark:text-zinc-400 sm:text-xl md:text-2xl`}
+            >
+              {tHero("headline")}
+            </h2>
+          </section>
+        )}
 
+        <div
+          className={
+            isProjects
+              ? "flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden"
+              : "contents"
+          }
+        >
         <AnimatePresence mode="wait" initial={false}>
           {view === "about" ? (
             <ViewPanel key="about" reduceMotion={!!reduceMotion}>
@@ -117,38 +154,36 @@ export function PortfolioPage() {
           ) : null}
 
           {view === "projects" ? (
-            <ViewPanel key="projects" reduceMotion={!!reduceMotion}>
-              <Container className="space-y-6 py-8 sm:py-10 md:py-12">
-                <div>
+            <div
+              key="projects"
+              className="flex w-full min-w-0 min-h-0 flex-1 flex-col overflow-hidden"
+            >
+              <div className="mx-auto w-full min-w-0 max-w-5xl shrink-0 px-6 pt-3 sm:pt-4">
+                <a
+                  href={pathname}
+                  onClick={goHome}
+                  className="group block text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:focus-visible:ring-zinc-500 dark:focus-visible:ring-offset-[#05071a]"
+                >
+                  <h1
+                    className={`font-bento-serif ${fontDisplay.className} text-center text-3xl font-bold leading-tight tracking-tight transition-opacity group-hover:opacity-90 sm:text-4xl md:text-5xl text-zinc-900 dark:text-zinc-50`}
+                  >
+                    {SITE.name}
+                  </h1>
                   <h2
-                    className={`font-bento-serif ${fontDisplay.className} text-2xl font-bold tracking-tight sm:text-3xl`}
+                    className={`${fontSans.className} mt-2 text-center text-base font-normal text-zinc-600 dark:text-zinc-400 sm:text-lg md:text-xl`}
                   >
-                    {tProjects("title")}
+                    {tHero("headline")}
                   </h2>
-                  <p
-                    className={`${fontSans.className} mt-2 max-w-2xl text-sm font-normal text-zinc-500 dark:text-zinc-400 sm:text-base`}
-                  >
-                    {tProjects("subtitle")}
-                  </p>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {PROJECTS.map((project) => (
-                    <ProjectCard
-                      key={project.id}
-                      title={tProject(`${project.id}.title`)}
-                      description={tProject(`${project.id}.description`)}
-                      href={project.href}
-                      tags={project.tags}
-                      icon={project.icon}
-                      iconSrc={project.iconSrc}
-                      iconScale={project.iconScale}
-                      viewLabel={tProjects("source")}
-                    />
-                  ))}
-                </div>
-              </Container>
-            </ViewPanel>
+                </a>
+              </div>
+              <div
+                className="mx-auto flex min-h-0 w-full min-w-0 max-w-5xl flex-1 flex-col overflow-hidden pl-6 pr-0 pt-2 pb-1"
+                role="region"
+                aria-label={tProjects("title")}
+              >
+                <ProjectsStack reduceMotion={!!reduceMotion} />
+              </div>
+            </div>
           ) : null}
 
           {view === "experience" ? (
@@ -287,10 +322,15 @@ export function PortfolioPage() {
             </ViewPanel>
           ) : null}
         </AnimatePresence>
+        </div>
       </main>
 
-      <div className="relative z-10">
-        <SiteFooter />
+      <div
+        className={
+          view === "projects" ? "relative z-10 shrink-0" : "relative z-10"
+        }
+      >
+        <SiteFooter compact={isProjects} />
       </div>
     </div>
   );
@@ -299,19 +339,22 @@ export function PortfolioPage() {
 function ViewPanel({
   children,
   reduceMotion,
+  className,
 }: {
   children: ReactNode;
   reduceMotion: boolean;
+  className?: string;
 }) {
   if (reduceMotion) {
-    return <div>{children}</div>;
+    return <div className={className}>{children}</div>;
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -6 }}
+      className={className}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
