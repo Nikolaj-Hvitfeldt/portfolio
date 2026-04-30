@@ -40,7 +40,8 @@
     "title": "Projekter",
     "subtitle": "Personlige projekter jeg har arbejdet på.",
     "view": "Se",
-    "source": "Kildekode"
+    "source": "Kildekode",
+    "wip": "I udvikling"
   },
   "Contact": {
     "title": "Kontakt",
@@ -59,13 +60,13 @@
     "entries": {
       "bachelor": {
         "role": "Professionsbachelor i Webudvikling",
-        "org": "Københavns Erhvervsakademi (KEA)",
+        "org": "Erhvervsakademi Århus, Danmark",
         "description": "Læser i øjeblikket en professionsbachelor i webudvikling med fokus på moderne frontend-arkitektur, tilgængelighed og at bygge produktionsklare webapplikationer."
       },
       "datamatiker": {
         "role": "Datamatiker",
-        "org": "Danmark",
-        "description": "Gennemført 2-årig uddannelse med fokus på backend-udvikling, API'er, databaser og softwarearkitektur. Byggede flere full-stack projekter samt et bachelor-semesterprojekt med et team."
+        "org": "Erhvervsakademi Århus, Danmark",
+        "description": "Gennemført 2-et-halvt-årig uddannelse med fokus på backend-udvikling, API'er, databaser og softwarearkitektur. Byggede flere full-stack projekter, samt et projekt for HMF Group, hvor jeg også lavede mit praktikophold."
       }
     }
   },
@@ -76,25 +77,94 @@
     "email": "E-mail"
   },
   "Project": {
+    "ui": {
+      "back": "Tilbage til projekter",
+      "about": "Om",
+      "keyFeatures": "Højdepunkter",
+      "info": "Info",
+      "tech": "Tech",
+      "status": "Status",
+      "effort": "Indsats",
+      "next": "Næste",
+      "viewSource": "Se kildekode",
+      "openLive": "Åbn site",
+      "openLink": "Åbn"
+    },
     "amori": {
       "title": "Amori",
-      "description": "Journal til at tracke milepæle og minder i relationer."
+      "description": "Journal til at tracke milepæle og minder med sin partner.",
+      "longAbout": "En privat journal-app til at dokumentere øjeblikke, særlige datoer og fælles milepæle med billeder.\n\nBygget med Expo/React Native frontend og et NestJS API på Supabase (PostgreSQL + storage), med fokus på native-lignende feel og smooth interaktioner.",
+      "features": [
+        "Dedikerede flows til moments, dates og milestones",
+        "Image upload flow med komprimering og thumbnails",
+        "Cross-platform Expo app (iOS, Android og web)",
+        "Supabase-baseret PostgreSQL og storage via et NestJS API"
+      ],
+      "infoYear": "2024",
+      "infoStatus": "Deployed",
+      "infoEffort": "~40 timer",
+      "infoNext": "Finpudse timeline- og memory-wall UX"
     },
     "quartermark": {
       "title": "QuarterMark",
-      "description": "Jackbox-inspireret party game til nytår."
+      "description": "Jackbox-inspireret party game til nytårsaftener.",
+      "longAbout": "Et Jackbox-inspireret party game hvor én host styrer TV-skærmen, mens spillere joiner fra telefonen via room code.\n\nBygget som split-stack med ASP.NET + SignalR backend og React + Vite frontend, med realtime synkronisering, host/player visninger og tosproget UI (EN/DA).",
+      "features": [
+        "Room-baseret join flow med unikke 4-bogstavs koder",
+        "Realtime synk mellem host og spillere via SignalR",
+        "Session-flow med flere mini-games og scoreboards",
+        "Tosproget UI med i18next (engelsk/dansk)"
+      ],
+      "infoYear": "2024",
+      "infoStatus": "Deployed",
+      "infoNext": "Finpudse balancing og pacing mellem mini-games"
     },
     "yeetcraft": {
       "title": "Yeetcraft",
-      "description": "Leaderboard tracker til venskabelig banter - tracker fejl paa tvaers af en vennegruppe."
+      "description": "Leaderboard tracker til venskabelig banter. Tracker fejl på tværs af en vennegruppe.",
+      "longAbout": "En webapp til at tracke hvem der dør mest, når vi gamer med venner, inklusiv hvordan, hvornår og hvorfor. Kort sagt en måde at gøre banter til statistik.\n\nLavet til hurtigt at kunne opdatere undervejs, og lidt sværere end forventet at holde konsistent, når folk begynder at diskutere hvad der egentlig skete.",
+      "features": [
+        "Fejl-feed og leaderboard flow til friend sessions",
+        "Lagdelt Kotlin backend (routes, controllers, services, repositories)",
+        "React + Vite frontend med simpelt API-drevet fetch flow",
+        "Supabase PostgreSQL integration med plain SQL persistence"
+      ],
+      "infoYear": "2024",
+      "infoStatus": "Work in progress",
+      "infoNext": "Tilføje CRUD endpoints og rigere leaderboard-stats"
     },
     "lineup": {
       "title": "LineUp",
-      "description": "Medudvikler af en social + marketplace platform for freelance musikere til at vise skills og blive hyret. Brugte ogsaa projektet som semesterprojekt på bacheloren."
+      "description": "Social + marketplace platform for freelance musikere.",
+      "longAbout": "En social + marketplace platform for musikere til at connecte, samarbejde og finde muligheder. Udviklet som et studiegruppeprojekt med en full-stack arkitektur delt mellem en Next.js frontend og et Node/Express API.\n\nSupabase håndterer PostgreSQL, auth, storage og realtime besked-flows, mens TypeScript og TanStack-mønstre holder kodebasen konsistent på tværs af features.",
+      "features": [
+        "Profiler og discovery for musikere og bookere",
+        "Data på Supabase og Realtime for et moderne flow",
+        "TanStack-arkitektur i klienten",
+        "Responsivt interface med Tailwind"
+      ],
+      "infoYear": "2025",
+      "infoStatus": "Not deployed",
+      "infoNext": "Stramme discovery for profiler op"
     },
     "memoir": {
       "title": "Memoir",
-      "description": "Midlertidig beskrivelse placeholder."
+      "description": "Delt journal-app til minder, begivenheder og større kaptiler.",
+      "longAbout": "En delt journal-app til at gemme minder på tværs af grupper som familie, venner eller partnere. Bygget med Expo Router og React Native, med data i Supabase og et mobil-først UI.\n\nFokus er at holde hverdagsflowet simpelt, men stadig støtte rigere indhold via separate forms til chapters, events og moments.",
+      "features": [
+        "Dedikerede flows til chapters, events og moments",
+        "Sign-in/sign-up auth-skærme",
+        "Typet form + validering med TanStack Form og Zod",
+        "Lokal state og cache med Zustand + TanStack Query"
+      ],
+      "infoYear": "2026",
+      "infoStatus": "Not deployed",
+      "infoNext": "Projektet er afsluttet som studiegruppeprojekt"
+    },
+    "contactCta": {
+      "title": "Nyt projekt",
+      "description": "Jeg udforsker hele tiden nye idéer.",
+      "link": "Lad os skrive sammen"
     }
   }
 }

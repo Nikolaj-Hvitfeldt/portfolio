@@ -59,8 +59,8 @@ const EYE_BY_BAND: Record<
   /** Mid-width strip (short devtool windows, smaller bento) */
   1: {
     objectClass: "object-[70%_41%]",
-    left: { top: "36%", left: "35%" },
-    right: { top: "33.7%", left: "45.5%" },
+    left: { top: "36%", left: "36%" },
+    right: { top: "33.7%", left: "46.5%" },
     gazeAnchor: { x: 0.402, y: 0.346 },
   },
   /** Wide face strip (typical large desktop bento) */
@@ -129,7 +129,6 @@ export function HomeBentoStack({
   const useDomEyes = isDesktop;
   const showPupilLayer = isDesktop && !eyesOff;
   const isDesktopRef = useRef(isDesktop);
-  isDesktopRef.current = isDesktop;
 
   const stackRef = useRef<HTMLDivElement>(null);
   /** face image box in the top slice — same as pupil %; drives responsive gaze. */
@@ -141,9 +140,17 @@ export function HomeBentoStack({
   const [faceW, setFaceW] = useState(320);
   const band = useDomEyes ? bandFromFaceSize(faceW) : 2;
   const eye = EYE_BY_BAND[band];
-  if (useDomEyes) {
-    gazeConfigRef.current = eye;
-  }
+
+  useLayoutEffect(() => {
+    isDesktopRef.current = isDesktop;
+  }, [isDesktop]);
+
+  useLayoutEffect(() => {
+    if (useDomEyes) {
+      gazeConfigRef.current = eye;
+    }
+  }, [useDomEyes, eye]);
+
   const [metrics, setMetrics] = useState<Metrics>({
     stackH: 0,
     topH: 0,
@@ -162,7 +169,8 @@ export function HomeBentoStack({
     setMetrics({
       stackH: el.getBoundingClientRect().height,
       topH: first.getBoundingClientRect().height,
-      gap: Number.isFinite(gapVal) && gapVal > 0 ? gapVal : 12,
+      /** 0 is valid: stack uses gap-0 so the avatar is one column with no void between cards. */
+      gap: Number.isFinite(gapVal) ? gapVal : 12,
     });
   }, []);
 
@@ -231,7 +239,7 @@ export function HomeBentoStack({
 
   useEffect(() => {
     if (eyesOff) {
-      resetPupils();
+      queueMicrotask(resetPupils);
     }
   }, [eyesOff, resetPupils]);
 
@@ -300,7 +308,9 @@ export function HomeBentoStack({
 
   useEffect(() => {
     if (!isDesktop) {
-      setPupil({ x: 0, y: 0 });
+      queueMicrotask(() => {
+        setPupil({ x: 0, y: 0 });
+      });
     }
   }, [isDesktop]);
 
@@ -324,14 +334,18 @@ export function HomeBentoStack({
   return (
     <div
       ref={stackRef}
-      className="relative flex h-full min-h-0 flex-col gap-3 md:row-span-2 md:col-start-1"
+      className="home-bento-avatar-col relative flex h-full min-h-0 flex-col gap-2 md:row-span-2 md:col-start-1"
     >
       {items.map((child, index) => {
         const isTop = index === 0;
         return (
           <div
             key={index}
-            className="relative z-10 flex min-h-0 w-full flex-1 overflow-hidden rounded-2xl"
+            className={`relative z-10 flex min-h-0 w-full flex-1 overflow-hidden ${
+              isTop
+                ? "rounded-t-2xl rounded-b-none"
+                : "rounded-b-2xl rounded-t-none"
+            }`}
           >
             {stackH > 0 && (
               <div

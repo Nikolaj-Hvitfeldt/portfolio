@@ -40,7 +40,8 @@
     "title": "Projects",
     "subtitle": "Personal projects I've been working on.",
     "view": "View",
-    "source": "Source"
+    "source": "Source",
+    "wip": "WIP"
   },
   "Contact": {
     "title": "Contact",
@@ -59,13 +60,13 @@
     "entries": {
       "bachelor": {
         "role": "BSc Web Development student",
-        "org": "Copenhagen School of Design and Technology (KEA)",
+        "org": "Erhvervsakademi Aarhus, Denmark",
         "description": "Currently studying for a Bachelor's in Web Development, going deeper into modern frontend architecture, accessibility, and building production-ready web apps."
       },
       "datamatiker": {
         "role": "AP Degree in Computer Science (Datamatiker)",
-        "org": "Denmark",
-        "description": "Completed a two-year program focused on backend development, APIs, databases, and software architecture. Built several full-stack projects and a bachelor semester project with a team."
+        "org": "Erhvervsakademi Aarhus, Denmark",
+        "description": "Completed a two-and-a-half-year program focused on backend development, APIs, databases, and software architecture. Built several full-stack projects, and a project for HMF Group, where i also did my internship."
       }
     }
   },
@@ -76,25 +77,93 @@
     "email": "Email"
   },
   "Project": {
+    "ui": {
+      "back": "Back to projects",
+      "about": "About",
+      "keyFeatures": "Key features",
+      "info": "Info",
+      "tech": "Tech",
+      "status": "Status",
+      "effort": "Effort",
+      "next": "Next",
+      "viewSource": "View source",
+      "openLive": "Open live",
+      "openLink": "Open"
+    },
     "amori": {
       "title": "Amori",
-      "description": "Journal for tracking relationship milestones and memories."
+      "description": "Journal for tracking relationship milestones and memories.",
+      "longAbout": "A private journaling app for documenting relationship moments, special dates, and shared milestones with photos.\n\nBuilt with an Expo/React Native frontend and a NestJS API backed by Supabase (PostgreSQL + storage), with a strong focus on native-like feel and smooth interactions.",
+      "features": [
+        "Dedicated flows for moments, dates, and milestones",
+        "Image upload pipeline with compression and thumbnail generation",
+        "Cross-platform Expo app (iOS, Android, and web)",
+        "Supabase-backed PostgreSQL and storage through a NestJS API"
+      ],
+      "infoYear": "2024",
+      "infoStatus": "Deployed",
+      "infoNext": "Refine timeline and memory-wall UX"
     },
     "quartermark": {
       "title": "QuarterMark",
-      "description": "Jackbox-style party game for New Year's."
+      "description": "Jackbox-style party game for New Year's Eve sessions.",
+      "longAbout": "A Jackbox-style party game where one host controls the TV screen while players join from their phones via room code.\n\nBuilt as a split-stack app with ASP.NET + SignalR backend and a React + Vite frontend, with realtime state syncing, host/player views, and bilingual support (EN/DA).",
+      "features": [
+        "Room-based join flow with unique 4-letter game codes",
+        "Realtime host/player sync over SignalR",
+        "Session flow with multiple mini-games and scoreboards",
+        "Dual-language UI using i18next (English/Danish)"
+      ],
+      "infoYear": "2025",
+      "infoStatus": "Deployed",
+      "infoNext": "Polish balancing and pacing between mini-games"
     },
     "yeetcraft": {
       "title": "Yeetcraft",
-      "description": "Leaderboard tracker for friendly banter - tracks mistakes across a friend group."
+      "description": "Leaderboard tracker for friendly banter. Tracks mistakes across a friend group.",
+      "longAbout": "A web app for tracking who dies the most when gaming with friends, including how, when, and why. Basically a way to turn banter into stats.\n\nBuilt to be quick to update mid-game, and surprisingly tricky to keep consistent once people start arguing about what actually happened.",
+      "features": [
+        "Mistake feed and leaderboard flow for friend sessions",
+        "Layered Kotlin backend (routes, controllers, services, repositories)",
+        "React + Vite frontend with simple API-driven fetch flow",
+        "Supabase PostgreSQL integration with plain SQL persistence"
+      ],
+      "infoYear": "2026",
+      "infoStatus": "Work in progress",
+      "infoNext": "Add CRUD endpoints and richer leaderboard stats"
     },
     "lineup": {
       "title": "LineUp",
-      "description": "Co-developed a social + marketplace platform for freelance musicians to showcase skills and get hired. Also used as a bachelor semester project."
+      "description": "Social + marketplace platform for freelance musicians.",
+      "longAbout": "A social + marketplace platform for musicians to connect, collaborate, and find opportunities. Built as a study group project with a full-stack architecture split between a Next.js frontend and a Node/Express API.\n\nSupabase handles PostgreSQL, auth, storage, and realtime messaging flows, while TypeScript and TanStack patterns keep the codebase consistent across features.",
+      "features": [
+        "Profile and discovery for musicians and bookers",
+        "Supabase-backed data and Realtime for modern UX",
+        "TanStack-based client architecture",
+        "Responsive, Tailwind-styled interface"
+      ],
+      "infoYear": "2025",
+      "infoStatus": "Not deployed",
+      "infoNext": "Tighten profile discovery"
     },
     "memoir": {
       "title": "Memoir",
-      "description": "Temporary description placeholder."
+      "description": "Shared journaling app for moments, events, and chapters.",
+      "longAbout": "A shared journaling app for capturing memories across groups like family, friends, or partners. Built with Expo Router and React Native, with Supabase-backed data and a mobile-first UI.\n\nThe focus is on keeping everyday journaling flows simple while still supporting richer entries through dedicated chapter, event, and moment forms.",
+      "features": [
+        "Dedicated flows for chapters, events, and moments",
+        "Sign-in/sign-up authentication screens",
+        "Typed form + validation stack with TanStack Form and Zod",
+        "Local app state and caching with Zustand + TanStack Query"
+      ],
+      "infoYear": "2026",
+      "infoStatus": "Not deployed",
+      "infoNext": "Project completed for studies"
+    },
+    "contactCta": {
+      "title": "New Project",
+      "description": "I'm always exploring new ideas.",
+      "link": "Let's connect"
     }
   }
 }
