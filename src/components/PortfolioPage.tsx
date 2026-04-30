@@ -121,7 +121,7 @@ export function PortfolioPage() {
         }
       >
         <section
-          className="flex min-h-0 flex-col items-center justify-center px-6 py-10 sm:py-12 md:py-14"
+          className="flex min-h-0 flex-col items-center justify-center px-6 py-5 sm:py-6 md:py-7"
           aria-label="Introduction"
         >
           <a
@@ -130,12 +130,12 @@ export function PortfolioPage() {
             className="group block text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:focus-visible:ring-zinc-500 dark:focus-visible:ring-offset-[#05071a]"
           >
             <h1
-              className={`font-bento-serif ${fontDisplay.className} text-center text-4xl font-bold leading-[1.05] tracking-tight transition-opacity group-hover:opacity-90 sm:text-5xl md:text-6xl lg:text-7xl`}
+              className={`font-bento-serif ${fontDisplay.className} text-center text-2xl font-bold leading-[1.05] tracking-tight transition-opacity group-hover:opacity-90 sm:text-3xl md:text-4xl lg:text-5xl`}
             >
               {SITE.name}
             </h1>
             <h2
-              className={`${fontSans.className} mt-3 text-center text-lg font-normal text-zinc-600 dark:text-zinc-400 sm:text-xl md:text-2xl`}
+              className={`${fontSans.className} mt-1.5 text-center text-xs font-normal text-zinc-600 dark:text-zinc-400 sm:text-sm md:text-base`}
             >
               {tHero("headline")}
             </h2>
