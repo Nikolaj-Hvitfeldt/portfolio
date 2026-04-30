@@ -17,11 +17,6 @@ export function ExperienceSection() {
           >
             {t("title")}
           </h2>
-          <p
-            className={`${fontSans.className} mt-2 max-w-2xl text-sm font-normal text-zinc-500 dark:text-zinc-400 sm:text-base`}
-          >
-            {t("subtitle")}
-          </p>
         </div>
 
         <div className="surface-glass p-6 sm:p-8">
