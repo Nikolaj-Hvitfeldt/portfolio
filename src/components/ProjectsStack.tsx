@@ -13,6 +13,7 @@ import {
   useLayoutEffect,
   useRef,
   useState,
+  type WheelEvent,
 } from "react";
 import { useMessages, useTranslations } from "next-intl";
 import { useDeckRailViewportBox } from "@/hooks/useDeckRailViewportBox";
@@ -990,6 +991,47 @@ export function ProjectsStack({
   const hideSelectedInStack = navPhase === "flipping";
   const showStack = navPhase !== "detail";
   const showDetail = navPhase !== "list";
+  const forwardingWheelRef = useRef(false);
+  const onPageWheelCapture = useCallback(
+    (e: WheelEvent<HTMLDivElement>) => {
+      if (forwardingWheelRef.current || navPhase !== "list") {
+        return;
+      }
+      const host = e.currentTarget;
+      const track = host.querySelector<HTMLElement>("[data-project-stack-track]");
+      if (!track) {
+        return;
+      }
+      if (track.contains(e.target as Node)) {
+        return;
+      }
+      const canScroll = track.scrollHeight - track.clientHeight > 1;
+      if (!canScroll) {
+        return;
+      }
+      const forwarded = new window.WheelEvent("wheel", {
+        bubbles: true,
+        cancelable: true,
+        deltaX: e.deltaX,
+        deltaY: e.deltaY,
+        deltaZ: e.deltaZ,
+        deltaMode: e.deltaMode,
+        clientX: e.clientX,
+        clientY: e.clientY,
+        ctrlKey: e.ctrlKey,
+        shiftKey: e.shiftKey,
+        altKey: e.altKey,
+        metaKey: e.metaKey,
+      });
+      forwardingWheelRef.current = true;
+      track.dispatchEvent(forwarded);
+      forwardingWheelRef.current = false;
+      if (forwarded.defaultPrevented) {
+        e.preventDefault();
+      }
+    },
+    [navPhase],
+  );
 
   useLayoutEffect(() => {
     if (!flipFrom || flipTo) {
@@ -1083,7 +1125,10 @@ export function ProjectsStack({
     : "";
 
   return (
-    <div className="project-details-container relative flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden">
+    <div
+      className="project-details-container relative flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden"
+      onWheelCapture={onPageWheelCapture}
+    >
       <MotionConfig
         transition={
           reduceMotion

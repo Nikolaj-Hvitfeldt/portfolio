@@ -80,7 +80,6 @@ export function PortfolioPage() {
     e.preventDefault();
     navigateTo("home");
   };
-
   const isProjects = view === "projects";
 
   return (
@@ -121,13 +120,17 @@ export function PortfolioPage() {
             : "relative z-10 w-full flex-1 pb-24 md:pb-0 md:pl-16 lg:pl-20"
         }
       >
-        {view === "projects" ? null : (
-          <section
-            className="flex min-h-0 flex-col items-center justify-center px-6 py-10 sm:py-12 md:py-14"
-            aria-label="Introduction"
+        <section
+          className="flex min-h-0 flex-col items-center justify-center px-6 py-10 sm:py-12 md:py-14"
+          aria-label="Introduction"
+        >
+          <a
+            href={pathname}
+            onClick={goHome}
+            className="group block text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:focus-visible:ring-zinc-500 dark:focus-visible:ring-offset-[#05071a]"
           >
             <h1
-              className={`font-bento-serif ${fontDisplay.className} text-center text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl`}
+              className={`font-bento-serif ${fontDisplay.className} text-center text-4xl font-bold leading-[1.05] tracking-tight transition-opacity group-hover:opacity-90 sm:text-5xl md:text-6xl lg:text-7xl`}
             >
               {SITE.name}
             </h1>
@@ -136,16 +139,10 @@ export function PortfolioPage() {
             >
               {tHero("headline")}
             </h2>
-          </section>
-        )}
+          </a>
+        </section>
 
-        <div
-          className={
-            isProjects
-              ? "flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden"
-              : "contents"
-          }
-        >
+        <div className="contents">
         <AnimatePresence mode="wait" initial={false}>
           {view === "about" ? (
             <ViewPanel key="about" reduceMotion={!!reduceMotion}>
@@ -154,36 +151,19 @@ export function PortfolioPage() {
           ) : null}
 
           {view === "projects" ? (
-            <div
+            <ViewPanel
               key="projects"
+              reduceMotion={!!reduceMotion}
               className="flex w-full min-w-0 min-h-0 flex-1 flex-col overflow-hidden"
             >
-              <div className="mx-auto w-full min-w-0 max-w-5xl shrink-0 px-6 pt-3 sm:pt-4">
-                <a
-                  href={pathname}
-                  onClick={goHome}
-                  className="group block text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:focus-visible:ring-zinc-500 dark:focus-visible:ring-offset-[#05071a]"
-                >
-                  <h1
-                    className={`font-bento-serif ${fontDisplay.className} text-center text-3xl font-bold leading-tight tracking-tight transition-opacity group-hover:opacity-90 sm:text-4xl md:text-5xl text-zinc-900 dark:text-zinc-50`}
-                  >
-                    {SITE.name}
-                  </h1>
-                  <h2
-                    className={`${fontSans.className} mt-2 text-center text-base font-normal text-zinc-600 dark:text-zinc-400 sm:text-lg md:text-xl`}
-                  >
-                    {tHero("headline")}
-                  </h2>
-                </a>
-              </div>
               <div
-                className="project-details-container flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-x-hidden overflow-y-hidden pl-6 pr-0 pt-2 pb-1"
+                className="project-details-container flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-x-hidden overflow-y-hidden pl-6 pr-0 pt-0 pb-1"
                 role="region"
                 aria-label={tProjects("title")}
               >
                 <ProjectsStack reduceMotion={!!reduceMotion} />
               </div>
-            </div>
+            </ViewPanel>
           ) : null}
 
           {view === "experience" ? (
@@ -330,7 +310,7 @@ export function PortfolioPage() {
           view === "projects" ? "relative z-10 shrink-0" : "relative z-10"
         }
       >
-        <SiteFooter compact={isProjects} />
+        <SiteFooter compact={view === "projects"} />
       </div>
     </div>
   );
