@@ -26,8 +26,8 @@
     "languages": "Danish (Native), English (Fluent)",
     "locationLabel": "Location",
     "aboutP1": "I’m a developer based in Aarhus, Denmark with a background in computer science and a strong interest in building well-structured web applications. I enjoy working across the stack, but especially crafting responsive and maintainable frontends with React and TypeScript.",
-    "aboutP2": "My journey into development started during my Datamatiker education, where I focused heavily on backend development, APIs, and software architecture. Since then I’ve continued building projects and exploring modern web technologies while studying for a Bachelor’s degree in Web Development.",
-    "aboutP3": "I enjoy turning ideas into working products, learning new technologies, and solving real problems through code. When I’m not coding, you’ll probably find me gaming, watching football, or experimenting with new side projects.",
+    "aboutP2": "My journey into development started during my study for an AP Degree in Computer Science, where I focused heavily on backend development, APIs, and software architecture. Since then I’ve continued building projects and exploring modern web technologies while studying for a Bachelor’s degree in Web Development.",
+    "aboutP3": "I enjoy turning ideas into working products, learning new technologies, and solving real problems through code. When I’m not coding, you’ll probably find me gaming, watching football, or learning new songs on my guitar.",
     "techStack": {
       "coreFrontend": "Frontend",
       "backendAndRuntimes": "Backend",
