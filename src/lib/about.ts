@@ -5,7 +5,7 @@ export const ABOUT_TECH_STACK = [
   },
   {
     categoryKey: "backendAndRuntimes",
-    items: ["Node.js", "C#", ".NET", "REST APIs"],
+    items: ["Node.js", "C#", ".NET", "Kotlin", "Java", "REST APIs"],
   },
   {
     categoryKey: "dataAndState",
