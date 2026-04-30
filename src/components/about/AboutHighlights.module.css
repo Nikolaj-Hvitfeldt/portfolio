@@ -1,0 +1,301 @@
+.scratch {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  padding-inline: 0.08em;
+  padding-bottom: 0.08em;
+  vertical-align: baseline;
+}
+
+.scratchText {
+  position: relative;
+  z-index: 1;
+}
+
+.scratchSvg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.14em;
+  width: 100%;
+  height: 0.9em;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.scratchStroke {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+}
+
+.scratchStrokeA {
+  stroke: rgb(125 211 252 / 0.95);
+  stroke-width: 2.2;
+  animation: keyword-draw-a 760ms cubic-bezier(0.2, 0.9, 0.28, 1) var(--scratch-delay, 0ms) both;
+}
+
+.scratchStrokeB {
+  stroke: rgb(56 189 248 / 0.74);
+  stroke-width: 1.85;
+  animation: keyword-draw-b 700ms cubic-bezier(0.2, 0.9, 0.28, 1) calc(var(--scratch-delay, 0ms) + 800ms)
+    both;
+}
+
+.soft {
+  position: relative;
+  display: inline;
+  padding-inline: 0.08em;
+  border-radius: 0.22em;
+  color: inherit;
+  --soft-delay: 0ms;
+}
+
+.soft::before,
+.soft::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -0.02em;
+  bottom: -0.02em;
+  border-radius: 0.22em;
+  pointer-events: none;
+  transform-origin: left center;
+}
+
+.soft::before {
+  z-index: -1;
+  background-image:
+    linear-gradient(180deg, rgb(16 185 129 / 0) 0 5%, rgb(16 185 129 / 0.3) 5% 96%, rgb(16 185 129 / 0) 96%),
+    repeating-linear-gradient(
+      92deg,
+      rgb(16 185 129 / 0.09) 0 9%,
+      rgb(16 185 129 / 0.02) 9% 17%,
+      rgb(16 185 129 / 0.12) 17% 26%
+    );
+  background-blend-mode: multiply;
+  filter: blur(0.15px);
+  transform: rotate(-1deg) translateY(0.01em);
+  animation: keyword-marker-a 760ms cubic-bezier(0.2, 0.9, 0.28, 1) var(--soft-delay) both;
+}
+
+.soft::after {
+  z-index: -1;
+  left: -0.1em;
+  right: -0.06em;
+  top: -0.04em;
+  bottom: -0.02em;
+  background-image:
+    linear-gradient(180deg, rgb(5 150 105 / 0) 0 8%, rgb(5 150 105 / 0.24) 8% 94%, rgb(5 150 105 / 0) 94%),
+    repeating-linear-gradient(
+      88deg,
+      rgb(5 150 105 / 0.08) 0 8%,
+      rgb(5 150 105 / 0.01) 8% 16%,
+      rgb(5 150 105 / 0.11) 16% 24%
+    );
+  background-blend-mode: multiply;
+  transform: rotate(0.7deg) translateY(-0.01em);
+  animation: keyword-marker-b 620ms cubic-bezier(0.2, 0.9, 0.28, 1) calc(var(--soft-delay) + 780ms) both;
+}
+
+.box {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  padding-inline: 0.16em;
+  padding-block: 0.02em;
+}
+
+.boxText {
+  position: relative;
+  z-index: 1;
+}
+
+.boxSvg {
+  position: absolute;
+  inset: -0.18em -0.24em -0.16em -0.24em;
+  width: calc(100% + 0.48em);
+  height: calc(100% + 0.34em);
+  pointer-events: none;
+  overflow: visible;
+}
+
+.boxLine,
+.boxLine2 {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 250;
+  stroke-dashoffset: 250;
+}
+
+.boxLine {
+  stroke: rgb(249 115 22 / 0.92);
+  stroke-width: 2.15;
+  animation: keyword-box-line-1 520ms cubic-bezier(0.2, 0.9, 0.28, 1) var(--scratch-delay, 0ms) both;
+}
+
+.boxLine2 {
+  stroke: rgb(251 191 36 / 0.68);
+  stroke-width: 1.5;
+  animation: keyword-box-line-2 430ms cubic-bezier(0.2, 0.9, 0.28, 1) both;
+}
+
+.boxRight {
+  animation-delay: calc(var(--scratch-delay, 0ms) + 160ms);
+}
+.boxBottom {
+  animation-delay: calc(var(--scratch-delay, 0ms) + 320ms);
+}
+.boxLeft {
+  animation-delay: calc(var(--scratch-delay, 0ms) + 480ms);
+}
+
+.box2Top {
+  animation-delay: calc(var(--scratch-delay, 0ms) + 680ms);
+}
+.box2Right {
+  animation-delay: calc(var(--scratch-delay, 0ms) + 840ms);
+}
+.box2Bottom {
+  animation-delay: calc(var(--scratch-delay, 0ms) + 1000ms);
+}
+.box2Left {
+  animation-delay: calc(var(--scratch-delay, 0ms) + 1160ms);
+}
+
+@keyframes keyword-draw-a {
+  0% {
+    stroke-dashoffset: 120;
+    opacity: 0.12;
+    transform: translateY(0.02em) rotate(-0.45deg);
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.9;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes keyword-draw-b {
+  0% {
+    stroke-dashoffset: 120;
+    opacity: 0;
+    transform: translateY(0.04em) rotate(0.35deg);
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.78;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes keyword-marker-a {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.2;
+    transform: rotate(-1.3deg) translateY(0.03em);
+  }
+  62% {
+    clip-path: inset(0 0 0 0);
+    opacity: 0.98;
+    transform: rotate(-0.8deg) translateY(0.005em);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 0.94;
+    transform: rotate(-0.6deg) translateY(0);
+  }
+}
+
+@keyframes keyword-marker-b {
+  0% {
+    clip-path: inset(0 0 0 100%);
+    opacity: 0;
+    transform: rotate(1.1deg) translateY(-0.02em);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 0.82;
+    transform: rotate(0.7deg) translateY(-0.005em);
+  }
+}
+
+@keyframes keyword-box-line-1 {
+  from {
+    stroke-dashoffset: 250;
+    opacity: 0.35;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 0.98;
+  }
+}
+
+@keyframes keyword-box-line-2 {
+  from {
+    stroke-dashoffset: 250;
+    opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 0.82;
+  }
+}
+
+:global(.dark) .scratchStrokeA {
+  stroke: rgb(125 211 252 / 0.74);
+}
+
+:global(.dark) .scratchStrokeB {
+  stroke: rgb(56 189 248 / 0.58);
+}
+
+:global(.dark) .soft::before {
+  background-image:
+    linear-gradient(180deg, rgb(45 212 191 / 0) 0 7%, rgb(45 212 191 / 0.24) 7% 95%, rgb(45 212 191 / 0) 95%),
+    repeating-linear-gradient(
+      92deg,
+      rgb(45 212 191 / 0.07) 0 9%,
+      rgb(45 212 191 / 0.02) 9% 17%,
+      rgb(45 212 191 / 0.1) 17% 26%
+    );
+}
+
+:global(.dark) .soft::after {
+  background-image:
+    linear-gradient(180deg, rgb(20 184 166 / 0) 0 9%, rgb(20 184 166 / 0.18) 9% 94%, rgb(20 184 166 / 0) 94%),
+    repeating-linear-gradient(
+      88deg,
+      rgb(20 184 166 / 0.06) 0 8%,
+      rgb(20 184 166 / 0.015) 8% 16%,
+      rgb(20 184 166 / 0.085) 16% 24%
+    );
+}
+
+:global(.dark) .boxLine {
+  stroke: rgb(251 146 60 / 0.8);
+}
+
+:global(.dark) .boxLine2 {
+  stroke: rgb(252 211 77 / 0.56);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scratchStroke,
+  .boxLine,
+  .boxLine2 {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .soft::before,
+  .soft::after {
+    animation: none;
+    clip-path: inset(0 0 0 0);
+    opacity: 0.8;
+  }
+}

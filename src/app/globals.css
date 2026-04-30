@@ -56,6 +56,63 @@ body {
   animation-duration: var(--marquee-duration, 18s);
 }
 
+@keyframes about-bg-drift-a {
+  0% {
+    transform: translate3d(calc(var(--bg-parallax-x, 0px) * -0.32), calc(var(--bg-parallax-y, 0px) * -0.26), 0) scale(1);
+    opacity: 0.32;
+  }
+  50% {
+    transform: translate3d(calc(var(--bg-parallax-x, 0px) * 0.42), calc(var(--bg-parallax-y, 0px) * 0.28), 0) scale(1.05);
+    opacity: 0.42;
+  }
+  100% {
+    transform: translate3d(calc(var(--bg-parallax-x, 0px) * -0.32), calc(var(--bg-parallax-y, 0px) * -0.26), 0) scale(1);
+    opacity: 0.32;
+  }
+}
+
+@keyframes about-bg-drift-b {
+  0% {
+    transform: translate3d(calc(var(--bg-parallax-x, 0px) * 0.24), calc(var(--bg-parallax-y, 0px) * 0.2), 0) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate3d(calc(var(--bg-parallax-x, 0px) * -0.36), calc(var(--bg-parallax-y, 0px) * -0.24), 0) scale(1.06);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate3d(calc(var(--bg-parallax-x, 0px) * 0.24), calc(var(--bg-parallax-y, 0px) * 0.2), 0) scale(1);
+    opacity: 0.2;
+  }
+}
+
+.about-bg-motion {
+  --bg-parallax-x: 0px;
+  --bg-parallax-y: 0px;
+}
+
+.about-bg-layer {
+  position: absolute;
+  inset: -12%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  mix-blend-mode: screen;
+}
+
+.about-bg-layer--one {
+  background:
+    radial-gradient(circle at 28% 24%, rgba(122, 102, 255, 0.26), transparent 42%),
+    radial-gradient(circle at 72% 68%, rgba(73, 161, 255, 0.2), transparent 44%);
+  animation: about-bg-drift-a 20s ease-in-out infinite;
+}
+
+.about-bg-layer--two {
+  background:
+    radial-gradient(circle at 60% 24%, rgba(139, 179, 255, 0.18), transparent 38%),
+    radial-gradient(circle at 20% 76%, rgba(173, 126, 255, 0.16), transparent 40%);
+  animation: about-bg-drift-b 26s ease-in-out infinite;
+}
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -75,6 +132,13 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .about-bg-layer--one,
+  .about-bg-layer--two {
+    animation: none;
+    transform: none;
+    opacity: 0.2;
+  }
+
   .project-stack-icon-tile {
     box-shadow:
       0 1px 0 0 rgb(0 0 0 / 0.35),

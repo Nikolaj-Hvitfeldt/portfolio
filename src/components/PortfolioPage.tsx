@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type MouseEvent,
+  type ReactNode,
+} from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
@@ -44,6 +50,7 @@ export function PortfolioPage() {
 
   const [view, setView] = useState<View>("home");
   const reduceMotion = useReducedMotion();
+  const backgroundFxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onHashChange = () => setView(parseHash(window.location.hash));
@@ -51,6 +58,28 @@ export function PortfolioPage() {
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
+
+  useEffect(() => {
+    if (reduceMotion) {
+      return;
+    }
+    const onPointerMove = (event: PointerEvent) => {
+      const el = backgroundFxRef.current;
+      if (!el) {
+        return;
+      }
+      const nx = window.innerWidth > 0 ? event.clientX / window.innerWidth : 0.5;
+      const ny =
+        window.innerHeight > 0 ? event.clientY / window.innerHeight : 0.5;
+      const px = (nx - 0.5) * 18;
+      const py = (ny - 0.5) * 12;
+      el.style.setProperty("--bg-parallax-x", `${px.toFixed(2)}px`);
+      el.style.setProperty("--bg-parallax-y", `${py.toFixed(2)}px`);
+    };
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onPointerMove);
+  }, [reduceMotion]);
 
   const navigateTo = (nextView: View) => {
     if (nextView === "home") {
@@ -92,8 +121,9 @@ export function PortfolioPage() {
       }
     >
       <div
+        ref={backgroundFxRef}
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-0 hidden overflow-hidden dark:block"
+        className="about-bg-motion pointer-events-none fixed inset-0 z-0 hidden overflow-hidden dark:block"
       >
         <Image
           src="/starry-night.avif"
@@ -102,6 +132,8 @@ export function PortfolioPage() {
           sizes="100vw"
           className="object-cover opacity-90"
         />
+        <div className="about-bg-layer about-bg-layer--one" />
+        <div className="about-bg-layer about-bg-layer--two" />
         <div className="absolute inset-0 bg-linear-to-b from-[#05071a]/40 via-[#05071a]/20 to-[#05071a]/75" />
         <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_40%,transparent_0%,rgba(5,7,26,0.55)_100%)]" />
         <ShootingStars disabled={!!reduceMotion} />
@@ -145,7 +177,11 @@ export function PortfolioPage() {
         <div className="contents">
         <AnimatePresence mode="wait" initial={false}>
           {view === "about" ? (
-            <ViewPanel key="about" reduceMotion={!!reduceMotion}>
+            <ViewPanel
+              key="about"
+              reduceMotion={!!reduceMotion}
+              className="flex w-full min-w-0 flex-1 flex-col"
+            >
               <AboutSection />
             </ViewPanel>
           ) : null}
