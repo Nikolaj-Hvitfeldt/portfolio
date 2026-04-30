@@ -92,52 +92,51 @@
     },
     "amori": {
       "title": "Amori",
-      "description": "Journal til at tracke milepæle og minder i relationer.",
-      "longAbout": "En privat journal-lignende webapp til at holde styr på milepæle, minder og hverdagsøjeblikke i parforhold. Bygget til at føles hurtig og rar at vende tilbage til, med fokus på indhold frem for støj.",
+      "description": "Journal til at tracke milepæle og minder med sin partner.",
+      "longAbout": "En privat journal-app til at dokumentere øjeblikke, særlige datoer og fælles milepæle med billeder.\n\nBygget med Expo/React Native frontend og et NestJS API på Supabase (PostgreSQL + storage), med fokus på native-lignende feel og smooth interaktioner.",
       "features": [
-        "Indlæg om særlige datoer og fælles minder",
-        "Enkelt, roligt UI der ikke kommer i vejen",
-        "Typet, vedligeholdelig klient med React og TypeScript",
-        "Data i PostgreSQL"
+        "Dedikerede flows til moments, dates og milestones",
+        "Image upload flow med komprimering og thumbnails",
+        "Cross-platform Expo app (iOS, Android og web)",
+        "Supabase-baseret PostgreSQL og storage via et NestJS API"
       ],
       "infoYear": "2024",
       "infoStatus": "Deployed",
       "infoEffort": "~40 timer",
-      "infoNext": "Finpudse onboarding-flow",
-      "infoMeta": ""
+      "infoNext": "Finpudse timeline- og memory-wall UX"
     },
     "quartermark": {
       "title": "QuarterMark",
-      "description": "Jackbox-inspireret party game til nytår.",
-      "longAbout": "Et realtime party game i Jackbox-stil: en host-skærm og spillere som joiner fra telefoner. Lavet til nytårsaftener med høj energi, med C# og SignalR så alle klienter følger med.",
+      "description": "Jackbox-inspireret party game til nytårsaftener.",
+      "longAbout": "Et Jackbox-inspireret party game hvor én host styrer TV-skærmen, mens spillere joiner fra telefonen via room code.\n\nBygget som split-stack med ASP.NET + SignalR backend og React + Vite frontend, med realtime synkronisering, host/player visninger og tosproget UI (EN/DA).",
       "features": [
-        "Rumkode så mange kan join på én gang",
-        "Realtid game state via SignalR",
-        "Web UI i React, backend på .NET",
-        "Én fælles skærm og mobil som controller"
+        "Room-baseret join flow med unikke 4-bogstavs koder",
+        "Realtime synk mellem host og spillere via SignalR",
+        "Session-flow med flere mini-games og scoreboards",
+        "Tosproget UI med i18next (engelsk/dansk)"
       ],
       "infoYear": "2024",
       "infoStatus": "Deployed",
-      "infoNext": "Tilføje flere mini-game runder"
+      "infoNext": "Finpudse balancing og pacing mellem mini-games"
     },
     "yeetcraft": {
       "title": "Yeetcraft",
-      "description": "Leaderboard tracker til venskabelig banter - tracker fejl paa tvaers af en vennegruppe.",
-      "longAbout": "En mindre leaderboard til in-game og in-joke 'fejl' i en vennegruppe — bygget til grin først. Stack'en blander Kotlin, React og TanStack for en snappy, typet oplevelse end-to-end.",
+      "description": "Leaderboard tracker til venskabelig banter. Tracker fejl på tværs af en vennegruppe.",
+      "longAbout": "En webapp til at tracke hvem der dør mest, når vi gamer med venner, inklusiv hvordan, hvornår og hvorfor. Kort sagt en måde at gøre banter til statistik.\n\nLavet til hurtigt at kunne opdatere undervejs, og lidt sværere end forventet at holde konsistent, når folk begynder at diskutere hvad der egentlig skete.",
       "features": [
-        "Gruppe-specifikke boards og state",
-        "Web UI i React og TypeScript",
-        "Kotlin services og API'er",
-        "TanStack Query til data og cache"
+        "Fejl-feed og leaderboard flow til friend sessions",
+        "Lagdelt Kotlin backend (routes, controllers, services, repositories)",
+        "React + Vite frontend med simpelt API-drevet fetch flow",
+        "Supabase PostgreSQL integration med plain SQL persistence"
       ],
       "infoYear": "2024",
       "infoStatus": "Work in progress",
-      "infoNext": "Forbedre leaderboard-filtre"
+      "infoNext": "Tilføje CRUD endpoints og rigere leaderboard-stats"
     },
     "lineup": {
       "title": "LineUp",
-      "description": "Medudvikler af en social + marketplace platform for freelance musikere til at vise skills og blive hyret. Brugte ogsaa projektet som semesterprojekt på bacheloren.",
-      "longAbout": "En social- og marketproduktidé for freelancere i musik: profiler, discovery og booking-lignende flows. Medudviklet og brugt som semesterprojekt på bacheloren, med moderne stack og realtime hvor det giver mening.",
+      "description": "Social + marketplace platform for freelance musikere.",
+      "longAbout": "En social + marketplace platform for musikere til at connecte, samarbejde og finde muligheder. Udviklet som et studiegruppeprojekt med en full-stack arkitektur delt mellem en Next.js frontend og et Node/Express API.\n\nSupabase håndterer PostgreSQL, auth, storage og realtime besked-flows, mens TypeScript og TanStack-mønstre holder kodebasen konsistent på tværs af features.",
       "features": [
         "Profiler og discovery for musikere og bookere",
         "Data på Supabase og Realtime for et moderne flow",
@@ -150,16 +149,17 @@
     },
     "memoir": {
       "title": "Memoir",
-      "description": "Midlertidig beskrivelse placeholder.",
-      "longAbout": "Et idé-projekt i gang: en rolig, fokuseret oplevelse til læsning og et personligt 'bibliotek' på nettet. Målet er at lande en stærk læseflade, mens konceptet spidses til.",
+      "description": "Delt journal-app til minder, begivenheder og større kaptiler.",
+      "longAbout": "En delt journal-app til at gemme minder på tværs af grupper som familie, venner eller partnere. Bygget med Expo Router og React Native, med data i Supabase og et mobil-først UI.\n\nFokus er at holde hverdagsflowet simpelt, men stadig støtte rigere indhold via separate forms til chapters, events og moments.",
       "features": [
-        "WIP: kernedelen af læseflowet er i gang",
-        "Placeholder-indhold mens designet findes frem",
-        "Plan: responsivt layout og theming"
+        "Dedikerede flows til chapters, events og moments",
+        "Sign-in/sign-up auth-skærme",
+        "Typet form + validering med TanStack Form og Zod",
+        "Lokal state og cache med Zustand + TanStack Query"
       ],
-      "infoYear": "—",
+      "infoYear": "2026",
       "infoStatus": "Not deployed",
-      "infoNext": "Definere første MVP-scope"
+      "infoNext": "Projektet er afsluttet som studiegruppeprojekt"
     },
     "contactCta": {
       "title": "Nyt projekt",
