@@ -1,9 +1,9 @@
 export type ExperienceEntry = {
-  id: string;
-  periodKey: string;
+  id: "bachelor" | "hmf" | "datamatiker";
 };
 
 export const EXPERIENCE: readonly ExperienceEntry[] = [
-  { id: "bachelor", periodKey: "2025Present" },
-  { id: "datamatiker", periodKey: "20232025" },
+  { id: "bachelor" },
+  { id: "hmf" },
+  { id: "datamatiker" },
 ] as const;

@@ -50,23 +50,62 @@
   },
   "WorkExperience": {
     "title": "Work Experience",
-    "subtitle": "My career as a Software Developer.",
-    "intro": "I'm at the start of my career, building momentum through education and hands-on projects. Here's where I've been learning and shipping.",
-    "timelineTitle": "Timeline",
-    "period": {
-      "2025Present": "2025 — Present",
-      "20232025": "2023 — 2025"
-    },
+    "subtitle": "Education and internship timeline.",
+    "intro": "My timeline so far, from software fundamentals to modern web development and practical industry work.",
+    "timelineTitle": "Career Timeline",
     "entries": {
       "bachelor": {
-        "role": "BSc Web Development student",
-        "org": "Erhvervsakademi Aarhus, Denmark",
-        "description": "Currently studying for a Bachelor's in Web Development, going deeper into modern frontend architecture, accessibility, and building production-ready web apps."
+        "period": "AUG 2025 — Present",
+        "org": "Erhvervsakademiet, Viby",
+        "role": "Bachelor in Web Development",
+        "bullets": [
+          "Design and development of complex, scalable web applications",
+          "Advanced frontend development focused on architecture, performance, and maintainability",
+          "Backend development and API design with focus on security and system integration",
+          "Work with software architecture, design patterns, and technical decisions",
+          "Use of UX/UI principles and accessibility (WCAG) in professional solutions",
+          "Development, deployment, and operation of cloud-based web solutions",
+          "Implementation and use of CI/CD plus automation of development processes"
+        ],
+        "image": {
+          "src": "/eaa-logo.avif",
+          "alt": "Erhvervsakademiet logo"
+        }
+      },
+      "hmf": {
+        "period": "JAN 2025 — JUL 2025",
+        "org": "HMF Group A/S",
+        "role": "Intern Fullstack .NET Developer",
+        "bullets": [
+          "Developed and maintained functionality in a C#/.NET desktop application with focus on configuration, stable operations, and usability",
+          "Worked with WPF for building and customizing user interfaces",
+          "Used Azure DevOps for version control and task management",
+          "Gained insight into integration between software and embedded hardware in industrial solutions",
+          "Solved tasks independently and in close collaboration with the team, with focus on structure and quality"
+        ],
+        "image": {
+          "src": "/hmf-logo.avif",
+          "alt": "HMF Group logo"
+        }
       },
       "datamatiker": {
-        "role": "AP Degree in Computer Science (Datamatiker)",
-        "org": "Erhvervsakademi Aarhus, Denmark",
-        "description": "Completed a two-and-a-half-year program focused on backend development, APIs, databases, and software architecture. Built several full-stack projects, and a project for HMF Group, where i also did my internship."
+        "period": "2023 — 2025",
+        "org": "Erhvervsakademiet, Viby",
+        "role": "AP Degree in Computer Science",
+        "bullets": [
+          "Application development focused on object-oriented programming",
+          "C# and JavaScript/TypeScript in primary coursework, including .NET and web technologies",
+          "Design, optimization, and administration of relational databases",
+          "Work with software architecture, system integration, and API development",
+          "Knowledge of cloud solutions, CI/CD, and version control",
+          "Experience with Scrum and Kanban in development processes",
+          "Insight into message queues and system integration",
+          "Introduction to ML models and AI as part of software development"
+        ],
+        "image": {
+          "src": "/eaa-logo.avif",
+          "alt": "Erhvervsakademiet logo"
+        }
       }
     }
   },
