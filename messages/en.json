@@ -60,13 +60,13 @@
     "entries": {
       "bachelor": {
         "role": "BSc Web Development student",
-        "org": "Copenhagen School of Design and Technology (KEA)",
+        "org": "Erhvervsakademi Aarhus, Denmark",
         "description": "Currently studying for a Bachelor's in Web Development, going deeper into modern frontend architecture, accessibility, and building production-ready web apps."
       },
       "datamatiker": {
         "role": "AP Degree in Computer Science (Datamatiker)",
-        "org": "Denmark",
-        "description": "Completed a two-year program focused on backend development, APIs, databases, and software architecture. Built several full-stack projects and a bachelor semester project with a team."
+        "org": "Erhvervsakademi Aarhus, Denmark",
+        "description": "Completed a two-and-a-half-year program focused on backend development, APIs, databases, and software architecture. Built several full-stack projects, and a project for HMF Group, where i also did my internship."
       }
     }
   },
