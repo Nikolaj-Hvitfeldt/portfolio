@@ -83,6 +83,9 @@
       "keyFeatures": "Højdepunkter",
       "info": "Info",
       "tech": "Tech",
+      "status": "Status",
+      "effort": "Indsats",
+      "next": "Næste",
       "viewSource": "Se kildekode",
       "openLive": "Åbn site",
       "openLink": "Åbn"
@@ -98,6 +101,9 @@
         "Data i PostgreSQL"
       ],
       "infoYear": "2024",
+      "infoStatus": "Deployed",
+      "infoEffort": "~40 timer",
+      "infoNext": "Finpudse onboarding-flow",
       "infoMeta": ""
     },
     "quartermark": {
@@ -111,7 +117,8 @@
         "Én fælles skærm og mobil som controller"
       ],
       "infoYear": "2024",
-      "infoMeta": ""
+      "infoStatus": "Deployed",
+      "infoNext": "Tilføje flere mini-game runder"
     },
     "yeetcraft": {
       "title": "Yeetcraft",
@@ -124,7 +131,8 @@
         "TanStack Query til data og cache"
       ],
       "infoYear": "2024",
-      "infoMeta": ""
+      "infoStatus": "Work in progress",
+      "infoNext": "Forbedre leaderboard-filtre"
     },
     "lineup": {
       "title": "LineUp",
@@ -137,7 +145,8 @@
         "Responsivt interface med Tailwind"
       ],
       "infoYear": "2025",
-      "infoMeta": "Bachelor — hold"
+      "infoStatus": "Not deployed",
+      "infoNext": "Stramme discovery for profiler op"
     },
     "memoir": {
       "title": "Memoir",
@@ -149,7 +158,8 @@
         "Plan: responsivt layout og theming"
       ],
       "infoYear": "—",
-      "infoMeta": "Under udvikling"
+      "infoStatus": "Not deployed",
+      "infoNext": "Definere første MVP-scope"
     },
     "contactCta": {
       "title": "Nyt projekt",

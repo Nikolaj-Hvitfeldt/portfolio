@@ -83,6 +83,9 @@
       "keyFeatures": "Key features",
       "info": "Info",
       "tech": "Tech",
+      "status": "Status",
+      "effort": "Effort",
+      "next": "Next",
       "viewSource": "View source",
       "openLive": "Open live",
       "openLink": "Open"
@@ -98,7 +101,8 @@
         "Persisted data with PostgreSQL"
       ],
       "infoYear": "2024",
-      "infoMeta": ""
+      "infoStatus": "Deployed",
+      "infoNext": "Polish onboarding flow"
     },
     "quartermark": {
       "title": "QuarterMark",
@@ -110,8 +114,9 @@
         "Web UI on React, backend on .NET",
         "Designed for a single shared screen and mobile controllers"
       ],
-      "infoYear": "2024",
-      "infoMeta": ""
+      "infoYear": "2025",
+      "infoStatus": "Deployed",
+      "infoNext": "Add more mini-game rounds"
     },
     "yeetcraft": {
       "title": "Yeetcraft",
@@ -123,8 +128,9 @@
         "Kotlin service layer and APIs",
         "TanStack Query for data fetching and cache discipline"
       ],
-      "infoYear": "2024",
-      "infoMeta": ""
+      "infoYear": "2026",
+      "infoStatus": "Work in progress",
+      "infoNext": "Refine leaderboard filters"
     },
     "lineup": {
       "title": "LineUp",
@@ -137,7 +143,8 @@
         "Responsive, Tailwind-styled interface"
       ],
       "infoYear": "2025",
-      "infoMeta": "Bachelor project — team"
+      "infoStatus": "Not deployed",
+      "infoNext": "Tighten profile discovery"
     },
     "memoir": {
       "title": "Memoir",
@@ -148,8 +155,9 @@
         "Placeholder content while the design is explored",
         "Intended: responsive layout and theming"
       ],
-      "infoYear": "—",
-      "infoMeta": "Work in progress"
+      "infoYear": "2026",
+      "infoStatus": "Not deployed",
+      "infoNext": "Define first MVP scope"
     },
     "contactCta": {
       "title": "New Project",

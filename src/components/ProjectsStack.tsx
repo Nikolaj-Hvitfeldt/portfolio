@@ -561,6 +561,32 @@ function TechPill({ tag }: { tag: string }) {
   );
 }
 
+function statusBadgeClass(status: string) {
+  const key = status.trim().toLowerCase();
+  if (key === "deployed") {
+    return "border-emerald-500/30 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300";
+  }
+  if (key === "paused") {
+    return "border-amber-500/35 bg-amber-500/15 text-amber-700 dark:text-amber-300";
+  }
+  if (
+    key === "work in progress" ||
+    key === "wip" ||
+    key === "under udvikling"
+  ) {
+    return "border-sky-500/35 bg-sky-500/15 text-sky-700 dark:text-sky-300";
+  }
+  if (
+    key === "down" ||
+    key === "stopped" ||
+    key === "not-deployed" ||
+    key === "not deployed"
+  ) {
+    return "border-rose-500/35 bg-rose-500/15 text-rose-700 dark:text-rose-300";
+  }
+  return "border-zinc-400/35 bg-zinc-500/10 text-zinc-700 dark:text-zinc-300";
+}
+
 function ProjectDetailView({
   project,
   onBack,
@@ -587,8 +613,10 @@ function ProjectDetailView({
   const about = tProject(`${id}.longAbout`);
   const features = useProjectFeatureList(id);
   const infoYear = tProject(`${id}.infoYear`);
-  const infoMeta = tProject(`${id}.infoMeta`);
-  const hasInfoMeta = infoMeta.trim().length > 0;
+  const infoStatus = tProject(`${id}.infoStatus`);
+  const infoNext = tProject(`${id}.infoNext`);
+  const hasInfoStatus = infoStatus.trim().length > 0;
+  const hasInfoNext = infoNext.trim().length > 0;
   const canSource = isExternalHref(project.href);
   const canLive = Boolean(project.liveUrl && isExternalHref(project.liveUrl!));
 
@@ -732,7 +760,7 @@ function ProjectDetailView({
                           className="project-details-info-link group inline-flex max-w-full items-center gap-2.5 break-all rounded-md text-zinc-800 hover:text-zinc-950 dark:text-zinc-200 dark:hover:text-white"
                         >
                           <Image
-                            src="/tech-icons/github-logo.jpg"
+                            src="/tech-icons/github-logo.svg"
                             alt=""
                             aria-hidden
                             width={16}
@@ -765,13 +793,32 @@ function ProjectDetailView({
                         </p>
                       </li>
                     ) : null}
-                    <li className="inline-flex items-center gap-2.5">
+                    <li className="flex items-center gap-2.5">
                       <CalendarIcon className="h-4 w-4 shrink-0 text-zinc-500" />
                       <span className={fontSans.className}>{infoYear}</span>
                     </li>
-                    {hasInfoMeta ? (
+                    {hasInfoStatus ? (
+                      <li
+                        className={`${fontSans.className} flex items-center gap-2 text-zinc-500`}
+                      >
+                        <span className="text-zinc-600 dark:text-zinc-300">
+                          {tProject("ui.status")}:
+                        </span>
+                        <span
+                          className={`${fontSans.className} inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium ${statusBadgeClass(
+                            infoStatus,
+                          )}`}
+                        >
+                          {infoStatus}
+                        </span>
+                      </li>
+                    ) : null}
+                    {hasInfoNext ? (
                       <li className={`${fontSans.className} text-zinc-500`}>
-                        {infoMeta}
+                        <span className="text-zinc-600 dark:text-zinc-300">
+                          {tProject("ui.next")}:
+                        </span>{" "}
+                        {infoNext}
                       </li>
                     ) : null}
                   </ul>
