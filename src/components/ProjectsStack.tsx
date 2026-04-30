@@ -102,10 +102,11 @@ function ProjectStackCardContent({
 const shellBaseClass =
   "project-stack-card block w-full overflow-hidden rounded-xl ring-1 ring-white/15 will-change-transform";
 
-const stackSizeClass = "max-w-[32.5rem]";
+const stackSizeClass = "max-w-[38rem]";
 /** Keep the focused card at the same visual size as in the stack. */
-const heroSizeClass = "max-w-[32.5rem]";
-const detailContentMaxClass = "max-w-[32.5rem]";
+const heroSizeClass = "max-w-[38rem]";
+const detailHeroMaxClass = "max-w-[38rem]";
+const detailGridMaxClass = "max-w-[38rem]";
 
 function ProjectStackCard({
   project,
@@ -132,11 +133,11 @@ function ProjectStackCard({
   const { stackTheme, href } = project;
   const onLight = stackTheme.textTone === "onLight";
   const titleClass = onLight
-    ? `text-zinc-950 ${fontSans.className} text-lg font-bold leading-tight tracking-tight sm:text-xl`
+    ? `text-black ${fontSans.className} text-lg font-bold leading-tight tracking-tight sm:text-xl`
     : `text-white ${fontSans.className} text-lg font-bold leading-tight tracking-tight [text-shadow:0_1px_2px_rgba(0,0,0,0.2)] sm:text-xl`;
   const bodyClass = onLight
-    ? `${fontSans.className} text-sm font-normal leading-snug text-zinc-800 sm:leading-normal`
-    : `${fontSans.className} text-sm font-normal leading-snug text-white/90 [text-shadow:0_1px_1px_rgba(0,0,0,0.15)] sm:leading-normal`;
+    ? `${fontSans.className} text-sm font-normal leading-snug text-black sm:leading-normal`
+    : `${fontSans.className} text-sm font-normal leading-snug text-white [text-shadow:0_1px_1px_rgba(0,0,0,0.18)] sm:leading-normal`;
   const emojiClass = onLight
     ? "text-2xl sm:text-3xl text-zinc-100"
     : "text-2xl sm:text-3xl text-white/95";
@@ -248,7 +249,7 @@ function ContactCtaStackCard() {
     minHeight: H_CARD_BLOCK_PX,
     height: H_CARD_BLOCK_PX,
   } as const;
-  const shellClass = `project-stack-card relative block w-full max-w-[32.5rem] overflow-hidden rounded-xl ring-1 ring-white/20 transition-transform duration-200 will-change-transform focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80 motion-reduce:transition-none motion-reduce:hover:translate-y-0 hover:-translate-y-0.5`;
+  const shellClass = `project-stack-card relative block w-full max-w-[38rem] overflow-hidden rounded-xl ring-1 ring-white/20 transition-transform duration-200 will-change-transform focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80 motion-reduce:transition-none motion-reduce:hover:translate-y-0 hover:-translate-y-0.5`;
 
   return (
     <a
@@ -442,7 +443,7 @@ function ScrolledStack({
       <div
         ref={trackRef}
         data-project-stack-track
-        className="relative z-10 mx-auto h-full min-h-0 w-full min-w-0 max-w-[32.5rem] touch-manipulation overflow-hidden overscroll-behavior-y-contain"
+        className="relative z-10 mx-auto h-full min-h-0 w-full min-w-0 max-w-[38rem] touch-manipulation overflow-hidden overscroll-behavior-y-contain"
         tabIndex={0}
       >
         <div
@@ -507,8 +508,8 @@ function HighlightSpotIcon() {
       aria-hidden
       className="relative mt-1 inline-flex h-4 w-4 shrink-0 items-center justify-center"
     >
-      <span className="absolute inline-flex h-3 w-3 rounded-full bg-amber-300/55 blur-[3px] dark:bg-amber-200/60" />
-      <span className="absolute inline-flex h-2 w-2 rounded-full bg-amber-100/90 shadow-[0_0_8px_rgba(251,191,36,0.8)] dark:bg-amber-100/95" />
+      <span className="absolute inline-flex h-3 w-3 rounded-full bg-amber-300/55 blur-[3px] dark:bg-amber-300/70" />
+      <span className="absolute inline-flex h-2 w-2 rounded-full bg-amber-100/90 shadow-[0_0_10px_rgba(251,191,36,0.9)] dark:bg-amber-100/95" />
       <span className="inline-flex h-1 w-1 rounded-full bg-yellow-50" />
     </span>
   );
@@ -553,7 +554,7 @@ function CalendarIcon({ className }: { className?: string }) {
 function TechPill({ tag }: { tag: string }) {
   return (
     <span
-      className={`${fontSans.className} inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-2.5 py-1 text-xs font-medium text-zinc-800 shadow-sm dark:border-white/10 dark:bg-white dark:text-zinc-900`}
+      className={`${fontSans.className} inline-flex items-center gap-1.5 rounded-full border border-black/8 bg-white px-2.5 py-0.5 text-[11px] font-medium text-zinc-800 shadow-[0_1px_3px_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-white dark:text-zinc-900`}
     >
       {techTagIconForLabel(tag)}
       <span>{tag}</span>
@@ -623,16 +624,19 @@ function ProjectDetailView({
   return (
     <div className="project-details-root flex w-full min-w-0 flex-1 flex-col gap-0 pb-6">
       <div className="mx-auto w-full min-w-0 shrink-0 px-0 pr-4 sm:pr-6">
-        <div className={`mx-auto w-full min-w-0 ${detailContentMaxClass}`}>
+        <div className={`mx-auto w-full min-w-0 ${detailHeroMaxClass}`}>
           <div className="mb-2 flex w-full justify-start">
             <button
               ref={backButtonRef}
               type="button"
               onClick={onBack}
-              className={`project-details-back group inline-flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm text-zinc-600 transition-colors hover:text-zinc-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/50 dark:text-zinc-400 dark:hover:text-zinc-100 ${fontSans.className}`}
+              className={`project-details-back group inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs text-[#cfb69e] transition-colors hover:text-[#dfc9b3] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#cfb69e]/45 dark:text-[#cfb69e] dark:hover:text-[#dfc9b3] ${fontSans.className}`}
               aria-label={tProject("ui.back")}
             >
-              <span aria-hidden className="inline-block -translate-y-px">
+              <span
+                aria-hidden
+                className="inline-block -translate-y-px transition-transform duration-200 group-hover:-translate-x-0.5"
+              >
                 <svg
                   viewBox="0 0 20 20"
                   width="16"
@@ -648,14 +652,16 @@ function ProjectDetailView({
                   />
                 </svg>
               </span>
-              {tProject("ui.back")}
+              <span className="underline-offset-2 group-hover:underline">
+                {tProject("ui.back")}
+              </span>
             </button>
           </div>
 
           <div className="mt-0 flex w-full justify-center sm:px-0">
             <motion.div
               ref={heroTargetRef}
-              className={`w-full min-w-0 ${detailContentMaxClass}`}
+              className={`w-full min-w-0 ${detailHeroMaxClass}`}
               initial={false}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0 }}
@@ -707,33 +713,31 @@ function ProjectDetailView({
             aria-hidden={detailsHidden ? true : undefined}
           >
             <div
-              className={`mx-auto grid w-full min-w-0 ${detailContentMaxClass} gap-8 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:gap-x-8`}
+              className={`mx-auto grid w-full min-w-0 ${detailGridMaxClass} gap-6 sm:grid-cols-1 md:grid-cols-2 md:gap-7 md:gap-x-9`}
             >
               <div className="min-w-0 space-y-6">
                 <section>
                   <h2
-                    className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-xl`}
+                    className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50`}
                   >
                     {tProject("ui.about")}
                   </h2>
-                  <p
-                    className={`${fontSans.className} mt-2 text-sm font-normal leading-relaxed text-zinc-600 sm:text-[15px] dark:text-zinc-400`}
-                  >
+                  <p className={`${fontSans.className} mt-1.5 whitespace-pre-line text-[13.5px] font-normal leading-6 text-zinc-600 dark:text-zinc-300/95`}>
                     {about}
                   </p>
                 </section>
                 {features.length > 0 ? (
                   <section>
                     <h2
-                      className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-xl`}
+                      className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50`}
                     >
                       {tProject("ui.keyFeatures")}
                     </h2>
-                    <ul className="mt-3 space-y-2.5">
+                    <ul className="mt-2.5 space-y-1.5">
                       {features.map((f) => (
                         <li
                           key={f}
-                          className={`${fontSans.className} flex items-start gap-2.5 text-sm text-zinc-600 dark:text-zinc-300`}
+                          className={`${fontSans.className} flex items-start gap-2.5 text-[13px] leading-5 text-zinc-600 dark:text-zinc-200/95`}
                         >
                           <HighlightSpotIcon />
                           <span>{f}</span>
@@ -746,18 +750,18 @@ function ProjectDetailView({
               <div className="min-w-0 space-y-6">
                 <section>
                   <h2
-                    className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-xl`}
+                    className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50`}
                   >
                     {tProject("ui.info")}
                   </h2>
-                  <ul className="mt-3 space-y-3 text-sm text-zinc-600 dark:text-zinc-300">
+                  <ul className="mt-2.5 space-y-1.5 text-[13px] text-zinc-600 dark:text-zinc-200/95">
                     {canSource ? (
                       <li>
                         <a
                           href={project.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="project-details-info-link group inline-flex max-w-full items-center gap-2.5 break-all rounded-md text-zinc-800 hover:text-zinc-950 dark:text-zinc-200 dark:hover:text-white"
+                          className="project-details-info-link group inline-flex max-w-full items-center gap-2 break-all rounded-md text-zinc-800 hover:text-zinc-950 dark:text-zinc-100 dark:hover:text-white"
                         >
                           <Image
                             src="/tech-icons/github-logo.svg"
@@ -765,9 +769,9 @@ function ProjectDetailView({
                             aria-hidden
                             width={16}
                             height={16}
-                            className="h-4 w-4 shrink-0 object-contain opacity-80 transition-opacity group-hover:opacity-100"
+                            className="h-4 w-4 shrink-0 object-contain opacity-90 transition-opacity group-hover:opacity-100"
                           />
-                          <span className="min-w-0 font-medium">
+                          <span className="min-w-0 text-[12.5px] font-medium">
                             {project.href.replace(/^https?:\/\//, "")}
                           </span>
                         </a>
@@ -779,33 +783,31 @@ function ProjectDetailView({
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="project-details-info-link group inline-flex max-w-full items-center gap-2.5 break-all rounded-md text-zinc-800 hover:text-zinc-950 dark:text-zinc-200 dark:hover:text-white"
+                          className="project-details-info-link group inline-flex max-w-full items-center gap-2 break-all rounded-md text-zinc-800 hover:text-zinc-950 dark:text-zinc-100 dark:hover:text-white"
                         >
-                          <LinkIcon className="h-4 w-4 shrink-0 text-zinc-500 group-hover:text-zinc-700 dark:group-hover:text-zinc-300" />
-                          <span className="min-w-0 font-medium">
+                          <LinkIcon className="h-4 w-4 shrink-0 text-zinc-500 group-hover:text-zinc-700 dark:text-zinc-300 dark:group-hover:text-zinc-100" />
+                          <span className="min-w-0 text-[12.5px] font-medium">
                             {project.liveUrl.replace(/^https?:\/\//, "")}
                           </span>
                         </a>
                         <p
-                          className={`${fontSans.className} mt-1 text-xs text-zinc-500`}
+                          className={`${fontSans.className} mt-1 text-[11px] text-zinc-500 dark:text-zinc-300/85`}
                         >
                           {tProject("ui.openLive")}
                         </p>
                       </li>
                     ) : null}
                     <li className="flex items-center gap-2.5">
-                      <CalendarIcon className="h-4 w-4 shrink-0 text-zinc-500" />
+                      <CalendarIcon className="h-4 w-4 shrink-0 text-zinc-500 dark:text-zinc-300" />
                       <span className={fontSans.className}>{infoYear}</span>
                     </li>
                     {hasInfoStatus ? (
-                      <li
-                        className={`${fontSans.className} flex items-center gap-2 text-zinc-500`}
-                      >
-                        <span className="text-zinc-600 dark:text-zinc-300">
+                      <li className={`${fontSans.className} flex items-center gap-2 text-zinc-500`}>
+                        <span className="text-zinc-600 dark:text-zinc-200/90">
                           {tProject("ui.status")}:
                         </span>
                         <span
-                          className={`${fontSans.className} inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium ${statusBadgeClass(
+                          className={`${fontSans.className} inline-flex items-center rounded-md border px-2 py-[2px] text-[10px] font-semibold tracking-[0.01em] ${statusBadgeClass(
                             infoStatus,
                           )}`}
                         >
@@ -815,7 +817,7 @@ function ProjectDetailView({
                     ) : null}
                     {hasInfoNext ? (
                       <li className={`${fontSans.className} text-zinc-500`}>
-                        <span className="text-zinc-600 dark:text-zinc-300">
+                        <span className="text-zinc-600 dark:text-zinc-200/90">
                           {tProject("ui.next")}:
                         </span>{" "}
                         {infoNext}
@@ -823,13 +825,13 @@ function ProjectDetailView({
                     ) : null}
                   </ul>
                 </section>
-                <section>
+                <section className="pt-0.5">
                   <h2
-                    className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-xl`}
+                    className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50`}
                   >
                     {tProject("ui.tech")}
                   </h2>
-                  <ul className="mt-3 flex flex-wrap gap-2">
+                  <ul className="mt-2.5 flex flex-wrap gap-1.5">
                     {project.tags.map((tag) => (
                       <li key={tag}>
                         <TechPill tag={tag} />
@@ -879,7 +881,7 @@ function ReducedListStack({
 }) {
   const tProject = useTranslations("Project");
   return (
-    <ul className="project-deck-reduce-list mx-auto flex h-full min-h-0 w-full max-w-[32.5rem] list-none flex-col gap-5 overflow-y-auto overflow-x-hidden p-0 pr-0.5 sm:gap-6">
+    <ul className="project-deck-reduce-list mx-auto flex h-full min-h-0 w-full max-w-[38rem] list-none flex-col gap-5 overflow-y-auto overflow-x-hidden p-0 pr-0.5 sm:gap-6">
       {PROJECTS.map((project, index) => {
         const exitThis = siblingExitActive && project.id !== selectedProjectId;
         if (hideSelectedInStack && project.id === selectedProjectId) {
