@@ -75,6 +75,7 @@ const TAG_LOGOS: Record<string, { src: string; alt: string }> = {
   zustand: { src: "/tech-icons/zustand-logo.png", alt: "Zustand" },
   i18next: { src: "/tech-icons/i18next-icon.svg", alt: "i18next" },
   reanimated: { src: "/tech-icons/react-logo.png", alt: "Reanimated" },
+  nestjs: { src: "/tech-icons/nestjs-logo.svg", alt: "NestJS" },
 };
 
 function normalizeKey(tag: string) {
