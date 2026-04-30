@@ -98,7 +98,7 @@
         "Persisted data with PostgreSQL"
       ],
       "infoYear": "2024",
-      "infoMeta": "Open source"
+      "infoMeta": ""
     },
     "quartermark": {
       "title": "QuarterMark",
@@ -111,7 +111,7 @@
         "Designed for a single shared screen and mobile controllers"
       ],
       "infoYear": "2024",
-      "infoMeta": "Open source"
+      "infoMeta": ""
     },
     "yeetcraft": {
       "title": "Yeetcraft",
@@ -124,7 +124,7 @@
         "TanStack Query for data fetching and cache discipline"
       ],
       "infoYear": "2024",
-      "infoMeta": "Open source"
+      "infoMeta": ""
     },
     "lineup": {
       "title": "LineUp",

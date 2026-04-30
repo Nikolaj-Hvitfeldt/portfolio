@@ -7,7 +7,13 @@ import {
   motion,
 } from "framer-motion";
 import Image from "next/image";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { useMessages, useTranslations } from "next-intl";
 import { useDeckRailViewportBox } from "@/hooks/useDeckRailViewportBox";
 import { useDeckScrollProgress } from "@/hooks/useDeckScrollProgress";
@@ -333,17 +339,14 @@ function StackCardLayer({
   selectedFadeActive: boolean;
   hideSelectedInStack: boolean;
 }) {
-  const isSelected =
-    variant === "project" && project?.id === selectedProjectId;
+  const isSelected = variant === "project" && project?.id === selectedProjectId;
   if (isSelected && hideSelectedInStack) {
     return null;
   }
   const exitThis =
     siblingExitActive &&
     (variant === "contact" ||
-      (variant === "project" &&
-        project &&
-        project.id !== selectedProjectId));
+      (variant === "project" && project && project.id !== selectedProjectId));
   const isAboveSelected =
     selectedIndex !== null ? index < selectedIndex : false;
 
@@ -498,31 +501,22 @@ function ScrolledStack({
   );
 }
 
-function CheckIcon({ className }: { className?: string }) {
+function HighlightSpotIcon() {
   return (
-    <svg
+    <span
       aria-hidden
-      viewBox="0 0 20 20"
-      fill="currentColor"
-      className={className}
+      className="relative mt-1 inline-flex h-4 w-4 shrink-0 items-center justify-center"
     >
-      <path
-        fillRule="evenodd"
-        d="M16.704 4.153a.75.75 0 01.143 1.052l-7.5 9.5a.75.75 0 01-1.127.09l-4-4a.75.75 0 111.06-1.06l3.3 3.3 6.93-8.75a.75.75 0 011.054-.135z"
-        clipRule="evenodd"
-      />
-    </svg>
+      <span className="absolute inline-flex h-3 w-3 rounded-full bg-amber-300/55 blur-[3px] dark:bg-amber-200/60" />
+      <span className="absolute inline-flex h-2 w-2 rounded-full bg-amber-100/90 shadow-[0_0_8px_rgba(251,191,36,0.8)] dark:bg-amber-100/95" />
+      <span className="inline-flex h-1 w-1 rounded-full bg-yellow-50" />
+    </span>
   );
 }
 
 function LinkIcon({ className }: { className?: string }) {
   return (
-    <svg
-      aria-hidden
-      viewBox="0 0 20 20"
-      fill="none"
-      className={className}
-    >
+    <svg aria-hidden viewBox="0 0 20 20" fill="none" className={className}>
       <path
         d="M12.292 2.25h3.5a.75.75 0 01.75.75v3.5m-8.5-3.5L17.5 10.5M8.5 2.25H3.75A1.5 1.5 0 002.25 3.75v12.5A1.5 1.5 0 003.75 18h12.5a1.5 1.5 0 001.5-1.5V11.5"
         stroke="currentColor"
@@ -536,12 +530,7 @@ function LinkIcon({ className }: { className?: string }) {
 
 function CalendarIcon({ className }: { className?: string }) {
   return (
-    <svg
-      aria-hidden
-      viewBox="0 0 20 20"
-      fill="none"
-      className={className}
-    >
+    <svg aria-hidden viewBox="0 0 20 20" fill="none" className={className}>
       <rect
         x="2.5"
         y="4.5"
@@ -599,68 +588,70 @@ function ProjectDetailView({
   const features = useProjectFeatureList(id);
   const infoYear = tProject(`${id}.infoYear`);
   const infoMeta = tProject(`${id}.infoMeta`);
+  const hasInfoMeta = infoMeta.trim().length > 0;
   const canSource = isExternalHref(project.href);
-  const canLive = Boolean(
-    project.liveUrl && isExternalHref(project.liveUrl!),
-  );
+  const canLive = Boolean(project.liveUrl && isExternalHref(project.liveUrl!));
 
   return (
     <div className="project-details-root flex w-full min-w-0 flex-1 flex-col gap-0 pb-6">
       <div className="mx-auto w-full min-w-0 shrink-0 px-0 pr-4 sm:pr-6">
         <div className={`mx-auto w-full min-w-0 ${detailContentMaxClass}`}>
-        <div className="mb-2 flex w-full justify-start">
-          <button
-            ref={backButtonRef}
-            type="button"
-            onClick={onBack}
-            className={`project-details-back group inline-flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm text-zinc-600 transition-colors hover:text-zinc-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/50 dark:text-zinc-400 dark:hover:text-zinc-100 ${fontSans.className}`}
-            aria-label={tProject("ui.back")}
-          >
-            <span aria-hidden className="inline-block -translate-y-px">
-              <svg
-                viewBox="0 0 20 20"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="opacity-80 transition group-hover:opacity-100"
-                aria-hidden
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12.79 3.2a.75.75 0 010 1.06L7.12 9.93a.2.2 0 000 .28l5.67 5.66a.75.75 0 11-1.06 1.06L5.3 10.4a.75.75 0 010-1.12l5.44-5.5a.75.75 0 011.05-.09z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-            {tProject("ui.back")}
-          </button>
-        </div>
+          <div className="mb-2 flex w-full justify-start">
+            <button
+              ref={backButtonRef}
+              type="button"
+              onClick={onBack}
+              className={`project-details-back group inline-flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm text-zinc-600 transition-colors hover:text-zinc-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/50 dark:text-zinc-400 dark:hover:text-zinc-100 ${fontSans.className}`}
+              aria-label={tProject("ui.back")}
+            >
+              <span aria-hidden className="inline-block -translate-y-px">
+                <svg
+                  viewBox="0 0 20 20"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="opacity-80 transition group-hover:opacity-100"
+                  aria-hidden
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.79 3.2a.75.75 0 010 1.06L7.12 9.93a.2.2 0 000 .28l5.67 5.66a.75.75 0 11-1.06 1.06L5.3 10.4a.75.75 0 010-1.12l5.44-5.5a.75.75 0 011.05-.09z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+              {tProject("ui.back")}
+            </button>
+          </div>
 
-        <div className="mt-0 flex w-full justify-center sm:px-0">
-          <motion.div
-            ref={heroTargetRef}
-            className={`w-full min-w-0 ${detailContentMaxClass}`}
-            initial={false}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0 }}
-          >
-            {showHeroCard ? (
-              <ProjectStackCard
-                project={project}
-                title={title}
-                description={shortDesc}
-                size="hero"
-                layoutId={undefined}
-                reduceMotion={reduceMotion}
-              />
-            ) : (
-              <div
-                aria-hidden
-                style={{ minHeight: H_CARD_BLOCK_PX, height: H_CARD_BLOCK_PX }}
-              />
-            )}
-          </motion.div>
-        </div>
+          <div className="mt-0 flex w-full justify-center sm:px-0">
+            <motion.div
+              ref={heroTargetRef}
+              className={`w-full min-w-0 ${detailContentMaxClass}`}
+              initial={false}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0 }}
+            >
+              {showHeroCard ? (
+                <ProjectStackCard
+                  project={project}
+                  title={title}
+                  description={shortDesc}
+                  size="hero"
+                  layoutId={undefined}
+                  reduceMotion={reduceMotion}
+                />
+              ) : (
+                <div
+                  aria-hidden
+                  style={{
+                    minHeight: H_CARD_BLOCK_PX,
+                    height: H_CARD_BLOCK_PX,
+                  }}
+                />
+              )}
+            </motion.div>
+          </div>
         </div>
       </div>
 
@@ -690,124 +681,128 @@ function ProjectDetailView({
             <div
               className={`mx-auto grid w-full min-w-0 ${detailContentMaxClass} gap-8 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:gap-x-8`}
             >
-          <div className="min-w-0 space-y-6">
-            <section>
-              <h2
-                className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-xl`}
-              >
-                {tProject("ui.about")}
-              </h2>
-              <p
-                className={`${fontSans.className} mt-2 text-sm font-normal leading-relaxed text-zinc-600 sm:text-[15px] dark:text-zinc-400`}
-              >
-                {about}
-              </p>
-            </section>
-            {features.length > 0 ? (
-              <section>
-                <h2
-                  className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-xl`}
-                >
-                  {tProject("ui.keyFeatures")}
-                </h2>
-                <ul className="mt-3 space-y-2.5">
-                  {features.map((f) => (
-                    <li
-                      key={f}
-                      className={`${fontSans.className} flex items-start gap-2.5 text-sm text-zinc-600 dark:text-zinc-300`}
+              <div className="min-w-0 space-y-6">
+                <section>
+                  <h2
+                    className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-xl`}
+                  >
+                    {tProject("ui.about")}
+                  </h2>
+                  <p
+                    className={`${fontSans.className} mt-2 text-sm font-normal leading-relaxed text-zinc-600 sm:text-[15px] dark:text-zinc-400`}
+                  >
+                    {about}
+                  </p>
+                </section>
+                {features.length > 0 ? (
+                  <section>
+                    <h2
+                      className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-xl`}
                     >
-                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500 dark:text-emerald-400" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ) : null}
-          </div>
-          <div className="min-w-0 space-y-6">
-            <section>
-              <h2
-                className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-xl`}
-              >
-                {tProject("ui.info")}
-              </h2>
-              <ul className="mt-3 space-y-3 text-sm text-zinc-600 dark:text-zinc-300">
-                {canSource ? (
-                  <li>
-                    <a
-                      href={project.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-details-info-link group inline-flex max-w-full items-center gap-2.5 break-all rounded-md text-zinc-800 hover:text-zinc-950 dark:text-zinc-200 dark:hover:text-white"
-                    >
-                      <LinkIcon className="h-4 w-4 shrink-0 text-zinc-500 group-hover:text-zinc-700 dark:group-hover:text-zinc-300" />
-                      <span className="min-w-0 font-medium">
-                        {project.href.replace(/^https?:\/\//, "")}
-                      </span>
-                    </a>
-                    <p
-                      className={`${fontSans.className} mt-1 text-xs text-zinc-500 dark:text-zinc-500`}
-                    >
-                      {tProject("ui.viewSource")}
-                    </p>
-                  </li>
+                      {tProject("ui.keyFeatures")}
+                    </h2>
+                    <ul className="mt-3 space-y-2.5">
+                      {features.map((f) => (
+                        <li
+                          key={f}
+                          className={`${fontSans.className} flex items-start gap-2.5 text-sm text-zinc-600 dark:text-zinc-300`}
+                        >
+                          <HighlightSpotIcon />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
                 ) : null}
+              </div>
+              <div className="min-w-0 space-y-6">
+                <section>
+                  <h2
+                    className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-xl`}
+                  >
+                    {tProject("ui.info")}
+                  </h2>
+                  <ul className="mt-3 space-y-3 text-sm text-zinc-600 dark:text-zinc-300">
+                    {canSource ? (
+                      <li>
+                        <a
+                          href={project.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-details-info-link group inline-flex max-w-full items-center gap-2.5 break-all rounded-md text-zinc-800 hover:text-zinc-950 dark:text-zinc-200 dark:hover:text-white"
+                        >
+                          <Image
+                            src="/tech-icons/github-logo.jpg"
+                            alt=""
+                            aria-hidden
+                            width={16}
+                            height={16}
+                            className="h-4 w-4 shrink-0 object-contain opacity-80 transition-opacity group-hover:opacity-100"
+                          />
+                          <span className="min-w-0 font-medium">
+                            {project.href.replace(/^https?:\/\//, "")}
+                          </span>
+                        </a>
+                      </li>
+                    ) : null}
+                    {canLive && project.liveUrl ? (
+                      <li>
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-details-info-link group inline-flex max-w-full items-center gap-2.5 break-all rounded-md text-zinc-800 hover:text-zinc-950 dark:text-zinc-200 dark:hover:text-white"
+                        >
+                          <LinkIcon className="h-4 w-4 shrink-0 text-zinc-500 group-hover:text-zinc-700 dark:group-hover:text-zinc-300" />
+                          <span className="min-w-0 font-medium">
+                            {project.liveUrl.replace(/^https?:\/\//, "")}
+                          </span>
+                        </a>
+                        <p
+                          className={`${fontSans.className} mt-1 text-xs text-zinc-500`}
+                        >
+                          {tProject("ui.openLive")}
+                        </p>
+                      </li>
+                    ) : null}
+                    <li className="inline-flex items-center gap-2.5">
+                      <CalendarIcon className="h-4 w-4 shrink-0 text-zinc-500" />
+                      <span className={fontSans.className}>{infoYear}</span>
+                    </li>
+                    {hasInfoMeta ? (
+                      <li className={`${fontSans.className} text-zinc-500`}>
+                        {infoMeta}
+                      </li>
+                    ) : null}
+                  </ul>
+                </section>
+                <section>
+                  <h2
+                    className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-xl`}
+                  >
+                    {tProject("ui.tech")}
+                  </h2>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <li key={tag}>
+                        <TechPill tag={tag} />
+                      </li>
+                    ))}
+                  </ul>
+                </section>
                 {canLive && project.liveUrl ? (
-                  <li>
+                  <div className="flex flex-wrap gap-2 pt-1">
                     <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="project-details-info-link group inline-flex max-w-full items-center gap-2.5 break-all rounded-md text-zinc-800 hover:text-zinc-950 dark:text-zinc-200 dark:hover:text-white"
-                    >
-                      <LinkIcon className="h-4 w-4 shrink-0 text-zinc-500 group-hover:text-zinc-700 dark:group-hover:text-zinc-300" />
-                      <span className="min-w-0 font-medium">
-                        {project.liveUrl.replace(/^https?:\/\//, "")}
-                      </span>
-                    </a>
-                    <p
-                      className={`${fontSans.className} mt-1 text-xs text-zinc-500`}
+                      className={`${fontSans.className} project-details-cta inline-flex items-center justify-center rounded-xl border border-black/10 bg-white/50 px-4 py-2.5 text-sm font-medium text-zinc-900 transition hover:bg-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100 dark:hover:bg-white/10`}
                     >
                       {tProject("ui.openLive")}
-                    </p>
-                  </li>
+                    </a>
+                  </div>
                 ) : null}
-                <li className="inline-flex items-center gap-2.5">
-                  <CalendarIcon className="h-4 w-4 shrink-0 text-zinc-500" />
-                  <span className={fontSans.className}>{infoYear}</span>
-                </li>
-                <li className={`${fontSans.className} text-zinc-500`}>
-                  {infoMeta}
-                </li>
-              </ul>
-            </section>
-            <section>
-              <h2
-                className={`${fontDisplay.className} project-details-h2 text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-xl`}
-              >
-                {tProject("ui.tech")}
-              </h2>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <li key={tag}>
-                    <TechPill tag={tag} />
-                  </li>
-                ))}
-              </ul>
-            </section>
-            {canLive && project.liveUrl ? (
-              <div className="flex flex-wrap gap-2 pt-1">
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${fontSans.className} project-details-cta inline-flex items-center justify-center rounded-xl border border-black/10 bg-white/50 px-4 py-2.5 text-sm font-medium text-zinc-900 transition hover:bg-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100 dark:hover:bg-white/10`}
-                >
-                  {tProject("ui.openLive")}
-                </a>
               </div>
-            ) : null}
-          </div>
             </div>
           </motion.div>
         ) : null}
@@ -839,8 +834,7 @@ function ReducedListStack({
   return (
     <ul className="project-deck-reduce-list mx-auto flex h-full min-h-0 w-full max-w-[32.5rem] list-none flex-col gap-5 overflow-y-auto overflow-x-hidden p-0 pr-0.5 sm:gap-6">
       {PROJECTS.map((project, index) => {
-        const exitThis =
-          siblingExitActive && project.id !== selectedProjectId;
+        const exitThis = siblingExitActive && project.id !== selectedProjectId;
         if (hideSelectedInStack && project.id === selectedProjectId) {
           return null;
         }
@@ -868,7 +862,9 @@ function ReducedListStack({
               >
                 {card}
               </motion.div>
-            ) : selectedFadeActive && project.id === selectedProjectId && !reduceMotion ? (
+            ) : selectedFadeActive &&
+              project.id === selectedProjectId &&
+              !reduceMotion ? (
               <motion.div
                 initial={false}
                 animate={{ opacity: 0 }}
@@ -877,7 +873,9 @@ function ReducedListStack({
               >
                 {card}
               </motion.div>
-            ) : siblingEnterActive && project.id !== selectedProjectId && !reduceMotion ? (
+            ) : siblingEnterActive &&
+              project.id !== selectedProjectId &&
+              !reduceMotion ? (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -920,7 +918,9 @@ function ReducedListStack({
 type NavPhase = "list" | "flipping" | "detail" | "closing";
 type FlipRect = { x: number; y: number; width: number; height: number };
 
-export function ProjectsStack({ reduceMotion: reduceMotionProp }: ProjectsStackProps) {
+export function ProjectsStack({
+  reduceMotion: reduceMotionProp,
+}: ProjectsStackProps) {
   const reduceMotion = !!reduceMotionProp;
   const tProject = useTranslations("Project");
   const [navPhase, setNavPhase] = useState<NavPhase>("list");
@@ -1029,7 +1029,9 @@ export function ProjectsStack({ reduceMotion: reduceMotionProp }: ProjectsStackP
   }, [navPhase, showDetailsPanel]);
 
   const flipTitle = selectedId ? tProject(`${selectedId}.title`) : "";
-  const flipDescription = selectedId ? tProject(`${selectedId}.description`) : "";
+  const flipDescription = selectedId
+    ? tProject(`${selectedId}.description`)
+    : "";
 
   return (
     <div className="project-details-container relative flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden">
