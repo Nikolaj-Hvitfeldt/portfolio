@@ -90,6 +90,9 @@ const TAG_LOGOS: Record<string, { src: string; alt: string }> = {
   reanimated: { src: "/tech-icons/react-logo.svg", alt: "Reanimated" },
   nestjs: { src: "/tech-icons/nestjs-logo.svg", alt: "NestJS" },
   java: { src: "/tech-icons/java-logo.svg", alt: "Java" },
+  playwright: { src: "/tech-icons/playwright-logo.svg", alt: "Playwright" },
+  playwrite: { src: "/tech-icons/playwright-logo.svg", alt: "Playwright" },
+  jest: { src: "/tech-icons/jest-logo.svg", alt: "Jest" },
 };
 
 function normalizeKey(tag: string) {

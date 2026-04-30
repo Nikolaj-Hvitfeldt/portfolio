@@ -31,9 +31,9 @@
     "techStack": {
       "coreFrontend": "Frontend",
       "backendAndRuntimes": "Backend",
+      "testing": "Testing",
       "dataAndState": "Databases",
-      "toolsAndInfra": "Tools & Infrastructure",
-      "currentlyExploring": "Currently Exploring"
+      "toolsAndInfra": "Tools & Infrastructure"
     }
   },
   "Projects": {

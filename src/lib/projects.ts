@@ -1,5 +1,5 @@
 export type Project = {
-  id: string;
+  id: ProjectId;
   /** Public repository or primary project URL. */
   href: string;
   /** Optional public live site / app URL (separate from source). */
@@ -21,7 +21,20 @@ export type Project = {
      */
     textTone?: "onLight" | "onDark";
   };
+  /** Stable semantic status used for UI styling (locale-agnostic). */
+  status: ProjectStatus;
 };
+
+export const PROJECT_IDS = [
+  "amori",
+  "quartermark",
+  "yeetcraft",
+  "lineup",
+  "memoir",
+] as const;
+
+export type ProjectId = (typeof PROJECT_IDS)[number];
+export type ProjectStatus = "deployed" | "wip" | "notDeployed" | "paused";
 
 export const PROJECTS: readonly Project[] = [
   {
@@ -43,6 +56,7 @@ export const PROJECTS: readonly Project[] = [
       gradient:
         "linear-gradient(102deg, #9d174d 0%, #db2777 24%, #f472b6 44%, #f896be 60%, #fdf2f8 100%)",
     },
+    status: "deployed",
   },
   {
     id: "quartermark",
@@ -65,6 +79,7 @@ export const PROJECTS: readonly Project[] = [
       gradient:
         "linear-gradient(102deg, #1e1b4b 0%, #3b1f7a 16%, #5b21b6 32%, #7041f4 52%, #c4b5fd 80%, #faf5ff 100%)",
     },
+    status: "deployed",
   },
   {
     id: "yeetcraft",
@@ -86,6 +101,7 @@ export const PROJECTS: readonly Project[] = [
       gradient:
         "linear-gradient(102deg, #365314 0%, #4d7c0f 22%, #84cc16 44%, #c9dc7b 64%, #f7fee7 100%)",
     },
+    status: "wip",
   },
   {
     id: "lineup",
@@ -109,6 +125,7 @@ export const PROJECTS: readonly Project[] = [
       gradient:
         "linear-gradient(102deg, #3b0764 0%, #6d28d9 26%, #7c3aed 42%, #9f52f2 58%, #ede9fe 88%, #faf5ff 100%)",
     },
+    status: "notDeployed",
   },
   {
     id: "memoir",
@@ -130,9 +147,10 @@ export const PROJECTS: readonly Project[] = [
       gradient:
         "linear-gradient(102deg, #44403c 0%, #78716c 20%, #a8a29e 42%, #d6d3d1 64%, #f3e5cf 82%, #fafaf9 100%)",
     },
+    status: "notDeployed",
   },
 ] as const;
 
-export function getProjectById(id: string): Project | undefined {
+export function getProjectById(id: ProjectId | string): Project | undefined {
   return PROJECTS.find((p) => p.id === id);
 }
