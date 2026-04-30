@@ -40,37 +40,62 @@ const STATIC_TABLET_CLASS =
  */
 type EyeInBox = { top: string; left: string };
 type BandKey = 0 | 1 | 2;
+type EyePoint = { x: number; y: number };
 const EYE_BY_BAND: Record<
   BandKey,
   {
     objectClass: string;
-    left: EyeInBox;
-    right: EyeInBox;
-    gazeAnchor: { x: number; y: number };
+    objectPos: { x: number; y: number };
   }
 > = {
   /** Narrow face strip (most phones) — matches a looser `object-` + tighter crop. */
   0: {
     objectClass: "object-[72%_42%]",
-    left: { top: "35.5%", left: "35%" },
-    right: { top: "33.5%", left: "45.2%" },
-    gazeAnchor: { x: 0.403, y: 0.345 },
+    objectPos: { x: 0.72, y: 0.42 },
   },
   /** Mid-width strip (short devtool windows, smaller bento) */
   1: {
     objectClass: "object-[70%_41%]",
-    left: { top: "36%", left: "36%" },
-    right: { top: "33.7%", left: "46.5%" },
-    gazeAnchor: { x: 0.402, y: 0.346 },
+    objectPos: { x: 0.7, y: 0.41 },
   },
   /** Wide face strip (typical large desktop bento) */
   2: {
     objectClass: "object-[68%_40%]",
-    left: { top: "37%", left: "35%" },
-    right: { top: "33.5%", left: "46%" },
-    gazeAnchor: { x: 0.405, y: 0.3475 },
+    objectPos: { x: 0.68, y: 0.4 },
   },
 };
+
+const AVATAR_IMAGE_SIZE = { w: 1024, h: 1536 } as const;
+/** Eye landmarks in source-image normalized coordinates (0..1). */
+const EYE_SOURCE_LEFT: EyePoint = { x: 0.4, y: 0.356 };
+const EYE_SOURCE_RIGHT: EyePoint = { x: 0.486, y: 0.335 };
+
+function clamp01(n: number) {
+  return Math.max(0, Math.min(1, n));
+}
+
+function projectSourcePointToBox(
+  point: EyePoint,
+  boxW: number,
+  boxH: number,
+  objectPos: { x: number; y: number },
+) {
+  const scale = Math.max(
+    boxW / AVATAR_IMAGE_SIZE.w,
+    boxH / AVATAR_IMAGE_SIZE.h,
+  );
+  const renderW = AVATAR_IMAGE_SIZE.w * scale;
+  const renderH = AVATAR_IMAGE_SIZE.h * scale;
+  const offsetX = (boxW - renderW) * objectPos.x;
+  const offsetY = (boxH - renderH) * objectPos.y;
+  const x = clamp01((offsetX + point.x * renderW) / boxW);
+  const y = clamp01((offsetY + point.y * renderH) / boxH);
+  return { x, y };
+}
+
+function toPercent(v: number) {
+  return `${(v * 100).toFixed(3)}%`;
+}
 
 /** Face `contentRect.width` in px; thresholds separate phone / in-between / wide. */
 function bandFromFaceSize(w: number): BandKey {
@@ -96,8 +121,14 @@ const GAZE_SPAN = { x: 0.4, y: 0.32 } as const;
 const PUPIL_MOTION_SIZE_REF = 200;
 
 /** Desktop eye export (for docs / other imports); use EYE_BY_BAND[2] in app. */
-export const AVATAR_EYE_LEFT = EYE_BY_BAND[2].left;
-export const AVATAR_EYE_RIGHT = EYE_BY_BAND[2].right;
+export const AVATAR_EYE_LEFT = {
+  top: toPercent(EYE_SOURCE_LEFT.y),
+  left: toPercent(EYE_SOURCE_LEFT.x),
+};
+export const AVATAR_EYE_RIGHT = {
+  top: toPercent(EYE_SOURCE_RIGHT.y),
+  left: toPercent(EYE_SOURCE_RIGHT.x),
+};
 
 type Metrics = { stackH: number; topH: number; gap: number };
 
@@ -133,23 +164,55 @@ export function HomeBentoStack({
   const stackRef = useRef<HTMLDivElement>(null);
   /** face image box in the top slice — same as pupil %; drives responsive gaze. */
   const faceTrackRef = useRef<HTMLDivElement | null>(null);
-  /** Stays in sync for pointer handlers (avoids stale gaze when band changes). */
-  const gazeConfigRef = useRef(EYE_BY_BAND[2]);
+  /** Stays in sync for pointer handlers (avoids stale gaze when band/layout changes). */
+  const gazeConfigRef = useRef({ x: 0.45, y: 0.35 });
   const touchLikeActiveRef = useRef(false);
   const [pupil, setPupil] = useState({ x: 0, y: 0 });
-  const [faceW, setFaceW] = useState(320);
-  const band = useDomEyes ? bandFromFaceSize(faceW) : 2;
+  const [faceBox, setFaceBox] = useState({ w: 320, h: 480 });
+  const band = useDomEyes ? bandFromFaceSize(faceBox.w) : 2;
   const eye = EYE_BY_BAND[band];
+  const leftEyeProjected = projectSourcePointToBox(
+    EYE_SOURCE_LEFT,
+    Math.max(1, faceBox.w),
+    Math.max(1, faceBox.h),
+    eye.objectPos,
+  );
+  const rightEyeProjected = projectSourcePointToBox(
+    EYE_SOURCE_RIGHT,
+    Math.max(1, faceBox.w),
+    Math.max(1, faceBox.h),
+    eye.objectPos,
+  );
+  const eyeInBox = {
+    left: {
+      top: toPercent(leftEyeProjected.y),
+      left: toPercent(leftEyeProjected.x),
+    },
+    right: {
+      top: toPercent(rightEyeProjected.y),
+      left: toPercent(rightEyeProjected.x),
+    },
+  };
 
   useLayoutEffect(() => {
     isDesktopRef.current = isDesktop;
   }, [isDesktop]);
 
   useLayoutEffect(() => {
-    if (useDomEyes) {
-      gazeConfigRef.current = eye;
+    if (!useDomEyes) {
+      return;
     }
-  }, [useDomEyes, eye]);
+    gazeConfigRef.current = {
+      x: (leftEyeProjected.x + rightEyeProjected.x) * 0.5,
+      y: (leftEyeProjected.y + rightEyeProjected.y) * 0.5,
+    };
+  }, [
+    useDomEyes,
+    leftEyeProjected.x,
+    leftEyeProjected.y,
+    rightEyeProjected.x,
+    rightEyeProjected.y,
+  ]);
 
   const [metrics, setMetrics] = useState<Metrics>({
     stackH: 0,
@@ -203,7 +266,7 @@ export function HomeBentoStack({
       const rect = el.getBoundingClientRect();
       if (rect.width < 1 || rect.height < 1) return;
 
-      const g = gazeConfigRef.current.gazeAnchor;
+      const g = gazeConfigRef.current;
       const cx = rect.left + rect.width * g.x;
       const cy = rect.top + rect.height * g.y;
       const spanX = Math.max(1, rect.width * GAZE_SPAN.x);
@@ -295,12 +358,19 @@ export function HomeBentoStack({
     const el = faceTrackRef.current;
     if (!el || typeof ResizeObserver === "undefined") return;
     const onBox = (w: number) => {
-      if (w > 0) setFaceW(w);
+      if (w > 0) {
+        const h = el.getBoundingClientRect().height;
+        setFaceBox({ w, h: Math.max(1, h) });
+      }
     };
     onBox(el.getBoundingClientRect().width);
     const ro = new ResizeObserver((entries) => {
-      const w = entries[0]?.contentRect?.width;
-      if (w != null && w > 0) onBox(w);
+      const rect = entries[0]?.contentRect;
+      const w = rect?.width;
+      const h = rect?.height;
+      if (w != null && w > 0 && h != null && h > 0) {
+        setFaceBox({ w, h });
+      }
     });
     ro.observe(el);
     return () => ro.disconnect();
@@ -385,16 +455,16 @@ export function HomeBentoStack({
                         <span
                           className="home-avatar-pupil"
                           style={{
-                            top: eye.left.top,
-                            left: eye.left.left,
+                            left: eyeInBox.left.left,
+                            top: eyeInBox.left.top,
                             transform: `translate(calc(-50% + ${pupil.x}px), calc(-50% + ${pupil.y}px))`,
                           }}
                         />
                         <span
                           className="home-avatar-pupil"
                           style={{
-                            top: eye.right.top,
-                            left: eye.right.left,
+                            top: eyeInBox.right.top,
+                            left: eyeInBox.right.left,
                             transform: `translate(calc(-50% + ${pupil.x}px), calc(-50% + ${pupil.y}px))`,
                           }}
                         />
