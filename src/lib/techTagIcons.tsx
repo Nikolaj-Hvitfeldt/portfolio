@@ -40,13 +40,25 @@ function GenericTechIcon() {
 
 const TAG_LOGOS: Record<string, { src: string; alt: string }> = {
   react: { src: "/tech-icons/react-logo.png", alt: "React" },
+  nextjs: { src: "/tech-icons/nextjs-logo.svg", alt: "Next.js" },
+  "next.js": { src: "/tech-icons/nextjs-logo.svg", alt: "Next.js" },
+  "react native": { src: "/tech-icons/react-logo.png", alt: "React Native" },
+  "react-native": { src: "/tech-icons/react-logo.png", alt: "React Native" },
+  rn: { src: "/tech-icons/react-logo.png", alt: "React Native" },
+  nodejs: { src: "/tech-icons/nodejs-logo.svg", alt: "Node.js" },
+  "node.js": { src: "/tech-icons/nodejs-logo.svg", alt: "Node.js" },
+  node: { src: "/tech-icons/nodejs-logo.svg", alt: "Node.js" },
+  express: { src: "/tech-icons/expressjs-icon.svg", alt: "Express" },
+  expressjs: { src: "/tech-icons/expressjs-icon.svg", alt: "Express" },
+  vite: { src: "/tech-icons/vite-logo.svg", alt: "Vite" },
+  ktor: { src: "/tech-icons/ktor-logo.svg", alt: "Ktor" },
   typescript: { src: "/tech-icons/typescript-logo.png", alt: "TypeScript" },
   ts: { src: "/tech-icons/typescript-logo.png", alt: "TypeScript" },
   tailwind: { src: "/tech-icons/tailwind-logo.png", alt: "Tailwind CSS" },
   postgresql: { src: "/tech-icons/postgresql-logo.png", alt: "PostgreSQL" },
   postgres: { src: "/tech-icons/postgresql-logo.png", alt: "PostgreSQL" },
   tanstack: { src: "/tech-icons/tanstack-logo.png", alt: "TanStack" },
-  supabase: { src: "/tech-icons/supabase-logo.png", alt: "Supabase" },
+  supabase: { src: "/tech-icons/supabase-logo.svg", alt: "Supabase" },
   "c#": { src: "/tech-icons/csharp-logo.png", alt: "C#" },
   csharp: { src: "/tech-icons/csharp-logo.png", alt: "C#" },
   ".net": { src: "/tech-icons/net-logo.png", alt: ".NET" },
@@ -61,6 +73,8 @@ const TAG_LOGOS: Record<string, { src: string; alt: string }> = {
   render: { src: "/tech-icons/render-logo.jpeg", alt: "Render" },
   zod: { src: "/tech-icons/zod-logo.png", alt: "Zod" },
   zustand: { src: "/tech-icons/zustand-logo.png", alt: "Zustand" },
+  i18next: { src: "/tech-icons/i18next-icon.svg", alt: "i18next" },
+  reanimated: { src: "/tech-icons/react-logo.png", alt: "Reanimated" },
 };
 
 function normalizeKey(tag: string) {
