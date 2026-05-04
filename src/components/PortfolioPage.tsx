@@ -23,7 +23,6 @@ import { ProjectsStack } from "@/components/ProjectsStack";
 import { HomeBentoStack } from "@/components/HomeBentoStack";
 import { ShootingStars } from "@/components/ShootingStars";
 import { SideNav, type View } from "@/components/SideNav";
-import { SiteFooter } from "@/components/SiteFooter";
 import { fontDisplay, fontSans } from "@/lib/fonts";
 import { PROJECTS } from "@/lib/projects";
 import { SITE } from "@/lib/site";
@@ -69,7 +68,8 @@ export function PortfolioPage() {
       if (!el) {
         return;
       }
-      const nx = window.innerWidth > 0 ? event.clientX / window.innerWidth : 0.5;
+      const nx =
+        window.innerWidth > 0 ? event.clientX / window.innerWidth : 0.5;
       const ny =
         window.innerHeight > 0 ? event.clientY / window.innerHeight : 0.5;
       const px = (nx - 0.5) * 18;
@@ -154,7 +154,7 @@ export function PortfolioPage() {
         }
       >
         <section
-          className="flex min-h-0 flex-col items-center justify-center px-6 py-5 sm:py-6 md:py-7"
+          className="flex min-h-0 flex-col items-center justify-center px-6 py-18 sm:py-9 md:py-10"
           aria-label="Introduction"
         >
           <a
@@ -163,7 +163,7 @@ export function PortfolioPage() {
             className="group block text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:focus-visible:ring-zinc-500 dark:focus-visible:ring-offset-[#05071a]"
           >
             <h1
-              className={`font-bento-serif ${fontDisplay.className} text-center text-2xl font-bold leading-[1.05] tracking-tight transition-opacity group-hover:opacity-90 sm:text-3xl md:text-4xl lg:text-5xl`}
+              className={`font-bento-serif ${fontDisplay.className} text-center text-3xl font-bold leading-[1.05] tracking-tight transition-opacity group-hover:opacity-90 sm:text-4xl md:text-5xl lg:text-6xl`}
             >
               {SITE.name}
             </h1>
@@ -176,135 +176,131 @@ export function PortfolioPage() {
         </section>
 
         <div className="contents">
-        <AnimatePresence mode="wait" initial={false}>
-          {view === "about" ? (
-            <ViewPanel
-              key="about"
-              reduceMotion={!!reduceMotion}
-              className="flex w-full min-w-0 flex-1 flex-col"
-            >
-              <AboutSection />
-            </ViewPanel>
-          ) : null}
-
-          {view === "projects" ? (
-            <ViewPanel
-              key="projects"
-              reduceMotion={!!reduceMotion}
-              className="flex w-full min-w-0 min-h-0 flex-1 flex-col overflow-hidden"
-            >
-              <div
-                className="project-details-container flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-x-hidden overflow-y-hidden pl-6 pr-0 pt-0 pb-1"
-                role="region"
-                aria-label={tProjects("title")}
+          <AnimatePresence mode="wait" initial={false}>
+            {view === "about" ? (
+              <ViewPanel
+                key="about"
+                reduceMotion={!!reduceMotion}
+                className="flex w-full min-w-0 flex-1 flex-col"
               >
-                <ProjectsStack reduceMotion={!!reduceMotion} />
-              </div>
-            </ViewPanel>
-          ) : null}
+                <AboutSection />
+              </ViewPanel>
+            ) : null}
 
-          {view === "experience" ? (
-            <ViewPanel key="experience" reduceMotion={!!reduceMotion}>
-              <ExperienceSection />
-            </ViewPanel>
-          ) : null}
-
-          {view === "contact" ? (
-            <ViewPanel key="contact" reduceMotion={!!reduceMotion}>
-              <ContactSection />
-            </ViewPanel>
-          ) : null}
-
-          {view === "home" ? (
-            <ViewPanel key="home" reduceMotion={!!reduceMotion}>
-              <Container
-                maxWidthClass="max-w-6xl"
-                className="mt-2 pt-0 pb-8 sm:mt-4 sm:pb-10 md:mt-6 md:pb-12"
+            {view === "projects" ? (
+              <ViewPanel
+                key="projects"
+                reduceMotion={!!reduceMotion}
+                className="flex w-full min-w-0 min-h-0 flex-1 flex-col overflow-hidden"
               >
-                <div className="grid min-h-0 gap-3 md:grid-cols-3 md:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
-                  <HomeBentoStack reduceMotion={!!reduceMotion}>
-                    <HomeTile
-                      icon={<UserOutlineIcon className="h-10 w-10 sm:h-11 sm:w-11" />}
-                      title={tAbout("title")}
-                      subtitle={tAbout("subtitle")}
-                      onClick={() => navigateTo("about")}
-                      className="h-full min-h-0 w-full"
-                    />
-                    <HomeTile
-                      icon={<BriefcaseOutlineIcon className="h-10 w-10 sm:h-11 sm:w-11" />}
-                      title={tWork("title")}
-                      subtitle={tWork("subtitle")}
-                      onClick={() => navigateTo("experience")}
-                      className="h-full min-h-0 w-full"
-                    />
-                  </HomeBentoStack>
-
-                  <Block
-                    variant="bento"
-                    onClick={() => navigateTo("projects")}
-                    className="home-card-shell group/projects h-full min-h-[clamp(18rem,36vh,26rem)] md:col-start-2 md:row-span-2 md:row-start-1"
-                  >
-                    <div className="flex h-full flex-col gap-6">
-                      <div className="-mx-5 -mt-5 flex min-h-0 flex-1 items-center overflow-hidden rounded-t-2xl px-2 py-7 sm:-mx-6 sm:-mt-6 sm:py-9">
-                        <ProjectCarousel projects={PROJECTS} />
-                      </div>
-                      <div className="home-card-content mt-auto flex flex-col items-start gap-3 px-1">
-                        <FolderOutlineIcon className="h-10 w-10 origin-top-left transform-gpu text-zinc-500 transition-all duration-500 ease-out will-change-transform motion-reduce:transition-none dark:text-zinc-300 dark:group-hover/projects:text-[#ffe8d1] group-hover/projects:-translate-x-1 group-hover/projects:-translate-y-1 group-hover/projects:scale-90 sm:h-11 sm:w-11" />
-                        <div>
-                          <h2
-                            className={`font-bento-serif ${fontDisplay.className} text-xl font-bold tracking-tight text-zinc-900 transition-colors duration-300 dark:text-white dark:group-hover/projects:text-[#fff1e2]`}
-                          >
-                            {tProjects("title")}
-                          </h2>
-                          <p
-                            className={`${fontSans.className} mt-1 text-sm font-normal text-zinc-500 dark:text-zinc-400 dark:group-hover/projects:text-zinc-300`}
-                          >
-                            {tProjects("subtitle")}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </Block>
-
-                  <Block
-                    variant="bento"
-                    onClick={() => navigateTo("contact")}
-                    className="home-card-shell group/contact h-full min-h-[clamp(18rem,36vh,26rem)] min-w-0 md:col-start-3 md:row-span-2 md:row-start-1"
-                  >
-                    <div className="flex h-full min-h-0 min-w-0 flex-col gap-5 overflow-hidden">
-                      <ContactCardBubbles reduceMotion={!!reduceMotion} />
-                      <div className="home-card-content flex flex-col items-start gap-3 px-1">
-                        <SendOutlineIcon className="h-10 w-10 origin-top-left transform-gpu text-zinc-500 transition-all duration-500 ease-out will-change-transform motion-reduce:transition-none dark:text-zinc-300 dark:group-hover/contact:text-[#ffe8d1] group-hover/contact:-translate-x-1 group-hover/contact:-translate-y-1 group-hover/contact:scale-90 sm:h-11 sm:w-11" />
-                        <div>
-                          <h2
-                            className={`font-bento-serif ${fontDisplay.className} text-xl font-bold tracking-tight text-zinc-900 transition-colors duration-300 dark:text-white dark:group-hover/contact:text-[#fff1e2]`}
-                          >
-                            {tContact("title")}
-                          </h2>
-                          <p
-                            className={`${fontSans.className} mt-1 text-sm font-normal text-zinc-500 dark:text-zinc-400 dark:group-hover/contact:text-zinc-300`}
-                          >
-                            {tContact("subtitle")}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </Block>
+                <div
+                  className="project-details-container flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-x-hidden overflow-y-hidden pl-6 pr-0 pt-0 pb-1"
+                  role="region"
+                  aria-label={tProjects("title")}
+                >
+                  <ProjectsStack reduceMotion={!!reduceMotion} />
                 </div>
-              </Container>
-            </ViewPanel>
-          ) : null}
-        </AnimatePresence>
+              </ViewPanel>
+            ) : null}
+
+            {view === "experience" ? (
+              <ViewPanel key="experience" reduceMotion={!!reduceMotion}>
+                <ExperienceSection />
+              </ViewPanel>
+            ) : null}
+
+            {view === "contact" ? (
+              <ViewPanel key="contact" reduceMotion={!!reduceMotion}>
+                <ContactSection />
+              </ViewPanel>
+            ) : null}
+
+            {view === "home" ? (
+              <ViewPanel key="home" reduceMotion={!!reduceMotion}>
+                <Container
+                  maxWidthClass="max-w-6xl"
+                  className="mt-2 pt-0 pb-8 sm:mt-4 sm:pb-10 md:mt-6 md:pb-12"
+                >
+                  <div className="grid min-h-0 gap-3 md:grid-cols-3 md:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
+                    <HomeBentoStack reduceMotion={!!reduceMotion}>
+                      <HomeTile
+                        icon={
+                          <UserOutlineIcon className="h-10 w-10 sm:h-11 sm:w-11" />
+                        }
+                        title={tAbout("title")}
+                        subtitle={tAbout("subtitle")}
+                        onClick={() => navigateTo("about")}
+                        className="h-full min-h-0 w-full"
+                      />
+                      <HomeTile
+                        icon={
+                          <BriefcaseOutlineIcon className="h-10 w-10 sm:h-11 sm:w-11" />
+                        }
+                        title={tWork("title")}
+                        subtitle={tWork("subtitle")}
+                        onClick={() => navigateTo("experience")}
+                        className="h-full min-h-0 w-full"
+                      />
+                    </HomeBentoStack>
+
+                    <Block
+                      variant="bento"
+                      onClick={() => navigateTo("projects")}
+                      className="home-card-shell group/projects h-full min-h-[clamp(18rem,36vh,26rem)] md:col-start-2 md:row-span-2 md:row-start-1"
+                    >
+                      <div className="flex h-full flex-col gap-6">
+                        <div className="-mx-5 -mt-5 flex min-h-0 flex-1 items-center overflow-hidden rounded-t-2xl px-2 py-7 sm:-mx-6 sm:-mt-6 sm:py-9">
+                          <ProjectCarousel projects={PROJECTS} />
+                        </div>
+                        <div className="home-card-content mt-auto flex flex-col items-start gap-3 px-1">
+                          <FolderOutlineIcon className="h-10 w-10 origin-top-left transform-gpu text-zinc-500 transition-all duration-500 ease-out will-change-transform motion-reduce:transition-none dark:text-zinc-300 dark:group-hover/projects:text-[#ffe8d1] group-hover/projects:-translate-x-1 group-hover/projects:-translate-y-1 group-hover/projects:scale-90 sm:h-11 sm:w-11" />
+                          <div>
+                            <h2
+                              className={`font-bento-serif ${fontDisplay.className} text-xl font-bold tracking-tight text-zinc-900 transition-colors duration-300 dark:text-white dark:group-hover/projects:text-[#fff1e2]`}
+                            >
+                              {tProjects("title")}
+                            </h2>
+                            <p
+                              className={`${fontSans.className} mt-1 text-sm font-normal text-zinc-500 dark:text-zinc-400 dark:group-hover/projects:text-zinc-300`}
+                            >
+                              {tProjects("subtitle")}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </Block>
+
+                    <Block
+                      variant="bento"
+                      onClick={() => navigateTo("contact")}
+                      className="home-card-shell group/contact h-full min-h-[clamp(18rem,36vh,26rem)] min-w-0 md:col-start-3 md:row-span-2 md:row-start-1"
+                    >
+                      <div className="flex h-full min-h-0 min-w-0 flex-col gap-5 overflow-hidden">
+                        <ContactCardBubbles reduceMotion={!!reduceMotion} />
+                        <div className="home-card-content flex flex-col items-start gap-3 px-1">
+                          <SendOutlineIcon className="h-10 w-10 origin-top-left transform-gpu text-zinc-500 transition-all duration-500 ease-out will-change-transform motion-reduce:transition-none dark:text-zinc-300 dark:group-hover/contact:text-[#ffe8d1] group-hover/contact:-translate-x-1 group-hover/contact:-translate-y-1 group-hover/contact:scale-90 sm:h-11 sm:w-11" />
+                          <div>
+                            <h2
+                              className={`font-bento-serif ${fontDisplay.className} text-xl font-bold tracking-tight text-zinc-900 transition-colors duration-300 dark:text-white dark:group-hover/contact:text-[#fff1e2]`}
+                            >
+                              {tContact("title")}
+                            </h2>
+                            <p
+                              className={`${fontSans.className} mt-1 text-sm font-normal text-zinc-500 dark:text-zinc-400 dark:group-hover/contact:text-zinc-300`}
+                            >
+                              {tContact("subtitle")}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </Block>
+                  </div>
+                </Container>
+              </ViewPanel>
+            ) : null}
+          </AnimatePresence>
         </div>
       </main>
-
-      <div
-        className={
-          view === "projects" ? "relative z-10 shrink-0" : "relative z-10"
-        }
-      >
-        <SiteFooter compact={view === "projects"} />
-      </div>
     </div>
   );
 }
@@ -445,4 +441,3 @@ function SendOutlineIcon({ className = "" }: { className?: string }) {
     </svg>
   );
 }
-
