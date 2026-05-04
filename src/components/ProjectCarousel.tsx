@@ -23,11 +23,17 @@ export function ProjectCarousel({ projects }: { projects: readonly Project[] }) 
           const title = tProject(`${project.id}.title`);
           const src = project.iconSrc;
           const scale = project.iconScale ?? 1;
+          const fit = project.iconObjectFit ?? "cover";
+          const tileVariant = project.iconTileVariant ?? "dark";
+          const tileSurface =
+            tileVariant === "light"
+              ? "bg-linear-to-b from-[#fffbeb] to-[#ffedd5] ring-1 ring-orange-950/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]"
+              : "bg-linear-to-b from-zinc-800 to-zinc-950";
 
           return (
             <div
               key={`${project.id}-${idx}`}
-              className="project-stack-icon-tile relative h-[68px] w-[68px] shrink-0 overflow-hidden rounded-2xl bg-linear-to-b from-zinc-800 to-zinc-950 sm:h-20 sm:w-20"
+              className={`project-stack-icon-tile relative h-[68px] w-[68px] shrink-0 overflow-hidden rounded-2xl sm:h-20 sm:w-20 ${tileSurface} ${fit === "contain" ? "p-1.5 sm:p-2" : ""}`}
               title={title}
             >
               {src ? (
@@ -35,7 +41,7 @@ export function ProjectCarousel({ projects }: { projects: readonly Project[] }) 
                   src={src}
                   alt=""
                   fill
-                  className="object-cover"
+                  className={fit === "contain" ? "object-contain" : "object-cover"}
                   sizes="80px"
                   unoptimized
                   style={{

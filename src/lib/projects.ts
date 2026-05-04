@@ -8,6 +8,13 @@ export type Project = {
   tags: readonly string[];
   /** Public path under `/public`, e.g. `/amori-icon.png` */
   iconSrc?: string;
+  /** `contain` avoids cropping logos with padding or square artwork (default `cover`). */
+  iconObjectFit?: "cover" | "contain";
+  /**
+   * Icon chip behind `iconSrc`. Default `dark` (zinc). Use `light` for dark-on-light
+   * artwork so it stays readable on stack cards and the carousel.
+   */
+  iconTileVariant?: "dark" | "light";
   /** Optional per-project image scaling for assets with transparent padding. */
   iconScale?: number;
   /** Optional emoji fallback if `iconSrc` is missing */
@@ -31,6 +38,7 @@ export const PROJECT_IDS = [
   "yeetcraft",
   "lineup",
   "memoir",
+  "bookspace",
 ] as const;
 
 export type ProjectId = (typeof PROJECT_IDS)[number];
@@ -146,6 +154,29 @@ export const PROJECTS: readonly Project[] = [
       textTone: "onLight",
       gradient:
         "linear-gradient(102deg, #44403c 0%, #78716c 20%, #a8a29e 42%, #d6d3d1 64%, #f3e5cf 82%, #fafaf9 100%)",
+    },
+    status: "notDeployed",
+  },
+  {
+    id: "bookspace",
+    href: "https://github.com/Nikolaj-Hvitfeldt/bookSpace",
+    tags: [
+      "React Router",
+      "React",
+      "TypeScript",
+      "MongoDB",
+      "Tailwind CSS",
+      "Vitest",
+      "Playwright",
+    ],
+    iconSrc: "/bookspace-logo.png",
+    iconObjectFit: "contain",
+    iconTileVariant: "light",
+    icon: "📚",
+    stackTheme: {
+      textTone: "onLight",
+      gradient:
+        "linear-gradient(102deg, #431407 0%, #9a3412 22%, #c2410c 42%, #fdba74 68%, #fff7ed 100%)",
     },
     status: "notDeployed",
   },

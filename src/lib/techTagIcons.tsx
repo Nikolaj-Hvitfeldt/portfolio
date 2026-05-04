@@ -40,6 +40,7 @@ function GenericTechIcon() {
 
 const TAG_LOGOS: Record<string, { src: string; alt: string }> = {
   react: { src: "/tech-icons/react-logo.svg", alt: "React" },
+  "react router": { src: "/tech-icons/react-logo.svg", alt: "React Router" },
   nextjs: { src: "/tech-icons/nextjs-logo.svg", alt: "Next.js" },
   "next.js": { src: "/tech-icons/nextjs-logo.svg", alt: "Next.js" },
   "react native": { src: "/tech-icons/react-logo.svg", alt: "React Native" },
@@ -93,6 +94,7 @@ const TAG_LOGOS: Record<string, { src: string; alt: string }> = {
   playwright: { src: "/tech-icons/playwright-logo.svg", alt: "Playwright" },
   playwrite: { src: "/tech-icons/playwright-logo.svg", alt: "Playwright" },
   jest: { src: "/tech-icons/jest-logo.svg", alt: "Jest" },
+  vitest: { src: "/tech-icons/vite-logo.svg", alt: "Vitest" },
 };
 
 function normalizeKey(tag: string) {

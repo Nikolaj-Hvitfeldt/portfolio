@@ -208,6 +208,20 @@
       "infoStatus": "Not deployed",
       "infoNext": "Projektet er afsluttet som studiegruppeprojekt"
     },
+    "bookspace": {
+      "title": "BookSpace",
+      "description": "Full-stack webapp til at finde bøger, holde styr på læsning og få personlige anbefalinger.",
+      "longAbout": "En full-stack app til at finde bøger, følge læsning, anmeldelser, bogmærker og et flertrins-onboarding-flow.\n\nByggetmed React Router v7, React 19, Tailwind v4, MongoDB/Mongoose, session-auth, Vitest og Playwright.",
+      "features": [
+        "Kuraterede lister, søgning med filtre og detaljesider for bøger og forfattere",
+        "Anmeldelser, bogmærker og tracking af læsefremskridt",
+        "Flertrins-onboarding til personlige anbefalinger",
+        "Vitest til unit/integration og Playwright til end-to-end tests"
+      ],
+      "infoYear": "2026",
+      "infoStatus": "Not deployed",
+      "infoNext": "Projektet er afsluttet som eksamensopgave"
+    },
     "contactCta": {
       "title": "Nyt projekt",
       "description": "Jeg udforsker hele tiden nye idéer.",

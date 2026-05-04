@@ -43,19 +43,25 @@ function ProjectStackCardContent({
   bodyClass: string;
   emojiClass: string;
 }) {
-  const { iconSrc, icon, iconScale } = project;
+  const { iconSrc, icon, iconScale, iconObjectFit, iconTileVariant } = project;
+  const fit = iconObjectFit ?? "cover";
+  const tileVariant = iconTileVariant ?? "dark";
+  const tileSurface =
+    tileVariant === "light"
+      ? "bg-linear-to-b from-[#fffbeb] to-[#ffedd5] ring-1 ring-orange-950/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]"
+      : "bg-linear-to-b from-zinc-800 to-zinc-950";
 
   const iconBox = (
     <span
       aria-hidden
-      className="project-stack-icon-tile relative flex h-[7.5rem] w-[7.5rem] shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-linear-to-b from-zinc-800 to-zinc-950 sm:h-32 sm:w-32"
+      className={`project-stack-icon-tile relative flex h-[7.5rem] w-[7.5rem] shrink-0 items-center justify-center overflow-hidden rounded-2xl sm:h-32 sm:w-32 ${tileSurface} ${fit === "contain" ? "p-2 sm:p-2.5" : ""}`}
     >
       {iconSrc ? (
         <Image
           src={iconSrc}
           alt=""
           fill
-          className="object-cover"
+          className={fit === "contain" ? "object-contain" : "object-cover"}
           sizes="(max-width: 768px) 120px, 128px"
           unoptimized
           style={{
