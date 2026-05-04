@@ -12,6 +12,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { AboutSection } from "@/components/AboutSection";
+import { ContactSection } from "@/components/ContactSection";
 import { Block } from "@/components/Block";
 import { ContactCardBubbles } from "@/components/ContactCardBubbles";
 import { Container } from "@/components/Container";
@@ -210,51 +211,7 @@ export function PortfolioPage() {
 
           {view === "contact" ? (
             <ViewPanel key="contact" reduceMotion={!!reduceMotion}>
-              <Container className="py-8 sm:py-10 md:py-12">
-                <Block>
-                  <h2
-                    className={`font-bento-serif ${fontDisplay.className} text-2xl font-bold tracking-tight sm:text-3xl`}
-                  >
-                    {tContact("title")}
-                  </h2>
-                  <p
-                    className={`${fontSans.className} mt-2 max-w-2xl text-sm font-normal text-zinc-500 dark:text-zinc-400 sm:text-base`}
-                  >
-                    {tContact("subtitle")}
-                  </p>
-                  <p
-                    className={`${fontSans.className} mt-4 max-w-2xl text-sm font-normal leading-6 text-zinc-600 dark:text-zinc-400 sm:text-base`}
-                  >
-                    {tContact("fastest")}
-                  </p>
-
-                  <ul className="mt-6 grid gap-3 sm:grid-cols-3">
-                    <li>
-                      <ContactLink
-                        href={`mailto:${SITE.email}`}
-                        label="Email"
-                        value={SITE.email}
-                      />
-                    </li>
-                    <li>
-                      <ContactLink
-                        href={SITE.links.github}
-                        label="GitHub"
-                        value="@Nikolaj-Hvitfeldt"
-                        external
-                      />
-                    </li>
-                    <li>
-                      <ContactLink
-                        href={SITE.links.linkedin}
-                        label="LinkedIn"
-                        value="nikolaj-hvitfeldt"
-                        external
-                      />
-                    </li>
-                  </ul>
-                </Block>
-              </Container>
+              <ContactSection />
             </ViewPanel>
           ) : null}
 
@@ -489,39 +446,3 @@ function SendOutlineIcon({ className = "" }: { className?: string }) {
   );
 }
 
-function ContactLink({
-  href,
-  label,
-  value,
-  external = false,
-}: {
-  href: string;
-  label: string;
-  value: string;
-  external?: boolean;
-}) {
-  const externalProps = external
-    ? { target: "_blank", rel: "noopener noreferrer" as const }
-    : {};
-
-  return (
-    <a
-      href={href}
-      {...externalProps}
-      className="group/contact flex items-center justify-between rounded-xl border border-black/10 bg-white/40 px-4 py-3 text-sm transition-colors hover:bg-white/70 dark:border-white/10 dark:bg-white/3 dark:hover:bg-white/[0.07]"
-    >
-      <span>
-        <span className="block text-xs text-zinc-500 dark:text-zinc-400">
-          {label}
-        </span>
-        <span className="mt-0.5 block font-medium">{value}</span>
-      </span>
-      <span
-        aria-hidden
-        className="text-zinc-400 transition-transform duration-200 group-hover/contact:translate-x-0.5 dark:text-zinc-500"
-      >
-        →
-      </span>
-    </a>
-  );
-}

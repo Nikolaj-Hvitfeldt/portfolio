@@ -234,6 +234,7 @@ body {
 }
 
 /* Shared glass surface used across cards, sections, and the nav dock.
+
  * Dark mode tint is pulled from the starry-night background image (deep
  * indigo/navy with a faint periwinkle rim) so cards feel like panels cut
  * from the sky rather than floating neutral gray. Light mode remains

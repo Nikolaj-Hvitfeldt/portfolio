@@ -46,7 +46,15 @@
   "Contact": {
     "title": "Kontakt",
     "subtitle": "Email, LinkedIn, brevdue...",
-    "fastest": "Den hurtigste maade at få fat i mig på er via email."
+    "fastest": "Den hurtigste måde at få fat i mig på er via e-mail.",
+    "valueTitle": "Hvis du vil i kontakt med mig",
+    "valueLead": "Jeg kan godt lide at levere gennemtænkte webgrænseflader, spænde performance ind, og arbejde på tværs af stacken når en feature kræver det. Hvis noget her rammer den måde I bygger produkter på, vil jeg gerne høre fra jer, om end det er en formel rolle, eller et mindre forløb hvor kvalitet og detaljer betyder noget.",
+    "valueP2": "Jeg læser webudvikling i Aarhus og bygger portfoliearbejde ved siden af studiet. Jeg lærer hurtigt, kommunikerer tydeligt på dansk og engelsk, og jeg går op i tilgængelighed, vedligeholdbar kode og de detaljer brugerne mærker, selv når de ikke kan sætte ord på dem.",
+    "valueBullets": [
+      "Praktik, junior- eller graduate-roller, eller deltidsarbejde med vægt på frontend, backend eller fullstack - på det punkt er jeg meget alsidig.",
+      "Portfolio-feedback, open source, eller et konkret problem hvor I mangler en ekstra hånd.",
+      "Ved henvendelse, skriv gerne rolle, stack og tidsramme, så jeg kan svare bedst muligt."
+    ]
   },
   "WorkExperience": {
     "title": "Erhvervserfaring",

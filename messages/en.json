@@ -46,7 +46,15 @@
   "Contact": {
     "title": "Contact",
     "subtitle": "Email, LinkedIn, carrier pigeon...",
-    "fastest": "The fastest way to reach me is by email."
+    "fastest": "The fastest way to reach me is by email.",
+    "valueTitle": "If you want to get in touch",
+    "valueLead": "I enjoy shipping thoughtful web interfaces, tightening performance, and working across the stack when a feature needs it. If something here resonates with how you build products, I'd like to hear from you, whether that's a formal role, or a small project where the details matter.",
+    "valueP2": "I am studying web development in Aarhus and building portfolio work alongside coursework. I learn quickly, communicate clearly in English and Danish, and I care about accessibility, maintainable code, and the details users notice even when they cannot name them.",
+    "valueBullets": [
+      "Internships, junior or graduate roles, or part-time work that leans frontend or fullstack.",
+      "Portfolio feedback, open source, or a concrete problem where you need an extra pair of hands.",
+      "When reaching out please include the role, stack, and timeline so I can respond properly."
+    ]
   },
   "WorkExperience": {
     "title": "Work Experience",
