@@ -12,22 +12,817 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #05071a;
     --foreground: #ededed;
   }
 }
 
+/* `position: relative` helps Framer `useScroll({ target })` (document = container) */
+html {
+  position: relative;
+}
+
+/* Base sans: `fontSans.className` on body in [locale]/layout.tsx (Inter). */
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+/* Playfair: `button` + Tailwind order can leave some `h2`s on body sans. */
+.font-bento-serif {
   font-family:
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
-    "Apple Color Emoji",
-    "Segoe UI Emoji";
+    var(--font-display),
+    ui-serif,
+    Georgia,
+    Cambria,
+    "Times New Roman",
+    Times,
+    serif !important;
+}
+
+@keyframes marquee-ltr {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-ltr {
+  animation-name: marquee-ltr;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: var(--marquee-duration, 18s);
+  /* Width comes from inner `.project-carousel-track`; this node only transforms. */
+  max-width: none;
+}
+
+.project-carousel-track {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+@keyframes about-bg-drift-a {
+  0% {
+    transform: translate3d(calc(var(--bg-parallax-x, 0px) * -0.32), calc(var(--bg-parallax-y, 0px) * -0.26), 0) scale(1);
+    opacity: 0.32;
+  }
+  50% {
+    transform: translate3d(calc(var(--bg-parallax-x, 0px) * 0.42), calc(var(--bg-parallax-y, 0px) * 0.28), 0) scale(1.05);
+    opacity: 0.42;
+  }
+  100% {
+    transform: translate3d(calc(var(--bg-parallax-x, 0px) * -0.32), calc(var(--bg-parallax-y, 0px) * -0.26), 0) scale(1);
+    opacity: 0.32;
+  }
+}
+
+@keyframes about-bg-drift-b {
+  0% {
+    transform: translate3d(calc(var(--bg-parallax-x, 0px) * 0.24), calc(var(--bg-parallax-y, 0px) * 0.2), 0) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate3d(calc(var(--bg-parallax-x, 0px) * -0.36), calc(var(--bg-parallax-y, 0px) * -0.24), 0) scale(1.06);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate3d(calc(var(--bg-parallax-x, 0px) * 0.24), calc(var(--bg-parallax-y, 0px) * 0.2), 0) scale(1);
+    opacity: 0.2;
+  }
+}
+
+.about-bg-motion {
+  --bg-parallax-x: 0px;
+  --bg-parallax-y: 0px;
+}
+
+.about-bg-layer {
+  position: absolute;
+  inset: -12%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  mix-blend-mode: screen;
+}
+
+.about-bg-layer--one {
+  background:
+    radial-gradient(circle at 28% 24%, rgba(122, 102, 255, 0.26), transparent 42%),
+    radial-gradient(circle at 72% 68%, rgba(73, 161, 255, 0.2), transparent 44%);
+  animation: about-bg-drift-a 20s ease-in-out infinite;
+}
+
+.about-bg-layer--two {
+  background:
+    radial-gradient(circle at 60% 24%, rgba(139, 179, 255, 0.18), transparent 38%),
+    radial-gradient(circle at 20% 76%, rgba(173, 126, 255, 0.16), transparent 40%);
+  animation: about-bg-drift-b 26s ease-in-out infinite;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Projects stack: raised “block” icon (bevel + drop shadow, reference tile look). */
+.project-stack-icon-tile {
+  box-shadow:
+    0 2px 0 0 rgb(0 0 0 / 0.48),
+    0 5px 12px rgb(0 0 0 / 0.22),
+    inset 0 1px 0 rgb(255 255 255 / 0.2),
+    inset -1px -1px 0 rgb(0 0 0 / 0.38);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-bg-layer--one,
+  .about-bg-layer--two {
+    animation: none;
+    transform: none;
+    opacity: 0.2;
+  }
+
+  .project-stack-icon-tile {
+    box-shadow:
+      0 1px 0 0 rgb(0 0 0 / 0.35),
+      inset 0 1px 0 rgb(255 255 255 / 0.15);
+  }
+}
+
+/* Projects view: thin, native-feeling scrollbar on the scrollport (Firefox + WebKit). */
+.projects-card-scrollport {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(82, 82, 91, 0.45) transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  .projects-card-scrollport {
+    scrollbar-color: rgba(228, 228, 231, 0.35) rgba(255, 255, 255, 0.04);
+  }
+}
+
+.projects-card-scrollport::-webkit-scrollbar {
+  width: 6px;
+}
+
+.projects-card-scrollport::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.projects-card-scrollport::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: rgba(82, 82, 91, 0.45);
+}
+
+@media (prefers-color-scheme: dark) {
+  .projects-card-scrollport::-webkit-scrollbar-thumb {
+    background-color: rgba(228, 228, 231, 0.35);
+  }
+}
+
+/* Dark-mode starry background anchored by the starry-night.avif image.
+ * The image is rendered in PortfolioPage; this file owns the shooting-star
+ * streak animation that is randomly spawned on top of the sky.
+ *
+ * The streak element is pinned at its tail (transform-origin: 0 50%) and
+ * rotated so its local +x axis points along the fall direction. During the
+ * animation it `scaleX` from 0 → 1: the tail stays put while the bright
+ * head travels outward, leaving the gradient trail behind it. The whole
+ * thing fades to zero before the animation ends, so the trail fizzles
+ * rather than snapping off. */
+@keyframes shooting-star-travel {
+  0% {
+    transform: rotate(var(--shoot-angle, 42deg)) scaleX(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  55% {
+    opacity: 0.65;
+  }
+  100% {
+    transform: rotate(var(--shoot-angle, 42deg)) scaleX(1);
+    opacity: 0;
+  }
+}
+
+.shooting-star {
+  position: absolute;
+  height: 1.5px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 55%,
+    rgba(255, 248, 228, 1) 100%
+  );
+  box-shadow:
+    0 0 5px rgba(255, 248, 228, 0.7),
+    0 0 12px rgba(180, 170, 255, 0.35);
+  transform-origin: 0 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation-name: shooting-star-travel;
+  animation-timing-function: cubic-bezier(0.18, 0.65, 0.32, 1);
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shooting-star {
+    animation: none;
+    display: none;
+  }
+}
+
+/* Shared glass surface used across cards, sections, and the nav dock.
+
+ * Dark mode tint is pulled from the starry-night background image (deep
+ * indigo/navy with a faint periwinkle rim) so cards feel like panels cut
+ * from the sky rather than floating neutral gray. Light mode remains
+ * warm paper-like. */
+@utility surface-glass {
+  border-radius: 1rem;
+  border: 1px solid rgba(80, 80, 120, 0.1);
+  background-color: rgba(250, 250, 254, 0.72);
+  backdrop-filter: blur(24px);
+  box-shadow:
+    0 8px 20px rgba(20, 18, 40, 0.08),
+    inset 0 0 0 1px rgba(245, 246, 255, 0.35);
+}
+@media (prefers-color-scheme: dark) {
+  .surface-glass {
+    border-color: rgba(150, 165, 230, 0.12);
+    background: radial-gradient(
+      150% 150% at 50% 52%,
+      rgba(10, 12, 30, 0.62) 0%,
+      rgba(12, 16, 38, 0.58) 55%,
+      rgba(18, 24, 54, 0.5) 85%,
+      rgba(40, 50, 110, 0.22) 100%
+    );
+    box-shadow:
+      0 22px 42px rgba(0, 0, 0, 0.5),
+      inset 0 0 0 1px rgba(170, 185, 240, 0.08),
+      inset 0 1px 0 rgba(200, 215, 255, 0.06);
+  }
+}
+
+/* Home bento grid only: flatter, lower-contrast surface that sits closer to
+ * the page background (#05071a) than the default glass panels. */
+.surface-glass-bento {
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(20, 18, 40, 0.06);
+}
+@media (prefers-color-scheme: dark) {
+  /* Stronger than raw rgba or post-merge the cards read as “gone” on #05071a. */
+  .surface-glass-bento {
+    border-color: rgba(170, 188, 245, 0.16);
+    background: radial-gradient(
+      145% 145% at 50% 50%,
+      rgba(22, 26, 58, 0.82) 0%,
+      rgba(14, 18, 42, 0.72) 50%,
+      rgba(10, 12, 32, 0.6) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+      0 14px 38px rgba(0, 0, 0, 0.52),
+      inset 0 0 0 1px rgba(180, 195, 250, 0.1),
+      inset 0 1px 0 rgba(210, 220, 255, 0.07);
+  }
+}
+
+/* Home “About + Work” (bentoAvatar): left = readable tint, right = fades out
+ * so me-avatar shows. Tweak only the --bento-avatar-* variables below. */
+
+.surface-glass-bento-avatar {
+  /* Angle of the left→right fade (deg). */
+  --bento-avatar-angle: 100deg;
+  /* Light mode: how strong the “frosted” card is (0 = transparent, 1 = full). */
+  --bento-avatar-light-a1: 0.86;
+  --bento-avatar-light-a2: 0.68;
+  --bento-avatar-light-a3: 0.55;
+  --bento-avatar-light-stop1: 48%;
+  /* Blur over the art (bigger = softer / more “glass”, smaller = crisper). */
+  --bento-avatar-blur: 9px;
+
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(
+    var(--bento-avatar-angle),
+    rgb(255 255 255 / var(--bento-avatar-light-a1)) 0%,
+    rgb(255 255 255 / var(--bento-avatar-light-a2)) var(--bento-avatar-light-stop1),
+    rgb(255 255 255 / var(--bento-avatar-light-a3)) 100%
+  );
+  backdrop-filter: blur(var(--bento-avatar-blur));
+  -webkit-backdrop-filter: blur(var(--bento-avatar-blur));
+  box-shadow: 0 2px 20px rgba(20, 18, 40, 0.06);
+}
+@media (prefers-color-scheme: dark) {
+  .surface-glass-bento-avatar {
+    /* Dark mode: 4 stops + “clear” at the end. space-separated RGB, alpha separate.
+     *  • Higher a1 / a2 / a3 = more tint on the art (stronger “card”).
+     *  • Lower a2 / a3 = more of the picture visible in the mid/right.
+     *  • Wider gap between stop1 and stop2 = longer, softer “fade out”. */
+    --bento-avatar-dark-rgb-1: 20 24 50;
+    --bento-avatar-dark-a1: 0.95;
+    --bento-avatar-dark-rgb-2: 14 18 44;
+    --bento-avatar-dark-a2: 0.62;
+    --bento-avatar-dark-rgb-3: 5 7 20;
+    --bento-avatar-dark-a3: 0.35;
+    /* Where the fade ramps (e.g. 32% 52% = softer, longer falloff to the right). */
+    --bento-avatar-dark-stop1: 38%;
+    --bento-avatar-dark-stop2: 58%;
+    --bento-avatar-blur: 9px;
+
+    border-color: rgba(170, 188, 245, 0.16);
+    background: linear-gradient(
+      var(--bento-avatar-angle),
+      rgb(var(--bento-avatar-dark-rgb-1) / var(--bento-avatar-dark-a1)) 0%,
+      rgb(var(--bento-avatar-dark-rgb-2) / var(--bento-avatar-dark-a2))
+        var(--bento-avatar-dark-stop1),
+      rgb(var(--bento-avatar-dark-rgb-3) / var(--bento-avatar-dark-a3))
+        var(--bento-avatar-dark-stop2),
+      rgb(0 0 0 / 0) 100%
+    );
+    backdrop-filter: blur(var(--bento-avatar-blur));
+    -webkit-backdrop-filter: blur(var(--bento-avatar-blur));
+    box-shadow:
+      0 14px 38px rgba(0, 0, 0, 0.52),
+      inset 0 0 0 1px rgba(180, 195, 250, 0.08);
+  }
+}
+
+/* Safari-specific fallback: WebKit can over-blur this stacked/composited avatar panel.
+ * Keep the gradient tint, but disable backdrop blur for sharper artwork. */
+@supports (-webkit-touch-callout: none) {
+  .surface-glass-bento-avatar {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* macOS Safari fallback (the touch-callout query above is often iOS-only):
+ * disable avatar backdrop blur and keep the source image crisp. */
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  .surface-glass-bento-avatar {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .home-avatar-image {
+    image-rendering: -webkit-optimize-contrast;
+    filter: brightness(1.04) contrast(1.16) saturate(1.12) !important;
+  }
+}
+
+/* Subtler glass chip variant for compact UI like the nav dock.
+ * Always dark-tinted since it is overlay UI. */
+@utility surface-glass-dock {
+  border-radius: 1rem;
+  border: 1px solid rgba(140, 155, 220, 0.22);
+  background-color: rgba(10, 14, 32, 0.42);
+  backdrop-filter: blur(24px);
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.32),
+    inset 0 0 0 1px rgba(170, 185, 240, 0.1);
+}
+
+/* Kept for API compatibility with existing Block markup; the home-card
+ * shell intentionally has no background/border highlight on hover so only
+ * content motion and text/icon color changes communicate interactivity. */
+@utility surface-glass-hover {
+  transition: none;
+}
+
+/* Shared hover contract for the home-page cards.
+ * Cards keep their surface appearance; interactivity is communicated via
+ * the lifted content, the folder icon scale, and subtle text color shifts. */
+@utility home-card-shell {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Stacked About + Work: no flex gap, so the middle seam doesn’t show the page
+ * background. Flatten the join so each glass card is half of one tall panel. */
+.home-bento-avatar-col
+  > div:first-of-type
+  :is(button.surface-glass-bento-avatar, section.surface-glass-bento-avatar) {
+  border-radius: 1rem 1rem 0 0;
+  border-bottom-color: transparent;
+}
+.home-bento-avatar-col
+  > div:last-of-type
+  :is(button.surface-glass-bento-avatar, section.surface-glass-bento-avatar) {
+  border-radius: 0 0 1rem 1rem;
+  border-top-color: transparent;
+}
+
+@utility home-card-content {
+  position: relative;
+  z-index: 1;
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.home-card-shell:hover .home-card-content {
+  transform: translateY(-6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-card-shell,
+  .home-card-content {
+    transition: none;
+  }
+
+  .home-card-shell:hover .home-card-content {
+    transform: none;
+  }
+}
+
+/* Edge vignette on the me-avatar strip only (under pupils): L/R + T/B. */
+.home-avatar-edge-scrim {
+  z-index: 15;
+  /* Top/bottom: higher = harsher. */
+  --home-avatar-edge-a1: 0.7;
+  --home-avatar-edge-a2: 0.4;
+  --home-avatar-edge-mid1: 14%;
+  --home-avatar-edge-mid2: 86%;
+  /* Left/right: inner edge of art + outer card edge (higher = harsher). */
+  --home-avatar-edge-lr-a1: 0.65;
+  --home-avatar-edge-lr-a2: 0.38;
+  --home-avatar-edge-lr-mid1: 10%;
+  --home-avatar-edge-lr-mid2: 90%;
+  /* First layer = on top: horizontal (L/R). Second: vertical (T/B). */
+  background-image: linear-gradient(
+      90deg,
+      rgb(5 7 20 / var(--home-avatar-edge-lr-a1)) 0%,
+      rgb(5 7 20 / var(--home-avatar-edge-lr-a2)) 3%,
+      rgb(5 7 20 / 0) var(--home-avatar-edge-lr-mid1),
+      rgb(5 7 20 / 0) var(--home-avatar-edge-lr-mid2),
+      rgb(5 7 20 / var(--home-avatar-edge-lr-a2)) 97%,
+      rgb(5 7 20 / var(--home-avatar-edge-lr-a1)) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(5 7 20 / var(--home-avatar-edge-a1)) 0%,
+      rgb(5 7 20 / var(--home-avatar-edge-a2)) 4%,
+      rgb(5 7 20 / 0) var(--home-avatar-edge-mid1),
+      rgb(5 7 20 / 0) var(--home-avatar-edge-mid2),
+      rgb(5 7 20 / var(--home-avatar-edge-a2)) 96%,
+      rgb(5 7 20 / var(--home-avatar-edge-a1)) 100%
+    );
+}
+@media (prefers-color-scheme: light) {
+  .home-avatar-edge-scrim {
+    --home-avatar-edge-a1: 0.5;
+    --home-avatar-edge-a2: 0.3;
+    --home-avatar-edge-lr-a1: 0.45;
+    --home-avatar-edge-lr-a2: 0.28;
+    background-image: linear-gradient(
+        90deg,
+        rgb(255 255 255 / var(--home-avatar-edge-lr-a1)) 0%,
+        rgb(255 255 255 / var(--home-avatar-edge-lr-a2)) 3%,
+        rgb(255 255 255 / 0) var(--home-avatar-edge-lr-mid1),
+        rgb(255 255 255 / 0) var(--home-avatar-edge-lr-mid2),
+        rgb(255 255 255 / var(--home-avatar-edge-lr-a2)) 97%,
+        rgb(255 255 255 / var(--home-avatar-edge-lr-a1)) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgb(255 255 255 / var(--home-avatar-edge-a1)) 0%,
+        rgb(255 255 255 / var(--home-avatar-edge-a2)) 4%,
+        rgb(255 255 255 / 0) var(--home-avatar-edge-mid1),
+        rgb(255 255 255 / 0) var(--home-avatar-edge-mid2),
+        rgb(255 255 255 / var(--home-avatar-edge-a2)) 96%,
+        rgb(255 255 255 / var(--home-avatar-edge-a1)) 100%
+      );
+  }
+}
+
+/* Home bento: small blue “iris + pupil” on me-avatar (position % in HomeBentoStack). */
+.home-avatar-pupil {
+  position: absolute;
+  z-index: 1;
+  width: 0.35rem;
+  height: 0.35rem;
+  min-width: 4px;
+  min-height: 4px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at 32% 30%,
+    #9ec6ff 0%,
+    #3d7dd6 40%,
+    #1a4a8a 75%,
+    #0a2347 100%
+  );
+  box-shadow:
+    inset 0 0 0 0.3px rgba(0, 20, 50, 0.55),
+    0 0 0 0.2px rgba(200, 230, 255, 0.25),
+    0.5px 0.5px 1px rgba(0, 0, 0, 0.2);
+  mix-blend-mode: normal;
+  pointer-events: none;
+  will-change: transform;
+  isolation: isolate;
+}
+
+/* Projects page: stack cards (see ProjectsStack) — film grain over gradients */
+.project-stack-card {
+  isolation: isolate;
+  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.45);
+}
+.project-stack-card::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  opacity: 0.14;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.project-stack-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Stack: selectable project cards (opens detail view) */
+.project-stack-card--interactive:hover,
+.project-stack-card--interactive:focus-visible {
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-stack-card--interactive:hover,
+  .project-stack-card--interactive:focus-visible {
+    transform: none;
+  }
+}
+
+/* Project detail: scrollport matches deck list feel */
+.project-details-container {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(82, 82, 91, 0.6) rgba(24, 24, 27, 0.12);
+}
+.dark .project-details-container {
+  scrollbar-color: rgba(161, 161, 170, 0.55) rgba(255, 255, 255, 0.08);
+}
+.project-details-container::-webkit-scrollbar {
+  width: 6px;
+}
+.project-details-container::-webkit-scrollbar-track {
+  border-radius: 9999px;
+  background: rgba(24, 24, 27, 0.12);
+}
+.dark .project-details-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+}
+.project-details-container::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: rgba(82, 82, 91, 0.55);
+}
+.dark .project-details-container::-webkit-scrollbar-thumb {
+  background: rgba(161, 161, 170, 0.45);
+}
+
+/* Projects reduce-motion: native list scroll only (page stays put); bar stays visible. */
+.project-deck-reduce-list {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(82, 82, 91, 0.6) rgba(24, 24, 27, 0.12);
+}
+.dark .project-deck-reduce-list {
+  scrollbar-color: rgba(161, 161, 170, 0.55) rgba(255, 255, 255, 0.08);
+}
+.project-deck-reduce-list::-webkit-scrollbar {
+  width: 6px;
+}
+.project-deck-reduce-list::-webkit-scrollbar-track {
+  border-radius: 9999px;
+  background: rgba(24, 24, 27, 0.12);
+}
+.dark .project-deck-reduce-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+}
+.project-deck-reduce-list::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: rgba(82, 82, 91, 0.55);
+}
+.dark .project-deck-reduce-list::-webkit-scrollbar-thumb {
+  background: rgba(161, 161, 170, 0.45);
+}
+
+/* Contact home card: iMessage-style bubbles (decorative, aria-hidden).
+ * Entry/exit motion is in ContactCardBubbles (Framer Motion). */
+
+.contact-card-bubbles {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 0.2rem;
+  pointer-events: none;
+}
+
+.contact-card-bubble {
+  position: relative;
+  min-width: 6.25rem;
+  min-height: 2.35rem;
+  max-width: 86%;
+  border-radius: 1.4rem;
+  padding: 0.5rem 0.85rem 0.55rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: visible;
+}
+
+.contact-card-bubble > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Blue column-left, green column-right. */
+.contact-card-bubble--b {
+  align-self: flex-start;
+  margin-left: 0.1rem;
+}
+.contact-card-bubble--a {
+  align-self: flex-end;
+  margin-right: 0.1rem;
+}
+
+/* iMessage-style fills; tails match via solid fill. */
+.contact-card-bubble--a {
+  background: #34c759;
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.contact-card-bubble--b {
+  background: #007aff;
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Speech-bubble “tail” toward outer edge. */
+.contact-card-bubble--a::after,
+.contact-card-bubble--b::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.contact-card-bubble--a::after {
+  right: 0.32rem;
+  bottom: 0.1rem;
+  background: #34c759;
+  transform: rotate(45deg);
+  box-shadow: 1.5px 1.5px 3px rgba(0, 0, 0, 0.12);
+}
+.contact-card-bubble--b::after {
+  left: 0.32rem;
+  bottom: 0.1rem;
+  background: #007aff;
+  transform: rotate(45deg);
+  box-shadow: -1.5px 1.5px 3px rgba(0, 0, 0, 0.12);
+}
+
+.dark .contact-card-bubble--a {
+  background: #30d158;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+.dark .contact-card-bubble--b {
+  background: #0a84ff;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+.dark .contact-card-bubble--a::after {
+  background: #30d158;
+}
+.dark .contact-card-bubble--b::after {
+  background: #0a84ff;
+}
+
+/* Typing indicator: staggered dot pulse. */
+.contact-card-bubble .contact-bubble-dots {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+/* Spans are empty; need explicit size + non-inline display so they stay visible. */
+.contact-card-bubble .contact-bubble-dot {
+  display: block;
+  width: 5px;
+  min-width: 5px;
+  height: 5px;
+  min-height: 5px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.9);
+  flex-shrink: 0;
+  box-sizing: border-box;
+  animation: contact-bubble-dot-pulse 1.15s ease-in-out infinite;
+}
+
+.contact-card-bubble .contact-bubble-dot:nth-child(1) {
+  animation-delay: 0ms;
+}
+.contact-card-bubble .contact-bubble-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.contact-card-bubble .contact-bubble-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes contact-bubble-dot-pulse {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.4;
+  }
+  30%,
+  45% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  60%,
+  75% {
+    transform: scale(0.95);
+    opacity: 0.65;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-card-bubbles .contact-card-bubble {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .contact-card-bubble .contact-bubble-dot {
+    animation: none !important;
+    transform: none !important;
+    opacity: 0.95 !important;
+  }
+}
+
+.contact-card-bubbles--reduced .contact-card-bubble {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.contact-card-bubbles--reduced .contact-card-bubble .contact-bubble-dot {
+  animation: none !important;
+  transform: none !important;
+  opacity: 0.95 !important;
+}
+
+/* Carousel chips use the same raised tile as project cards: `.project-stack-icon-tile`. */
+
+/* Soft left/right mask so chips fade in and out of the Projects carousel
+ * instead of snapping at the container edges. */
+@utility project-carousel-mask {
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  /* WebKit: promote masked subtree so it composites predictably with transforms inside. */
+  isolation: isolate;
+  transform: translateZ(0);
 }

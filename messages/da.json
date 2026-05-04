@@ -1,0 +1,231 @@
+{
+  "Nav": {
+    "primary": "Primær navigation",
+    "home": "Hjem",
+    "about": "Om mig",
+    "experience": "Erfaring",
+    "projects": "Projekter",
+    "contact": "Kontakt",
+    "language": "Sprog",
+    "switchTo": "Skift til {locale}"
+  },
+  "Hero": {
+    "headline": "Softwareudvikler"
+  },
+  "About": {
+    "title": "Om mig",
+    "subtitle": "Lidt om mig selv.",
+    "aboutMeTitle": "Om mig",
+    "specsTitle": "Specifikationer",
+    "techStackTitle": "Tech Stack",
+    "educationLabel": "Uddannelse",
+    "education": "Datamatiker",
+    "currentEducationLabel": "Igangværende Uddannelse",
+    "currentEducation": "Professionsbachelor i Webudvikling",
+    "languagesLabel": "Sprog",
+    "languages": "Dansk (Modersmål), Engelsk (Flydende)",
+    "locationLabel": "Lokation",
+    "aboutP1": "Jeg er udvikler med base i Aarhus og en baggrund som datamatiker. Jeg har en stor interesse for at bygge velstrukturerede webapplikationer og arbejder gerne på tværs af stacken, men trives især med at udvikle responsive og vedligeholdelige brugergrænseflader i React og TypeScript.",
+    "aboutP2": "Min rejse indenfor softwareudvikling begyndte under min datamatikeruddannelse, hvor jeg arbejdede meget med backend, API’er og softwarearkitektur. Undervejs fik jeg dog også en stigende interesse for frontend og brugeroplevelser, og hvordan gode interfaces kan gøre komplekse systemer intuitive at bruge. Det var en af grundene til, at jeg valgte at fortsætte på en bachelor i webudvikling, hvor jeg kan arbejde mere i dybden med moderne webteknologier og frontend-udvikling.",
+    "aboutP3": "Jeg kan godt lide at omsætte idéer til fungerende løsninger, lære nye teknologier og løse konkrete problemer med kode. Når jeg ikke sidder foran computeren, bruger jeg typisk tiden på gaming, følge med i fodbold eller på at lære nye sange på min guitar.",
+    "techStack": {
+      "coreFrontend": "Frontend",
+      "backendAndRuntimes": "Backend",
+      "testing": "Testing",
+      "dataAndState": "Databaser",
+      "toolsAndInfra": "Værktøjer og Infrastruktur"
+    }
+  },
+  "Projects": {
+    "title": "Projekter",
+    "subtitle": "Personlige projekter jeg har arbejdet på.",
+    "view": "Se",
+    "source": "Kildekode",
+    "wip": "I udvikling"
+  },
+  "Contact": {
+    "title": "Kontakt",
+    "subtitle": "Email, LinkedIn, brevdue...",
+    "fastest": "Den hurtigste måde at få fat i mig på er via e-mail.",
+    "valueTitle": "Hvis du vil i kontakt med mig",
+    "valueLead": "Jeg kan godt lide at levere gennemtænkte webgrænseflader, spænde performance ind, og arbejde på tværs af stacken når en feature kræver det. Hvis noget her rammer den måde I bygger produkter på, vil jeg gerne høre fra jer, om end det er en formel rolle, eller et mindre forløb hvor kvalitet og detaljer betyder noget.",
+    "valueP2": "Jeg læser webudvikling i Aarhus og bygger portfoliearbejde ved siden af studiet. Jeg lærer hurtigt, kommunikerer tydeligt på dansk og engelsk, og jeg går op i tilgængelighed, vedligeholdbar kode og de detaljer brugerne mærker, selv når de ikke kan sætte ord på dem.",
+    "valueBullets": [
+      "Praktik, junior- eller graduate-roller, eller deltidsarbejde med vægt på frontend, backend eller fullstack - på det punkt er jeg meget alsidig.",
+      "Portfolio-feedback, open source, eller et konkret problem hvor I mangler en ekstra hånd.",
+      "Ved henvendelse, skriv gerne rolle, stack og tidsramme, så jeg kan svare bedst muligt."
+    ]
+  },
+  "WorkExperience": {
+    "title": "Erhvervserfaring",
+    "subtitle": "Uddannelse og erhvervserfaring.",
+    "intro": "Min tidslinje indtil videre - fra softwarefundamenter til moderne webudvikling og praktisk erfaring i industrien.",
+    "timelineTitle": "Tidslinje",
+    "entries": {
+      "bachelor": {
+        "period": "AUG 2025 - NU",
+        "org": "Erhvervsakademiet, Viby",
+        "role": "Bachelor i webudvikling",
+        "bullets": [
+          "Design og udvikling af komplekse, skalerbare webapplikationer",
+          "Avanceret frontend-udvikling med fokus på arkitektur, performance og vedligehold",
+          "Backend-udvikling og API-design med fokus på sikkerhed og systemintegration",
+          "Arbejde med softwarearkitektur, design patterns og tekniske beslutninger",
+          "Anvendelse af UX/UI-principper og tilgængelighed (WCAG) i professionelle løsninger",
+          "Udvikling, deployment og drift af cloud-baserede webløsninger",
+          "Opsætning og anvendelse af CI/CD samt automatisering af udviklingsprocesser"
+        ],
+        "image": {
+          "src": "/eaa-logo.avif",
+          "alt": "Erhvervsakademiet logo"
+        }
+      },
+      "hmf": {
+        "period": "JAN 2024 - JULI 2024",
+        "org": "HMF Group A/S",
+        "role": "Praktikant Fullstack .NET Udvikler",
+        "bullets": [
+          "Udviklede og vedligeholdt funktionalitet i en C# .NET desktopapplikation med fokus på konfiguration, og stabil drift af kraner samt brugervenlighed i platformen",
+          "Arbejdede med WPF til opbygning og tilpasning af brugergrænseflader",
+          "Anvendte Azure DevOps til versionsstyring og opgavestyring",
+          "Fik indsigt i samspillet mellem software og embedded hardware i industrielle løsninger",
+          "Løste opgaver både selvstændigt og i tæt samarbejde med teamet med fokus på struktur og kvalitet"
+        ],
+        "image": {
+          "src": "/hmf-logo.avif",
+          "alt": "HMF Group logo"
+        }
+      },
+      "datamatiker": {
+        "period": "2022 - 2024",
+        "org": "Erhvervsakademiet, Viby",
+        "role": "Datamatiker",
+        "bullets": [
+          "Udvikling af applikationer med fokus på objektorienteret programmering",
+          "Arbejde med primært typestærke sprog som C#, TypeScript, og Java, inkl. .NET og webteknologier",
+          "Design, optimering og administration af relationelle databaser",
+          "Arbejde med softwarearkitektur, systemintegration og API-udvikling",
+          "Kendskab til cloud-løsninger, CI/CD og versionsstyring",
+          "Erfaring med Scrum og Kanban i udviklingsprocesser",
+          "Indsigt i messaging queues og integration af systemer",
+          "Introduktion til ML-modeller og AI som del af softwareudvikling"
+        ],
+        "image": {
+          "src": "/eaa-logo.avif",
+          "alt": "Erhvervsakademiet logo"
+        }
+      }
+    }
+  },
+  "Footer": {
+    "rights": "Alle rettigheder forbeholdes.",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "E-mail"
+  },
+  "Project": {
+    "ui": {
+      "back": "Tilbage til projekter",
+      "about": "Om",
+      "keyFeatures": "Højdepunkter",
+      "info": "Info",
+      "tech": "Tech",
+      "status": "Status",
+      "effort": "Indsats",
+      "next": "Næste",
+      "viewSource": "Se kildekode",
+      "openLive": "Åbn site",
+      "openLink": "Åbn"
+    },
+    "amori": {
+      "title": "Amori",
+      "description": "Journal til at tracke milepæle og minder med sin partner.",
+      "longAbout": "En privat journal-app til at dokumentere øjeblikke, særlige datoer og fælles milepæle med billeder.\n\nBygget med Expo/React Native frontend og et NestJS API på Supabase (PostgreSQL + storage), med fokus på native-lignende feel og smooth interaktioner.",
+      "features": [
+        "Dedikerede flows til moments, dates og milestones",
+        "Image upload flow med komprimering og thumbnails",
+        "Cross-platform Expo app (iOS, Android og web)",
+        "Supabase-baseret PostgreSQL og storage via et NestJS API"
+      ],
+      "infoYear": "2024",
+      "infoStatus": "Deployed",
+      "infoEffort": "~40 timer",
+      "infoNext": "Finpudse timeline- og memory-wall UX"
+    },
+    "quartermark": {
+      "title": "QuarterMark",
+      "description": "Jackbox-inspireret party game til nytårsaftener.",
+      "longAbout": "Et Jackbox-inspireret party game hvor én host styrer TV-skærmen, mens spillere joiner fra telefonen via room code.\n\nBygget som split-stack med ASP.NET + SignalR backend og React + Vite frontend, med realtime synkronisering, host/player visninger og tosproget UI (EN/DA).",
+      "features": [
+        "Room-baseret join flow med unikke 4-bogstavs koder",
+        "Realtime synk mellem host og spillere via SignalR",
+        "Session-flow med flere mini-games og scoreboards",
+        "Tosproget UI med i18next (engelsk/dansk)"
+      ],
+      "infoYear": "2024",
+      "infoStatus": "Deployed",
+      "infoNext": "Finpudse balancing og pacing mellem mini-games"
+    },
+    "yeetcraft": {
+      "title": "Yeetcraft",
+      "description": "Leaderboard tracker til venskabelig banter. Tracker fejl på tværs af en vennegruppe.",
+      "longAbout": "En webapp til at tracke hvem der dør mest, når vi gamer med venner, inklusiv hvordan, hvornår og hvorfor. Kort sagt en måde at gøre banter til statistik.\n\nLavet til hurtigt at kunne opdatere undervejs, og lidt sværere end forventet at holde konsistent, når folk begynder at diskutere hvad der egentlig skete.",
+      "features": [
+        "Fejl-feed og leaderboard flow til friend sessions",
+        "Lagdelt Kotlin backend (routes, controllers, services, repositories)",
+        "React + Vite frontend med simpelt API-drevet fetch flow",
+        "Supabase PostgreSQL integration med plain SQL persistence"
+      ],
+      "infoYear": "2024",
+      "infoStatus": "Work in progress",
+      "infoNext": "Tilføje CRUD endpoints og rigere leaderboard-stats"
+    },
+    "lineup": {
+      "title": "LineUp",
+      "description": "Social + marketplace platform for freelance musikere.",
+      "longAbout": "En social + marketplace platform for musikere til at connecte, samarbejde og finde muligheder. Udviklet som et studiegruppeprojekt med en full-stack arkitektur delt mellem en Next.js frontend og et Node/Express API.\n\nSupabase håndterer PostgreSQL, auth, storage og realtime besked-flows, mens TypeScript og TanStack-mønstre holder kodebasen konsistent på tværs af features.",
+      "features": [
+        "Profiler og discovery for musikere og bookere",
+        "Data på Supabase og Realtime for et moderne flow",
+        "TanStack-arkitektur i klienten",
+        "Responsivt interface med Tailwind"
+      ],
+      "infoYear": "2025",
+      "infoStatus": "Not deployed",
+      "infoNext": "Stramme discovery for profiler op"
+    },
+    "memoir": {
+      "title": "Memoir",
+      "description": "Delt journal-app til minder, begivenheder og større kaptiler.",
+      "longAbout": "En delt journal-app til at gemme minder på tværs af grupper som familie, venner eller partnere. Bygget med Expo Router og React Native, med data i Supabase og et mobil-først UI.\n\nFokus er at holde hverdagsflowet simpelt, men stadig støtte rigere indhold via separate forms til chapters, events og moments.",
+      "features": [
+        "Dedikerede flows til chapters, events og moments",
+        "Sign-in/sign-up auth-skærme",
+        "Typet form + validering med TanStack Form og Zod",
+        "Lokal state og cache med Zustand + TanStack Query"
+      ],
+      "infoYear": "2026",
+      "infoStatus": "Not deployed",
+      "infoNext": "Projektet er afsluttet som studiegruppeprojekt"
+    },
+    "bookspace": {
+      "title": "BookSpace",
+      "description": "Full-stack webapp til at finde bøger, holde styr på læsning og få personlige anbefalinger.",
+      "longAbout": "En full-stack app til at finde bøger, følge læsning, anmeldelser, bogmærker og et flertrins-onboarding-flow.\n\nByggetmed React Router v7, React 19, Tailwind v4, MongoDB/Mongoose, session-auth, Vitest og Playwright.",
+      "features": [
+        "Kuraterede lister, søgning med filtre og detaljesider for bøger og forfattere",
+        "Anmeldelser, bogmærker og tracking af læsefremskridt",
+        "Flertrins-onboarding til personlige anbefalinger",
+        "Vitest til unit/integration og Playwright til end-to-end tests"
+      ],
+      "infoYear": "2026",
+      "infoStatus": "Not deployed",
+      "infoNext": "Projektet er afsluttet som eksamensopgave"
+    },
+    "contactCta": {
+      "title": "Nyt projekt",
+      "description": "Jeg udforsker hele tiden nye idéer.",
+      "link": "Lad os skrive sammen"
+    }
+  }
+}

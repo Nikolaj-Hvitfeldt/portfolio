@@ -1,38 +1,187 @@
 export type Project = {
-  title: string;
-  description: string;
+  id: ProjectId;
+  /** Public repository or primary project URL. */
   href: string;
+  /** Optional public live site / app URL (separate from source). */
+  liveUrl?: string;
+  /** Tech labels shown in stack card + detail (full detail view). */
   tags: readonly string[];
+  /** Public path under `/public`, e.g. `/amori-icon.avif` */
+  iconSrc?: string;
+  /** `contain` avoids cropping logos with padding or square artwork (default `cover`). */
+  iconObjectFit?: "cover" | "contain";
+  /**
+   * Icon chip behind `iconSrc`. Default `dark` (zinc). Use `light` for dark-on-light
+   * artwork so it stays readable on stack cards and the carousel.
+   */
+  iconTileVariant?: "dark" | "light";
+  /** Optional per-project image scaling for assets with transparent padding. */
+  iconScale?: number;
+  /** Optional emoji fallback if `iconSrc` is missing */
+  icon?: string;
+  /** Full CSS `background` for the projects stack card (e.g. linear-gradient). */
+  stackTheme: {
+    gradient: string;
+    /**
+     * `onLight`: reference-style black/zinc text on pale gradients.
+     * `onDark` (default): light text for darker / saturated cards.
+     */
+    textTone?: "onLight" | "onDark";
+  };
+  /** Stable semantic status used for UI styling (locale-agnostic). */
+  status: ProjectStatus;
 };
+
+export const PROJECT_IDS = [
+  "amori",
+  "quartermark",
+  "yeetcraft",
+  "lineup",
+  "memoir",
+  "bookspace",
+] as const;
+
+export type ProjectId = (typeof PROJECT_IDS)[number];
+export type ProjectStatus = "deployed" | "wip" | "notDeployed" | "paused";
 
 export const PROJECTS: readonly Project[] = [
   {
-    title: "Amori",
-    description:
-      "Journal for tracking relationships milestones and memories",
+    id: "amori",
     href: "https://github.com/Nikolaj-Hvitfeldt/amori",
-    tags: ["React", "PostgreSQL", "TypeScript", "Tailwind"],
+    tags: [
+      "Expo",
+      "React Native",
+      "TypeScript",
+      "NestJS",
+      "Supabase",
+      "PostgreSQL",
+      "Reanimated",
+    ],
+    iconSrc: "/amori-icon.avif",
+    icon: "💞",
+    stackTheme: {
+      textTone: "onLight",
+      gradient:
+        "linear-gradient(102deg, #9d174d 0%, #db2777 24%, #f472b6 44%, #f896be 60%, #fdf2f8 100%)",
+    },
+    status: "deployed",
   },
   {
-    title: "QuarterMark",
-    description:
-      "Jackbox style party game for new years",
+    id: "quartermark",
     href: "https://github.com/Nikolaj-Hvitfeldt/quartermark",
-    tags: ["React", "C#", ".NET", "SignalR"],
+    tags: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "C#",
+      ".NET",
+      "SignalR",
+      "Zustand",
+      "TanStack",
+      "i18next",
+    ],
+    iconSrc: "/quartermark-icon.avif",
+    icon: "🎉",
+    stackTheme: {
+      textTone: "onLight",
+      gradient:
+        "linear-gradient(102deg, #1e1b4b 0%, #3b1f7a 16%, #5b21b6 32%, #7041f4 52%, #c4b5fd 80%, #faf5ff 100%)",
+    },
+    status: "deployed",
   },
   {
-    title: "Yeetcraft",
-    description:
-      "Leaderboard tracker made for banter that tracks who makes the most mistakes in video games between a friend group",
+    id: "yeetcraft",
     href: "https://github.com/Nikolaj-Hvitfeldt/Yeetcraft",
-    tags: ["Kotlin","React", "TanStack", "TypeScript"],
+    tags: [
+      "Kotlin",
+      "Ktor",
+      "React",
+      "TypeScript",
+      "Vite",
+      "PostgreSQL",
+      "Supabase",
+      "Tailwind",
+    ],
+    iconSrc: "/yeetcraft-icon.avif",
+    icon: "🎮",
+    stackTheme: {
+      textTone: "onLight",
+      gradient:
+        "linear-gradient(102deg, #365314 0%, #4d7c0f 22%, #84cc16 44%, #c9dc7b 64%, #f7fee7 100%)",
+    },
+    status: "wip",
   },
   {
-    title: "LineUp",
-    description:
-      "Co-developer of a Social media and fiverr style platform for freelance musicians to showcase their skills and get hired. This project also worked as semester project for my bachelor's degree in web development",
+    id: "lineup",
     href: "https://github.com/andreasbbusk/lineup",
-    tags: ["TypeScript", "React", "Tailwind", "Supabase", "Realtime", "TanStack"],
+    tags: [
+      "TypeScript",
+      "Next.js",
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "Tailwind",
+      "Supabase",
+      "TanStack",
+      "Zustand",
+      "Zod",
+    ],
+    iconSrc: "/lineup-icon.avif",
+    icon: "🎵",
+    stackTheme: {
+      textTone: "onLight",
+      gradient:
+        "linear-gradient(102deg, #3b0764 0%, #6d28d9 26%, #7c3aed 42%, #9f52f2 58%, #ede9fe 88%, #faf5ff 100%)",
+    },
+    status: "notDeployed",
+  },
+  {
+    id: "memoir",
+    href: "https://github.com/Pinnaacle/memoir",
+    tags: [
+      "Expo",
+      "React Native",
+      "TypeScript",
+      "Supabase",
+      "TanStack",
+      "Zod",
+      "Zustand",
+    ],
+    iconSrc: "/memoir-icon.avif",
+    iconScale: 1.32,
+    icon: "📘",
+    stackTheme: {
+      textTone: "onLight",
+      gradient:
+        "linear-gradient(102deg, #44403c 0%, #78716c 20%, #a8a29e 42%, #d6d3d1 64%, #f3e5cf 82%, #fafaf9 100%)",
+    },
+    status: "notDeployed",
+  },
+  {
+    id: "bookspace",
+    href: "https://github.com/Nikolaj-Hvitfeldt/bookSpace",
+    tags: [
+      "React Router",
+      "React",
+      "TypeScript",
+      "MongoDB",
+      "Tailwind CSS",
+      "Vitest",
+      "Playwright",
+    ],
+    iconSrc: "/bookspace-logo.avif",
+    iconObjectFit: "contain",
+    iconTileVariant: "light",
+    icon: "📚",
+    stackTheme: {
+      textTone: "onLight",
+      gradient:
+        "linear-gradient(102deg, #431407 0%, #9a3412 22%, #c2410c 42%, #fdba74 68%, #fff7ed 100%)",
+    },
+    status: "notDeployed",
   },
 ] as const;
 
+export function getProjectById(id: ProjectId | string): Project | undefined {
+  return PROJECTS.find((p) => p.id === id);
+}
