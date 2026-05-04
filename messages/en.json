@@ -58,7 +58,7 @@
   },
   "WorkExperience": {
     "title": "Work Experience",
-    "subtitle": "Education and internship timeline.",
+    "subtitle": "Education and working experience.",
     "intro": "My timeline so far, from software fundamentals to modern web development and practical industry work.",
     "timelineTitle": "Career Timeline",
     "entries": {
