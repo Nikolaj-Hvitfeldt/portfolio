@@ -244,11 +244,14 @@ export function HomeBentoStack({
     const gapVal = parseFloat(
       getComputedStyle(el).rowGap || getComputedStyle(el).gap || "12",
     );
+    const stackH = el.getBoundingClientRect().height;
+    const topH = first.getBoundingClientRect().height;
+    /** Round for WebKit: subpixel stackH/topH causes visible seams between avatar slices. */
     setMetrics({
-      stackH: el.getBoundingClientRect().height,
-      topH: first.getBoundingClientRect().height,
+      stackH: Math.round(stackH),
+      topH: Math.round(topH),
       /** 0 is valid: stack uses gap-0 so the avatar is one column with no void between cards. */
-      gap: Number.isFinite(gapVal) ? gapVal : 12,
+      gap: Number.isFinite(gapVal) ? Math.round(gapVal * 1000) / 1000 : 12,
     });
   }, []);
 
@@ -441,7 +444,7 @@ export function HomeBentoStack({
                   className={`absolute right-0 z-0 ${AVATAR_WIDTH_CLASS}`}
                   style={{
                     height: stackH,
-                    top: isTop ? 0 : bottomSliceTop,
+                    top: isTop ? 0 : Math.round(bottomSliceTop),
                   }}
                 >
                   <div
@@ -454,7 +457,7 @@ export function HomeBentoStack({
                       fill
                       priority={isTop}
                       sizes="(max-width: 768px) 50vw, 250px"
-                      className={sharedAvatarImageClass}
+                      className={`home-avatar-image ${sharedAvatarImageClass}`}
                     />
                     {useDomEyes ? (
                       <div

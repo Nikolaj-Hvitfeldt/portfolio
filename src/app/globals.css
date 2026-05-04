@@ -54,6 +54,13 @@ body {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-duration: var(--marquee-duration, 18s);
+  /* Width comes from inner `.project-carousel-track`; this node only transforms. */
+  max-width: none;
+}
+
+.project-carousel-track {
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 @keyframes about-bg-drift-a {
@@ -352,6 +359,29 @@ body {
     box-shadow:
       0 14px 38px rgba(0, 0, 0, 0.52),
       inset 0 0 0 1px rgba(180, 195, 250, 0.08);
+  }
+}
+
+/* Safari-specific fallback: WebKit can over-blur this stacked/composited avatar panel.
+ * Keep the gradient tint, but disable backdrop blur for sharper artwork. */
+@supports (-webkit-touch-callout: none) {
+  .surface-glass-bento-avatar {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* macOS Safari fallback (the touch-callout query above is often iOS-only):
+ * disable avatar backdrop blur and keep the source image crisp. */
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  .surface-glass-bento-avatar {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .home-avatar-image {
+    image-rendering: -webkit-optimize-contrast;
+    filter: brightness(1.04) contrast(1.16) saturate(1.12) !important;
   }
 }
 
@@ -786,4 +816,13 @@ body {
     black 92%,
     transparent 100%
   );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  /* WebKit: promote masked subtree so it composites predictably with transforms inside. */
+  isolation: isolate;
+  transform: translateZ(0);
 }
