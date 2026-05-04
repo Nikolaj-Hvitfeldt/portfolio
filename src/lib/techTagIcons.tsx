@@ -82,7 +82,7 @@ const TAG_LOGOS: Record<string, { src: string; alt: string }> = {
   "rest api": { src: "/tech-icons/restapi-logo.svg", alt: "REST API" },
   "rest apis": { src: "/tech-icons/restapi-logo.svg", alt: "REST APIs" },
   restapi: { src: "/tech-icons/restapi-logo.svg", alt: "REST API" },
-  expo: { src: "/tech-icons/expo-logo.png", alt: "Expo" },
+  expo: { src: "/tech-icons/expo-logo.avif", alt: "Expo" },
   render: { src: "/tech-icons/render-logo.jpeg", alt: "Render" },
   zod: { src: "/tech-icons/zod-logo.png", alt: "Zod" },
   zustand: { src: "/tech-icons/zustand-logo.png", alt: "Zustand" },

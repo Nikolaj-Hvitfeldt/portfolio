@@ -46,27 +46,66 @@
   "Contact": {
     "title": "Kontakt",
     "subtitle": "Email, LinkedIn, brevdue...",
-    "fastest": "Den hurtigste maade at faa fat i mig paa er via email."
+    "fastest": "Den hurtigste maade at få fat i mig på er via email."
   },
   "WorkExperience": {
     "title": "Erhvervserfaring",
-    "subtitle": "Min karriere som softwareudvikler.",
-    "intro": "Jeg er i begyndelsen af min karriere og bygger momentum gennem uddannelse og praktiske projekter. Her er, hvor jeg har lært og leveret indtil nu.",
+    "subtitle": "Uddannelse og praktik i tidslinjeformat.",
+    "intro": "Min tidslinje indtil videre - fra softwarefundamenter til moderne webudvikling og praktisk erfaring i industrien.",
     "timelineTitle": "Tidslinje",
-    "period": {
-      "2025Present": "2025 — Nu",
-      "20232025": "2023 — 2025"
-    },
     "entries": {
       "bachelor": {
-        "role": "Professionsbachelor i Webudvikling",
-        "org": "Erhvervsakademi Århus, Danmark",
-        "description": "Læser i øjeblikket en professionsbachelor i webudvikling med fokus på moderne frontend-arkitektur, tilgængelighed og at bygge produktionsklare webapplikationer."
+        "period": "AUG 2025 - NU",
+        "org": "Erhvervsakademiet, Viby",
+        "role": "Bachelor i webudvikling",
+        "bullets": [
+          "Design og udvikling af komplekse, skalerbare webapplikationer",
+          "Avanceret frontend-udvikling med fokus på arkitektur, performance og vedligehold",
+          "Backend-udvikling og API-design med fokus på sikkerhed og systemintegration",
+          "Arbejde med softwarearkitektur, design patterns og tekniske beslutninger",
+          "Anvendelse af UX/UI-principper og tilgængelighed (WCAG) i professionelle løsninger",
+          "Udvikling, deployment og drift af cloud-baserede webløsninger",
+          "Opsætning og anvendelse af CI/CD samt automatisering af udviklingsprocesser"
+        ],
+        "image": {
+          "src": "/eaa-logo.avif",
+          "alt": "Erhvervsakademiet logo"
+        }
+      },
+      "hmf": {
+        "period": "JAN 2024 - JULI 2024",
+        "org": "HMF Group A/S",
+        "role": "Praktikant Fullstack .NET Udvikler",
+        "bullets": [
+          "Udviklede og vedligeholdt funktionalitet i en C# .NET desktopapplikation med fokus på konfiguration, og stabil drift af kraner samt brugervenlighed i platformen",
+          "Arbejdede med WPF til opbygning og tilpasning af brugergrænseflader",
+          "Anvendte Azure DevOps til versionsstyring og opgavestyring",
+          "Fik indsigt i samspillet mellem software og embedded hardware i industrielle løsninger",
+          "Løste opgaver både selvstændigt og i tæt samarbejde med teamet med fokus på struktur og kvalitet"
+        ],
+        "image": {
+          "src": "/hmf-logo.avif",
+          "alt": "HMF Group logo"
+        }
       },
       "datamatiker": {
+        "period": "2022 - 2024",
+        "org": "Erhvervsakademiet, Viby",
         "role": "Datamatiker",
-        "org": "Erhvervsakademi Århus, Danmark",
-        "description": "Gennemført 2-et-halvt-årig uddannelse med fokus på backend-udvikling, API'er, databaser og softwarearkitektur. Byggede flere full-stack projekter, samt et projekt for HMF Group, hvor jeg også lavede mit praktikophold."
+        "bullets": [
+          "Udvikling af applikationer med fokus på objektorienteret programmering",
+          "Arbejde med primært typestærke sprog som C#, TypeScript, og Java, inkl. .NET og webteknologier",
+          "Design, optimering og administration af relationelle databaser",
+          "Arbejde med softwarearkitektur, systemintegration og API-udvikling",
+          "Kendskab til cloud-løsninger, CI/CD og versionsstyring",
+          "Erfaring med Scrum og Kanban i udviklingsprocesser",
+          "Indsigt i messaging queues og integration af systemer",
+          "Introduktion til ML-modeller og AI som del af softwareudvikling"
+        ],
+        "image": {
+          "src": "/eaa-logo.avif",
+          "alt": "Erhvervsakademiet logo"
+        }
       }
     }
   },
