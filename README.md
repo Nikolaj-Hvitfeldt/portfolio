@@ -1,54 +1,64 @@
-## Portfolio
+# Portfolio
 
-A clean, one-page portfolio built with Next.js (App Router), TypeScript, and Tailwind.
+Personal portfolio site built with Next.js App Router, React, TypeScript, Tailwind CSS v4, `next-intl`, and Framer Motion.
 
-### Customize
+## Stack
 
-Edit these files first:
+- Next.js 16 (App Router)
+- React 19 + TypeScript
+- Tailwind CSS v4
+- `next-intl` for localization (`en`, `da`)
+- Framer Motion for subtle interaction and transitions
 
-- `src/lib/site.ts`: name, headline, email, social links
-- `src/lib/projects.ts`: project list
+## Local Development
 
-### Run locally
+Prerequisites:
+- Node.js 20+
+- npm
+
+Install and run:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open `http://localhost:3000`.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Getting Started
+## Scripts
 
-First, run the development server:
+- `npm run dev` - start development server
+- `npm run build` - production build
+- `npm run start` - run production server
+- `npm run lint` - run ESLint
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Localization
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Locale routing is configured in `src/i18n/routing.ts`
+- Supported locales: `da`, `en`
+- Default locale: `en`
+- Messages are stored in:
+  - `messages/en.json`
+  - `messages/da.json`
 
-You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
+## Customize Content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Main places to edit:
 
-## Learn More
+- `src/lib/site.ts` - name, headline, links, basic profile metadata
+- `src/lib/projects.ts` - project data (titles, links, tags, icons, gradients)
+- `messages/en.json` and `messages/da.json` - page copy/translations
 
-To learn more about Next.js, take a look at the following resources:
+## Images & Public Assets
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Store static assets in `public/`
+- Project and avatar assets currently use `.avif` paths
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Security Headers
 
-## Deploy on Vercel
+Custom headers are configured in `next.config.ts`:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `X-Content-Type-Options: nosniff`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `X-Frame-Options: DENY`
+- `Permissions-Policy` for restricted browser capabilities

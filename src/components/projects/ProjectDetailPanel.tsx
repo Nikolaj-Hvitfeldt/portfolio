@@ -15,9 +15,7 @@ function HighlightSpotIcon() {
       aria-hidden
       className="relative mt-1 inline-flex h-4 w-4 shrink-0 items-center justify-center"
     >
-      <span className="absolute inline-flex h-3 w-3 rounded-full bg-amber-300/55 blur-[3px] dark:bg-amber-300/70" />
-      <span className="absolute inline-flex h-2 w-2 rounded-full bg-amber-100/90 shadow-[0_0_10px_rgba(251,191,36,0.9)] dark:bg-amber-100/95" />
-      <span className="inline-flex h-1 w-1 rounded-full bg-yellow-50" />
+      <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 ring-1 ring-zinc-300/90 dark:bg-zinc-500 dark:ring-zinc-600/80" />
     </span>
   );
 }

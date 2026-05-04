@@ -6,8 +6,15 @@ export type Project = {
   liveUrl?: string;
   /** Tech labels shown in stack card + detail (full detail view). */
   tags: readonly string[];
-  /** Public path under `/public`, e.g. `/amori-icon.png` */
+  /** Public path under `/public`, e.g. `/amori-icon.avif` */
   iconSrc?: string;
+  /** `contain` avoids cropping logos with padding or square artwork (default `cover`). */
+  iconObjectFit?: "cover" | "contain";
+  /**
+   * Icon chip behind `iconSrc`. Default `dark` (zinc). Use `light` for dark-on-light
+   * artwork so it stays readable on stack cards and the carousel.
+   */
+  iconTileVariant?: "dark" | "light";
   /** Optional per-project image scaling for assets with transparent padding. */
   iconScale?: number;
   /** Optional emoji fallback if `iconSrc` is missing */
@@ -31,6 +38,7 @@ export const PROJECT_IDS = [
   "yeetcraft",
   "lineup",
   "memoir",
+  "bookspace",
 ] as const;
 
 export type ProjectId = (typeof PROJECT_IDS)[number];
@@ -49,7 +57,7 @@ export const PROJECTS: readonly Project[] = [
       "PostgreSQL",
       "Reanimated",
     ],
-    iconSrc: "/amori-icon.png",
+    iconSrc: "/amori-icon.avif",
     icon: "💞",
     stackTheme: {
       textTone: "onLight",
@@ -72,7 +80,7 @@ export const PROJECTS: readonly Project[] = [
       "TanStack",
       "i18next",
     ],
-    iconSrc: "/quartermark-icon.png",
+    iconSrc: "/quartermark-icon.avif",
     icon: "🎉",
     stackTheme: {
       textTone: "onLight",
@@ -94,7 +102,7 @@ export const PROJECTS: readonly Project[] = [
       "Supabase",
       "Tailwind",
     ],
-    iconSrc: "/yeetcraft-icon.png",
+    iconSrc: "/yeetcraft-icon.avif",
     icon: "🎮",
     stackTheme: {
       textTone: "onLight",
@@ -118,7 +126,7 @@ export const PROJECTS: readonly Project[] = [
       "Zustand",
       "Zod",
     ],
-    iconSrc: "/Lineup-icon.png",
+    iconSrc: "/lineup-icon.avif",
     icon: "🎵",
     stackTheme: {
       textTone: "onLight",
@@ -139,13 +147,36 @@ export const PROJECTS: readonly Project[] = [
       "Zod",
       "Zustand",
     ],
-    iconSrc: "/Memoir-icon.png",
+    iconSrc: "/memoir-icon.avif",
     iconScale: 1.32,
     icon: "📘",
     stackTheme: {
       textTone: "onLight",
       gradient:
         "linear-gradient(102deg, #44403c 0%, #78716c 20%, #a8a29e 42%, #d6d3d1 64%, #f3e5cf 82%, #fafaf9 100%)",
+    },
+    status: "notDeployed",
+  },
+  {
+    id: "bookspace",
+    href: "https://github.com/Nikolaj-Hvitfeldt/bookSpace",
+    tags: [
+      "React Router",
+      "React",
+      "TypeScript",
+      "MongoDB",
+      "Tailwind CSS",
+      "Vitest",
+      "Playwright",
+    ],
+    iconSrc: "/bookspace-logo.avif",
+    iconObjectFit: "contain",
+    iconTileVariant: "light",
+    icon: "📚",
+    stackTheme: {
+      textTone: "onLight",
+      gradient:
+        "linear-gradient(102deg, #431407 0%, #9a3412 22%, #c2410c 42%, #fdba74 68%, #fff7ed 100%)",
     },
     status: "notDeployed",
   },

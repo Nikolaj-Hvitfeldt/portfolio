@@ -40,6 +40,7 @@ function GenericTechIcon() {
 
 const TAG_LOGOS: Record<string, { src: string; alt: string }> = {
   react: { src: "/tech-icons/react-logo.svg", alt: "React" },
+  "react router": { src: "/tech-icons/react-logo.svg", alt: "React Router" },
   nextjs: { src: "/tech-icons/nextjs-logo.svg", alt: "Next.js" },
   "next.js": { src: "/tech-icons/nextjs-logo.svg", alt: "Next.js" },
   "react native": { src: "/tech-icons/react-logo.svg", alt: "React Native" },
@@ -63,7 +64,7 @@ const TAG_LOGOS: Record<string, { src: string; alt: string }> = {
   sql: { src: "/tech-icons/sql-logo.svg", alt: "SQL" },
   mongodb: { src: "/tech-icons/mongoDB-logo.svg", alt: "MongoDB" },
   mongo: { src: "/tech-icons/mongoDB-logo.svg", alt: "MongoDB" },
-  tanstack: { src: "/tech-icons/tanstack-logo.png", alt: "TanStack" },
+  tanstack: { src: "/tech-icons/tanstack-logo.avif", alt: "TanStack" },
   supabase: { src: "/tech-icons/supabase-logo.svg", alt: "Supabase" },
   "c#": { src: "/tech-icons/csharp-logo.svg", alt: "C#" },
   csharp: { src: "/tech-icons/csharp-logo.svg", alt: "C#" },
@@ -71,7 +72,7 @@ const TAG_LOGOS: Record<string, { src: string; alt: string }> = {
   dotnet: { src: "/tech-icons/dotNet-logo.svg", alt: ".NET" },
   net: { src: "/tech-icons/dotNet-logo.svg", alt: ".NET" },
   signalr: { src: "/tech-icons/signalR-logo.jpeg", alt: "SignalR" },
-  realtime: { src: "/tech-icons/realtime-logo.png", alt: "Realtime" },
+  realtime: { src: "/tech-icons/realtime-logo.avif", alt: "Realtime" },
   kotlin: { src: "/tech-icons/kotlin-logo.svg", alt: "Kotlin" },
   figma: { src: "/tech-icons/figma-logo.svg", alt: "Figma" },
   vercel: { src: "/tech-icons/vercel-logo.svg", alt: "Vercel" },
@@ -84,8 +85,8 @@ const TAG_LOGOS: Record<string, { src: string; alt: string }> = {
   restapi: { src: "/tech-icons/restapi-logo.svg", alt: "REST API" },
   expo: { src: "/tech-icons/expo-logo.avif", alt: "Expo" },
   render: { src: "/tech-icons/render-logo.jpeg", alt: "Render" },
-  zod: { src: "/tech-icons/zod-logo.png", alt: "Zod" },
-  zustand: { src: "/tech-icons/zustand-logo.png", alt: "Zustand" },
+  zod: { src: "/tech-icons/zod-logo.avif", alt: "Zod" },
+  zustand: { src: "/tech-icons/zustand-logo.avif", alt: "Zustand" },
   i18next: { src: "/tech-icons/i18next-icon.svg", alt: "i18next" },
   reanimated: { src: "/tech-icons/react-logo.svg", alt: "Reanimated" },
   nestjs: { src: "/tech-icons/nestjs-logo.svg", alt: "NestJS" },
@@ -93,6 +94,7 @@ const TAG_LOGOS: Record<string, { src: string; alt: string }> = {
   playwright: { src: "/tech-icons/playwright-logo.svg", alt: "Playwright" },
   playwrite: { src: "/tech-icons/playwright-logo.svg", alt: "Playwright" },
   jest: { src: "/tech-icons/jest-logo.svg", alt: "Jest" },
+  vitest: { src: "/tech-icons/vite-logo.svg", alt: "Vitest" },
 };
 
 function normalizeKey(tag: string) {

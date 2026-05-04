@@ -58,7 +58,7 @@
   },
   "WorkExperience": {
     "title": "Work Experience",
-    "subtitle": "Education and internship timeline.",
+    "subtitle": "Education and working experience.",
     "intro": "My timeline so far, from software fundamentals to modern web development and practical industry work.",
     "timelineTitle": "Career Timeline",
     "entries": {
@@ -202,6 +202,20 @@
         "Sign-in/sign-up authentication screens",
         "Typed form + validation stack with TanStack Form and Zod",
         "Local app state and caching with Zustand + TanStack Query"
+      ],
+      "infoYear": "2026",
+      "infoStatus": "Not deployed",
+      "infoNext": "Project completed for studies"
+    },
+    "bookspace": {
+      "title": "BookSpace",
+      "description": "Full-stack web app for discovering books, tracking reading progress, and personalized recommendations.",
+      "longAbout": "A full-stack app for discovering books, tracking reading progress, reviews, bookmarks, and a multi-step onboarding flow.\n\nBuilt with React Router v7, React 19, Tailwind v4, MongoDB/Mongoose, session auth, Vitest, and Playwright.",
+      "features": [
+        "Curated discovery lists, search filters, and book/author detail pages",
+        "Reviews, bookmarks, and reading progress tracking",
+        "Multi-step onboarding for personalized recommendations",
+        "Vitest for unit/integration tests and Playwright for end-to-end coverage"
       ],
       "infoYear": "2026",
       "infoStatus": "Not deployed",

@@ -14,20 +14,29 @@ export function ProjectCarousel({ projects }: { projects: readonly Project[] }) 
       className="project-carousel-mask w-full overflow-hidden motion-reduce:overflow-x-auto motion-reduce:mask-none"
       aria-label="Project icons carousel"
     >
+      {/* Safari: do not apply the marquee transform to the same element as `display:flex`;
+          layout can collapse and tiles overlap. Animate this wrapper; keep flex on the inner track. */}
       <div
-        className="marquee-ltr flex w-max items-center gap-5 pt-2.5 pb-1.5 group-hover/projects:[animation-play-state:paused] motion-reduce:animate-none"
+        className="marquee-ltr inline-block align-top will-change-transform motion-reduce:animate-none group-hover/projects:[animation-play-state:paused]"
         style={{ ["--marquee-duration" as never]: "26s" }}
       >
+        <div className="project-carousel-track flex w-max flex-none items-center gap-5 pt-2.5 pb-1.5">
         {items.map((project, idx) => {
           const fallback = project.id[0]?.toUpperCase() ?? "?";
           const title = tProject(`${project.id}.title`);
           const src = project.iconSrc;
           const scale = project.iconScale ?? 1;
+          const fit = project.iconObjectFit ?? "cover";
+          const tileVariant = project.iconTileVariant ?? "dark";
+          const tileSurface =
+            tileVariant === "light"
+              ? "bg-linear-to-b from-[#fffbeb] to-[#ffedd5] ring-1 ring-orange-950/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]"
+              : "bg-linear-to-b from-zinc-800 to-zinc-950";
 
           return (
             <div
               key={`${project.id}-${idx}`}
-              className="project-stack-icon-tile relative h-[68px] w-[68px] shrink-0 overflow-hidden rounded-2xl bg-linear-to-b from-zinc-800 to-zinc-950 sm:h-20 sm:w-20"
+              className={`project-stack-icon-tile relative isolate h-[68px] w-[68px] shrink-0 overflow-hidden rounded-2xl sm:h-20 sm:w-20 ${tileSurface} ${fit === "contain" ? "p-1.5 sm:p-2" : ""}`}
               title={title}
             >
               {src ? (
@@ -35,7 +44,7 @@ export function ProjectCarousel({ projects }: { projects: readonly Project[] }) 
                   src={src}
                   alt=""
                   fill
-                  className="object-cover"
+                  className={fit === "contain" ? "object-contain" : "object-cover"}
                   sizes="80px"
                   unoptimized
                   style={{
@@ -55,6 +64,7 @@ export function ProjectCarousel({ projects }: { projects: readonly Project[] }) 
             </div>
           );
         })}
+        </div>
       </div>
     </div>
   );

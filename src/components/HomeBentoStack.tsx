@@ -27,8 +27,8 @@ function snapshotIsDesktop() {
     : window.matchMedia(DESKTOP_MQ).matches;
 }
 
-const AVATAR_SRC_DOM = "/me-avatar.png";
-const AVATAR_SRC_BAKED = "/me-avatar-with-pupils.png";
+const AVATAR_SRC_DOM = "/me-avatar.avif";
+const AVATAR_SRC_BAKED = "/me-avatar-with-pupils.avif";
 
 const STATIC_TABLET_CLASS =
   "object-[68%_40%] brightness-[1.08] contrast-[1.12] saturate-[1.08] mix-blend-normal motion-reduce:brightness-100";
@@ -38,7 +38,6 @@ const STATIC_TABLET_CLASS =
  * width (ResizeObserver), not the window. Below `md` we use a baked art asset
  * with pupils so layout stays clean without per-breakpoint % tuning.
  */
-type EyeInBox = { top: string; left: string };
 type BandKey = 0 | 1 | 2;
 type EyePoint = { x: number; y: number };
 const EYE_BY_BAND: Record<
@@ -112,8 +111,13 @@ const PUPIL_MAX_PX_TOUCH = 3;
  * - X: min = look left, max = look right
  * - Y: min = look up (pointer above), max = look down
  */
-const PUPIL_RANGE_X: readonly [number, number] = [-0.48, 0.12];
+const PUPIL_RANGE_X: readonly [number, number] = [-0.62, 0.12];
 const PUPIL_RANGE_Y: readonly [number, number] = [-0.1, 0.3];
+const LEFT_EYE_LEFT_BIAS = 1.18;
+const LEFT_EYE_DOWN_BIAS = 1.14;
+/** Right eye: nudge down less when gaze is hard-right (px space after clamp×max). */
+const RIGHT_EYE_DOWN_DAMP_WHEN_RIGHT = 0.92;
+const RIGHT_EYE_DOWN_DAMP_X_START_PX = 0.12;
 
 /** Pointer span: normalize to ~[-1,1] before PUPIL_RANGE_* (fraction of face size). */
 const GAZE_SPAN = { x: 0.4, y: 0.32 } as const;
@@ -193,6 +197,16 @@ export function HomeBentoStack({
       left: toPercent(rightEyeProjected.x),
     },
   };
+  const leftEyePupilX = pupil.x < 0 ? pupil.x * LEFT_EYE_LEFT_BIAS : pupil.x;
+  const leftEyePupilY = pupil.y > 0 ? pupil.y * LEFT_EYE_DOWN_BIAS : pupil.y;
+  const rightEyeFarRight =
+    pupil.x > RIGHT_EYE_DOWN_DAMP_X_START_PX ? pupil.x : 0;
+  const rightEyeDownBlend = Math.min(1, rightEyeFarRight / 0.35);
+  const rightEyePupilY =
+    pupil.y > 0
+      ? pupil.y *
+        (1 - (1 - RIGHT_EYE_DOWN_DAMP_WHEN_RIGHT) * rightEyeDownBlend)
+      : pupil.y;
 
   useLayoutEffect(() => {
     isDesktopRef.current = isDesktop;
@@ -229,11 +243,14 @@ export function HomeBentoStack({
     const gapVal = parseFloat(
       getComputedStyle(el).rowGap || getComputedStyle(el).gap || "12",
     );
+    const stackH = el.getBoundingClientRect().height;
+    const topH = first.getBoundingClientRect().height;
+    /** Round for WebKit: subpixel stackH/topH causes visible seams between avatar slices. */
     setMetrics({
-      stackH: el.getBoundingClientRect().height,
-      topH: first.getBoundingClientRect().height,
+      stackH: Math.round(stackH),
+      topH: Math.round(topH),
       /** 0 is valid: stack uses gap-0 so the avatar is one column with no void between cards. */
-      gap: Number.isFinite(gapVal) ? gapVal : 12,
+      gap: Number.isFinite(gapVal) ? Math.round(gapVal * 1000) / 1000 : 12,
     });
   }, []);
 
@@ -426,7 +443,7 @@ export function HomeBentoStack({
                   className={`absolute right-0 z-0 ${AVATAR_WIDTH_CLASS}`}
                   style={{
                     height: stackH,
-                    top: isTop ? 0 : bottomSliceTop,
+                    top: isTop ? 0 : Math.round(bottomSliceTop),
                   }}
                 >
                   <div
@@ -439,7 +456,7 @@ export function HomeBentoStack({
                       fill
                       priority={isTop}
                       sizes="(max-width: 768px) 50vw, 250px"
-                      className={sharedAvatarImageClass}
+                      className={`home-avatar-image ${sharedAvatarImageClass}`}
                     />
                     {useDomEyes ? (
                       <div
@@ -457,7 +474,7 @@ export function HomeBentoStack({
                           style={{
                             left: eyeInBox.left.left,
                             top: eyeInBox.left.top,
-                            transform: `translate(calc(-50% + ${pupil.x}px), calc(-50% + ${pupil.y}px))`,
+                            transform: `translate(calc(-50% + ${leftEyePupilX}px), calc(-50% + ${leftEyePupilY}px))`,
                           }}
                         />
                         <span
@@ -465,7 +482,7 @@ export function HomeBentoStack({
                           style={{
                             top: eyeInBox.right.top,
                             left: eyeInBox.right.left,
-                            transform: `translate(calc(-50% + ${pupil.x}px), calc(-50% + ${pupil.y}px))`,
+                            transform: `translate(calc(-50% + ${pupil.x}px), calc(-50% + ${rightEyePupilY}px))`,
                           }}
                         />
                       </div>
