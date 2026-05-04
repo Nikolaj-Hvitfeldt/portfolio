@@ -7,7 +7,7 @@ import { fontDisplay, fontSans } from "@/lib/fonts";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
+  title: "Nikolaj Hvitfeldt Portfolio",
   description: "Personal portfolio website",
 };
 
