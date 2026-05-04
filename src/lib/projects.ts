@@ -6,7 +6,7 @@ export type Project = {
   liveUrl?: string;
   /** Tech labels shown in stack card + detail (full detail view). */
   tags: readonly string[];
-  /** Public path under `/public`, e.g. `/amori-icon.png` */
+  /** Public path under `/public`, e.g. `/amori-icon.avif` */
   iconSrc?: string;
   /** `contain` avoids cropping logos with padding or square artwork (default `cover`). */
   iconObjectFit?: "cover" | "contain";
@@ -57,7 +57,7 @@ export const PROJECTS: readonly Project[] = [
       "PostgreSQL",
       "Reanimated",
     ],
-    iconSrc: "/amori-icon.png",
+    iconSrc: "/amori-icon.avif",
     icon: "💞",
     stackTheme: {
       textTone: "onLight",
@@ -80,7 +80,7 @@ export const PROJECTS: readonly Project[] = [
       "TanStack",
       "i18next",
     ],
-    iconSrc: "/quartermark-icon.png",
+    iconSrc: "/quartermark-icon.avif",
     icon: "🎉",
     stackTheme: {
       textTone: "onLight",
@@ -102,7 +102,7 @@ export const PROJECTS: readonly Project[] = [
       "Supabase",
       "Tailwind",
     ],
-    iconSrc: "/yeetcraft-icon.png",
+    iconSrc: "/yeetcraft-icon.avif",
     icon: "🎮",
     stackTheme: {
       textTone: "onLight",
@@ -126,7 +126,7 @@ export const PROJECTS: readonly Project[] = [
       "Zustand",
       "Zod",
     ],
-    iconSrc: "/Lineup-icon.png",
+    iconSrc: "/lineup-icon.avif",
     icon: "🎵",
     stackTheme: {
       textTone: "onLight",
@@ -147,7 +147,7 @@ export const PROJECTS: readonly Project[] = [
       "Zod",
       "Zustand",
     ],
-    iconSrc: "/Memoir-icon.png",
+    iconSrc: "/memoir-icon.avif",
     iconScale: 1.32,
     icon: "📘",
     stackTheme: {
@@ -169,7 +169,7 @@ export const PROJECTS: readonly Project[] = [
       "Vitest",
       "Playwright",
     ],
-    iconSrc: "/bookspace-logo.png",
+    iconSrc: "/bookspace-logo.avif",
     iconObjectFit: "contain",
     iconTileVariant: "light",
     icon: "📚",

@@ -27,8 +27,8 @@ function snapshotIsDesktop() {
     : window.matchMedia(DESKTOP_MQ).matches;
 }
 
-const AVATAR_SRC_DOM = "/me-avatar.png";
-const AVATAR_SRC_BAKED = "/me-avatar-with-pupils.png";
+const AVATAR_SRC_DOM = "/me-avatar.avif";
+const AVATAR_SRC_BAKED = "/me-avatar-with-pupils.avif";
 
 const STATIC_TABLET_CLASS =
   "object-[68%_40%] brightness-[1.08] contrast-[1.12] saturate-[1.08] mix-blend-normal motion-reduce:brightness-100";
