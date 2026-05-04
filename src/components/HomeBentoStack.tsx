@@ -112,8 +112,13 @@ const PUPIL_MAX_PX_TOUCH = 3;
  * - X: min = look left, max = look right
  * - Y: min = look up (pointer above), max = look down
  */
-const PUPIL_RANGE_X: readonly [number, number] = [-0.48, 0.12];
+const PUPIL_RANGE_X: readonly [number, number] = [-0.62, 0.12];
 const PUPIL_RANGE_Y: readonly [number, number] = [-0.1, 0.3];
+const LEFT_EYE_LEFT_BIAS = 1.18;
+const LEFT_EYE_DOWN_BIAS = 1.14;
+/** Right eye: nudge down less when gaze is hard-right (px space after clamp×max). */
+const RIGHT_EYE_DOWN_DAMP_WHEN_RIGHT = 0.92;
+const RIGHT_EYE_DOWN_DAMP_X_START_PX = 0.12;
 
 /** Pointer span: normalize to ~[-1,1] before PUPIL_RANGE_* (fraction of face size). */
 const GAZE_SPAN = { x: 0.4, y: 0.32 } as const;
@@ -193,6 +198,16 @@ export function HomeBentoStack({
       left: toPercent(rightEyeProjected.x),
     },
   };
+  const leftEyePupilX = pupil.x < 0 ? pupil.x * LEFT_EYE_LEFT_BIAS : pupil.x;
+  const leftEyePupilY = pupil.y > 0 ? pupil.y * LEFT_EYE_DOWN_BIAS : pupil.y;
+  const rightEyeFarRight =
+    pupil.x > RIGHT_EYE_DOWN_DAMP_X_START_PX ? pupil.x : 0;
+  const rightEyeDownBlend = Math.min(1, rightEyeFarRight / 0.35);
+  const rightEyePupilY =
+    pupil.y > 0
+      ? pupil.y *
+        (1 - (1 - RIGHT_EYE_DOWN_DAMP_WHEN_RIGHT) * rightEyeDownBlend)
+      : pupil.y;
 
   useLayoutEffect(() => {
     isDesktopRef.current = isDesktop;
@@ -457,7 +472,7 @@ export function HomeBentoStack({
                           style={{
                             left: eyeInBox.left.left,
                             top: eyeInBox.left.top,
-                            transform: `translate(calc(-50% + ${pupil.x}px), calc(-50% + ${pupil.y}px))`,
+                            transform: `translate(calc(-50% + ${leftEyePupilX}px), calc(-50% + ${leftEyePupilY}px))`,
                           }}
                         />
                         <span
@@ -465,7 +480,7 @@ export function HomeBentoStack({
                           style={{
                             top: eyeInBox.right.top,
                             left: eyeInBox.right.left,
-                            transform: `translate(calc(-50% + ${pupil.x}px), calc(-50% + ${pupil.y}px))`,
+                            transform: `translate(calc(-50% + ${pupil.x}px), calc(-50% + ${rightEyePupilY}px))`,
                           }}
                         />
                       </div>
