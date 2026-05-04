@@ -356,7 +356,7 @@ function HomeTile({
         </div>
         <div className="mt-auto pt-6">
           <h2
-            className={`font-bento-serif ${fontDisplay.className} text-xl font-bold tracking-tight text-zinc-900 transition-colors duration-300 dark:text-white dark:group-hover/tile:text-white dark:group-hover/tile:text-[#fff1e2]`}
+            className={`font-bento-serif ${fontDisplay.className} text-xl font-bold tracking-tight text-zinc-900 transition-colors duration-300 dark:text-white dark:group-hover/tile:text-[#fff1e2]`}
           >
             {title}
           </h2>

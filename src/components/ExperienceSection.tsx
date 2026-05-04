@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Container } from "@/components/Container";
 import { EXPERIENCE } from "@/lib/experience";
-import { fontDisplay, fontSans } from "@/lib/fonts";
+import { fontSans } from "@/lib/fonts";
 
 export function ExperienceSection() {
   const t = useTranslations("WorkExperience");

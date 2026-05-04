@@ -38,7 +38,6 @@ const STATIC_TABLET_CLASS =
  * width (ResizeObserver), not the window. Below `md` we use a baked art asset
  * with pupils so layout stays clean without per-breakpoint % tuning.
  */
-type EyeInBox = { top: string; left: string };
 type BandKey = 0 | 1 | 2;
 type EyePoint = { x: number; y: number };
 const EYE_BY_BAND: Record<
